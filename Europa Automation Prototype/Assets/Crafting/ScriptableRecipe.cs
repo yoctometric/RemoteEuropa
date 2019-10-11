@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "Crafting Recipe", menuName = "ScriptableObjects/recipe", order = 1)]
-public class ScripltableRecipe : ScriptableObject
+[System.Serializable]
+public class ScriptableRecipe : ScriptableObject
 {
-    public List<string> input;
-    public List<GameObject> output;
-    
+    [SerializeField] public List<string> input;
+    [SerializeField] public List<GameObject> output;
+
 }

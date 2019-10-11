@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class MainMenuCont : MonoBehaviour
 {
@@ -39,5 +40,10 @@ public class MainMenuCont : MonoBehaviour
         {
             print("ERROR! NON VALID MUSIC VOLUME HANDLER CHOSEN");
         }
+    }
+
+    public void LoadAScene(int scene)
+    {
+        SceneManager.LoadScene(scene);
     }
 }

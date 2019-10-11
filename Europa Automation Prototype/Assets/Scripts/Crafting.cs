@@ -5,7 +5,7 @@ using UnityEngine;
 public class Crafting : MonoBehaviour
 {
     [SerializeField] Transform launchPoint;
-    public ScripltableRecipe recipe;
+    public ScriptableRecipe recipe;
     [SerializeField] List<string> currentItems;
     bool crafting = false;
 

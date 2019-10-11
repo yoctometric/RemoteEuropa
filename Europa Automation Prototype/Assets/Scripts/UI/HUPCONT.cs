@@ -129,7 +129,7 @@ public class HUPCONT : MonoBehaviour
         }
     }
 
-    public void SetCrafterRecipe(ScripltableRecipe rec)
+    public void SetCrafterRecipe(ScriptableRecipe rec)
     {
         if(typeSelected == 4)
         {
