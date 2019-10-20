@@ -22,11 +22,6 @@ public class HUPCONT : MonoBehaviour
     Miner miner;
     LauncherController launcher;
     OreController ore;
-    void Start()
-    {
-
-
-    }
 
     public void OpenEditor(GameObject editable)
     {
@@ -135,10 +130,9 @@ public class HUPCONT : MonoBehaviour
         {
 
 
-            print("set recipe");
 
-            obj.GetComponent<Crafting>().recipe = rec;
-            print("really set recipe i mean it");
+            //instead of directly setting the recipe, call a function on the crafter so that I can activate other shit when it changes recipe.
+            obj.GetComponent<Crafting>().ChangeRecipe(rec);
         }
         else
         {

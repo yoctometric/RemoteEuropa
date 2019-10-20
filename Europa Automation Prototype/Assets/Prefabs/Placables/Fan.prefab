@@ -123,6 +123,7 @@ MonoBehaviour:
   hasPanel: 1
   canBeDestroyed: 1
   destroyedValue: 0
+  aimer: {fileID: 0}
 --- !u!114 &3184438532047941421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4983,7 +4984,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -32768
+  m_SortingOrder: -100
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0

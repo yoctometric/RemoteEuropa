@@ -29,10 +29,13 @@ public class ObjectPlacer : MonoBehaviour
     {
         //can only find objs when they are active, so set it inactive immideately
         HUP = GameObject.FindWithTag("HeadsUpPanel");
+        //HUP needs to always be active at the start of the scene
         HUP.SetActive(false);
         cam = Camera.main;
         Cursor.visible = false;
         SetIndex(0);
+        //set sensitivity of scroll
+        rotSpeed = PlayerPrefs.GetFloat("ScrollSense");
     }
 
     void Update()
@@ -184,6 +187,7 @@ public class ObjectPlacer : MonoBehaviour
 
     void ToggleEditMode(bool editing, GameObject editReader)
     {
+
         if(placeableIndex != 1)
         {
             //remembers what you had selected previously
@@ -196,6 +200,11 @@ public class ObjectPlacer : MonoBehaviour
             SetIndex(1);
             //make it highlight
             editReader.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.5f);
+            //if the object has a laser sight to do shit with...
+            if (editReader.GetComponent<EditorValues>().aimer)
+            {
+                editReader.GetComponent<EditorValues>().aimer.ToggleAimerOn();
+            }
         }
         else
         {
@@ -204,6 +213,11 @@ public class ObjectPlacer : MonoBehaviour
             SetIndex(previousIndex);
             //make it un-highlight
             editReader.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0f);
+            //if the object has a laser sight to do shit with...
+            if (editReader.GetComponent<EditorValues>().aimer)
+            {
+                editReader.GetComponent<EditorValues>().aimer.ToggleAimerOff();
+            }
         }
 
     }

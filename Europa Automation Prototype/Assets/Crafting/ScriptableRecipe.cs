@@ -7,5 +7,6 @@ public class ScriptableRecipe : ScriptableObject
 {
     [SerializeField] public List<string> input;
     [SerializeField] public List<GameObject> output;
-
+    [SerializeField] public Sprite img;
+    [SerializeField] public Color imgColor;
 }

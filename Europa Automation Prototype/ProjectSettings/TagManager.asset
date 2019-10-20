@@ -8,6 +8,8 @@ TagManager:
   - EditCollider
   - Ore
   - HeadsUpPanel
+  - Inventory
+  - GameInfo
   layers:
   - Default
   - TransparentFX

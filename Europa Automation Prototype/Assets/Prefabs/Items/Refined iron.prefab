@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6680847359289098670}
   - component: {fileID: 6680847359289098656}
   - component: {fileID: 5703052019510390029}
-  - component: {fileID: 3850795872741532072}
+  - component: {fileID: 5744084813343365692}
   m_Layer: 0
-  m_Name: Pycrete
+  m_Name: Refined iron
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6680847359289098659}
   m_LocalRotation: {x: -0, y: -0, z: 0.8867296, w: 0.46228844}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -71,8 +71,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -40
-  m_Sprite: {fileID: 21300012, guid: 7e5076135fb0e114cbc55484a24beac5, type: 3}
-  m_Color: {r: 0.5188679, g: 0.47344944, b: 0.3010413, a: 1}
+  m_Sprite: {fileID: 21300002, guid: 8a692478398f8ce4f88f8895174839df, type: 3}
+  m_Color: {r: 0.8, g: 0.8784314, b: 0.87058824, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -115,10 +115,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4d04b1f58f14347a9e71c01257058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeOfItem: Pycrete
+  typeOfItem: Refined Iron
   canSink: 1
---- !u!61 &3850795872741532072
-BoxCollider2D:
+--- !u!58 &5744084813343365692
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -131,15 +131,5 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.555, y: 0.555}
-    newSize: {x: 5.12, y: 5.12}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.555, y: 0.555}
-  m_EdgeRadius: 0
+  m_Radius: 0.19099998

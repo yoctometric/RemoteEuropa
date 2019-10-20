@@ -5,4 +5,56 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     public string typeOfItem = "";
+    public bool canSink = true;
+    bool passedInvulnerability = false;
+    bool startedShrinking = false;
+    Rigidbody2D rb;
+    private void Start()
+    {
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        StartCoroutine(StartInvulnerability());
+    }
+    //this allows the item to sink into the ice after it gets too slow, to improve performance and fun
+    private void Update()
+    {
+        if (canSink && !startedShrinking && passedInvulnerability)
+        {
+            //if it can sink
+            if (Mathf.Abs(rb.velocity.x) < 0.1f)
+            {
+                //if its x vel is low
+                if (Mathf.Abs(rb.velocity.y) < 0.1f)
+                {
+                    //if its y vel is low too, start sinking
+                    startedShrinking = true;
+                    StartCoroutine(Shrink());
+                }
+            }
+        }
+    }
+    private void OnEnable()
+    {
+        //when the object passes thru a launcher it will deactivate. Set this up so that it doesnt shrinkk when it stops moving.
+        passedInvulnerability = false;
+        StartCoroutine(StartInvulnerability());
+    }
+    IEnumerator StartInvulnerability()
+    {
+        yield return new WaitForSeconds(0.5f);
+        passedInvulnerability = true;
+    }
+    IEnumerator Shrink()
+    {
+        //every frame, shrink. Once you hit real low, destroy.
+        yield return new WaitForFixedUpdate();
+        transform.localScale *= 0.9f;
+        if(transform.localScale.x < 0.01f)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            StartCoroutine(Shrink());
+        }
+    }
 }

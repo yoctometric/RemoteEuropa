@@ -8,6 +8,13 @@ public class Crafting : MonoBehaviour
     public ScriptableRecipe recipe;
     [SerializeField] List<string> currentItems;
     bool crafting = false;
+    [SerializeField] SpriteRenderer recipeDisplay;
+    [SerializeField] GameInfo info;
+    private void Start()
+    {
+        info = GameObject.FindObjectOfType<GameInfo>();
+        ChangeRecipe(info.storedRecipe);
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -20,14 +27,12 @@ public class Crafting : MonoBehaviour
             //add the item to the storage only if it is in the recipe
             if (recipe.input.Contains(item.typeOfItem))
             {
-
                 //if the item is not already in the recipe
                 if (currentItems.Contains(item.typeOfItem))
                 {
                 }
                 else
                 {
-
                     currentItems.Add(item.typeOfItem);
                     Destroy(other.gameObject);
                     reject = false;
@@ -58,7 +63,6 @@ public class Crafting : MonoBehaviour
         //if we have all the items, craft
         if(currentSatisfiedAmount == 0 && !crafting)
         {
-            print("CRAFTING!");
             StartCoroutine(Craft());
             //for every result, instantiate and launch it
 
@@ -76,11 +80,20 @@ public class Crafting : MonoBehaviour
         {
             Rigidbody2D result = Instantiate(recipe.output[i], launchPoint.position, launchPoint.rotation).GetComponent<Rigidbody2D>();
             result.AddForce(launchPoint.up * 500);
+            result.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         }
         //set launch forece because I don't think the player should be able to modify it
         crafting = false;
     }
-
+    public void ChangeRecipe(ScriptableRecipe r)
+    {
+        recipe = r;
+        recipeDisplay.sprite = r.img;
+        recipeDisplay.color = r.imgColor;
+        //also set a stored default recipe so that it is easier to make a lot of the same machine
+        info.storedRecipe = r;
+        print("changed st r");
+    }
     /*
     [SerializeField] Transform launchPoint;
     public List<string> recipeItems;

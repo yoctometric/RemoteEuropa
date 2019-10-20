@@ -9,11 +9,18 @@ public class MainMenuCont : MonoBehaviour
 {
     [SerializeField] Slider musicVolumeSlider;
     [SerializeField] Slider SFXVolumeSlider;
+    [SerializeField] Slider scrollSenseSlider;
     [SerializeField] AudioMixer mainMixer;
     private void Start()
     {
         musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume");
         SFXVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume");
+        scrollSenseSlider.value = PlayerPrefs.GetFloat("ScrollSense");
+
+        if(PlayerPrefs.GetFloat("ScrollSense") == 0)
+        {
+            PlayerPrefs.SetFloat("ScrollSense", 1);
+        }
 
     }
 
@@ -42,6 +49,10 @@ public class MainMenuCont : MonoBehaviour
         }
     }
 
+    public void setSensitivity()
+    {
+        PlayerPrefs.SetFloat("ScrollSense", scrollSenseSlider.value);
+    }
     public void LoadAScene(int scene)
     {
         SceneManager.LoadScene(scene);
