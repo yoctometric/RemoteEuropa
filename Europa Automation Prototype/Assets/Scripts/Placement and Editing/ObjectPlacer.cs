@@ -106,6 +106,14 @@ public class ObjectPlacer : MonoBehaviour
         if (eRot && !Input.GetKey(KeyCode.LeftShift))
         {
             eRot.rotateable.Rotate(new Vector3(0, 0, Input.mouseScrollDelta.y * rotSpeed));
+            if (Input.GetKey(KeyCode.Q))
+            {
+                eRot.rotateable.Rotate(new Vector3(0, 0, 0.1f * rotSpeed));
+            }
+            else if (Input.GetKey(KeyCode.E))
+            {
+                eRot.rotateable.Rotate(new Vector3(0, 0, -0.1f * rotSpeed));
+            }
             //eRot.rotateable.Rotate(new Vector3(0, 0, Input.GetAxis("Horizontal") * -rotSpeed));
         }
 
@@ -114,6 +122,11 @@ public class ObjectPlacer : MonoBehaviour
         {
             Vector2 mPos = cam.ScreenToWorldPoint(Input.mousePosition);
             transform.position = mPos;
+            //if not in edit mode and right click, select empty cursor
+            if(!canEdit && Input.GetMouseButtonDown(1))
+            {
+                SetIndex(1);
+            }
         }
 
         //make the placable follow the cursor
@@ -122,6 +135,14 @@ public class ObjectPlacer : MonoBehaviour
         if (!canEdit && !Input.GetKey(KeyCode.LeftShift))
         {
             transform.Rotate(new Vector3(0, 0, Input.mouseScrollDelta.y * rotSpeed));
+            if (Input.GetKey(KeyCode.Q))
+            {
+                transform.Rotate(new Vector3(0, 0, 0.1f * rotSpeed));
+            }
+            else if (Input.GetKey(KeyCode.E))
+            {
+                transform.Rotate(new Vector3(0, 0, -0.1f * rotSpeed));
+            }
             //transform.Rotate(new Vector3(0, 0, Input.GetAxis("Horizontal") * -rotSpeed));
         }
 
@@ -148,6 +169,17 @@ public class ObjectPlacer : MonoBehaviour
         //if the same is true and you left click, select it
 
 
+        //if you hover over the ui element, set cursor to visible
+        
+        bool onUI = EventSystem.current.IsPointerOverGameObject();
+        if (onUI)
+        {
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.visible = false;
+        }
     }
 
     public void CloseUI()

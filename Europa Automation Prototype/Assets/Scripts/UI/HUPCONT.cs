@@ -68,7 +68,7 @@ public class HUPCONT : MonoBehaviour
             s2.maxValue = 2;
             s2.minValue = 0.25f;
             s2.value = launcher.coolDown;
-            s2T.text = "Interval: " + s2.value.ToString();
+            s2T.text = "Fire Interval: " + s2.value.ToString();
         }
         if (obj.GetComponent<OreController>())
         {
@@ -111,8 +111,6 @@ public class HUPCONT : MonoBehaviour
     public void SetValueSlider2()
     {
         float sliderVal = StaticFunctions.RoundTo(s2.value, 0.25f);
-
-
         if (typeSelected == 1)
         {
 
@@ -120,7 +118,11 @@ public class HUPCONT : MonoBehaviour
         if (typeSelected == 2)
         {
             obj.GetComponent<LauncherController>().coolDown = sliderVal;
-            s2T.text  = "Interval: " + sliderVal.ToString();
+            s2T.text  = "Fire Interval: " + sliderVal.ToString();
+        }
+        if(typeSelected == 4)
+        {
+            s2T.text = "Set a recipe";
         }
     }
 
@@ -128,9 +130,6 @@ public class HUPCONT : MonoBehaviour
     {
         if(typeSelected == 4)
         {
-
-
-
             //instead of directly setting the recipe, call a function on the crafter so that I can activate other shit when it changes recipe.
             obj.GetComponent<Crafting>().ChangeRecipe(rec);
         }
@@ -139,7 +138,5 @@ public class HUPCONT : MonoBehaviour
             //if you don't have a crafter selected, say "No crater selected. This message should never be seen"
             print("No crafter selected. This message should never be seen");
         }
-
-
     }
 }

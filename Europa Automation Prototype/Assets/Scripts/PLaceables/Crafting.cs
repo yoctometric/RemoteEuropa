@@ -1,15 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Crafting : MonoBehaviour
 {
     [SerializeField] Transform launchPoint;
     public ScriptableRecipe recipe;
     [SerializeField] List<string> currentItems;
+    List<int> currentAmounts;
+    List<string> currentRecipe;
     bool crafting = false;
     [SerializeField] SpriteRenderer recipeDisplay;
     [SerializeField] GameInfo info;
+    [SerializeField] SpriteRenderer display;
     private void Start()
     {
         info = GameObject.FindObjectOfType<GameInfo>();
@@ -25,32 +29,67 @@ public class Crafting : MonoBehaviour
             Item item = other.GetComponent<Item>();
 
             //add the item to the storage only if it is in the recipe
-            if (recipe.input.Contains(item.typeOfItem))
+            if (currentRecipe.Contains(item.typeOfItem))
             {
-                //if the item is not already in the recipe
-                if (currentItems.Contains(item.typeOfItem))
+
+                //if the recipe still has capacity for that type of item
+                int indexOfAmount = currentRecipe.IndexOf(item.typeOfItem);
+
+                if(currentAmounts[indexOfAmount] > 0)
                 {
-                }
-                else
-                {
-                    currentItems.Add(item.typeOfItem);
+                    UpdateDisplayColor(1);
+                    print("acceptedInput");
+                    currentAmounts[indexOfAmount] -= 1;
+                    print(currentAmounts[indexOfAmount]);
                     Destroy(other.gameObject);
                     reject = false;
-                }
-            
+                }          
             }
             if (reject)
             {
-                other.GetComponent<Rigidbody2D>().AddForce(transform.up * -200);
+                other.GetComponent<Rigidbody2D>().AddForce(transform.up * -400);
             }
             CheckCraft();
 
         }
 
     }
-
+    void UpdateDisplayColor(int val)
+    {
+        if (val == 0)
+        {
+            display.color = new Color(1, 0, 0, 1);
+        }
+        else if (val == 1)
+        {
+            display.color = new Color(1, 1, 0, 1);
+        }
+        else if (val == 2)
+        {
+            display.color = new Color(0, 1, 0, 1);
+        }
+    }
     void CheckCraft()
     {
+        
+        int satisfactionRemaining = currentAmounts.Sum();
+        if(satisfactionRemaining == 0)
+        {
+            UpdateDisplayColor(2);
+            print("crafting");
+            StartCoroutine(Craft());
+            currentAmounts = new List<int>();
+            for (int i = 0; i < recipe.input.Count; i++)
+            {
+
+                string temp = recipe.input[i].Split(',')[0];
+                currentAmounts.Add(int.Parse(temp) + 1);
+
+                //finish resetting
+            }
+        }
+
+        /*
         int currentSatisfiedAmount = recipe.input.Count;
         //for every item in the recipe, if the current list has it, increment our count of contained items
         for (int i = 0; i < recipe.input.Count; i++)
@@ -67,6 +106,7 @@ public class Crafting : MonoBehaviour
             //for every result, instantiate and launch it
 
         }
+        */
 
     }
 
@@ -82,6 +122,8 @@ public class Crafting : MonoBehaviour
             result.AddForce(launchPoint.up * 500);
             result.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         }
+        UpdateDisplayColor(0);
+
         //set launch forece because I don't think the player should be able to modify it
         crafting = false;
     }
@@ -92,7 +134,21 @@ public class Crafting : MonoBehaviour
         recipeDisplay.color = r.imgColor;
         //also set a stored default recipe so that it is easier to make a lot of the same machine
         info.storedRecipe = r;
-        print("changed st r");
+        //set recipe string list and int list
+        currentRecipe = new List<string> ();
+        currentAmounts = new List<int> ();
+        currentRecipe.Capacity = recipe.input.Count;
+        currentAmounts.Capacity = recipe.input.Count;
+
+        for (int i = 0; i < recipe.input.Count; i++)
+        {
+            string temp = recipe.input[i].Split(',')[0];
+            print(temp);
+            currentAmounts.Add(int.Parse(temp) + 1);
+            currentRecipe.Add(recipe.input[i].Split(',')[1]);
+            print(recipe.input[i].Split(',')[1]);
+        }
+        //the way this works means that you must order your recipes as "1,sand 2,rock etc"
     }
     /*
     [SerializeField] Transform launchPoint;

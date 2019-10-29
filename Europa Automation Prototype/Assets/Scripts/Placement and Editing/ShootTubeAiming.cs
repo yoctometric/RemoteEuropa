@@ -19,7 +19,7 @@ public class ShootTubeAiming : MonoBehaviour
     {
         if (laserSight)
         {
-            Vector3 tPos = transform.up * 1000;
+            Vector3 tPos = transform.up * 100000;
             lr.SetPosition(0, transform.position);
             lr.SetPosition(1, tPos);
         }

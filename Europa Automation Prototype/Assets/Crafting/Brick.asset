@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f12fa7b0f56a41d40bcf41ef974894f8, type: 3}
-  m_Name: Refined Copper
+  m_Name: Brick
   m_EditorClassIdentifier: 
   input:
-  - 1,Copper
+  - 2,Rock
+  - 1,Sand
   output:
-  - {fileID: 6680847359289098659, guid: f77d5c7a2b7b88845957a409063ce20f, type: 3}
-  img: {fileID: 21300002, guid: 8a692478398f8ce4f88f8895174839df, type: 3}
-  imgColor: {r: 1, g: 0.3137255, b: 0, a: 1}
+  - {fileID: 6680847359289098659, guid: e98d653d02e8aa0409e375722afb7ac7, type: 3}
+  img: {fileID: 21300014, guid: 7e5076135fb0e114cbc55484a24beac5, type: 3}
+  imgColor: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}

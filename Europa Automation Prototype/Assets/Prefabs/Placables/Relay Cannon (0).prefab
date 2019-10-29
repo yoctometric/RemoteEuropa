@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 3312618416205876940}
   - component: {fileID: 6414022451674387488}
   m_Layer: 0
-  m_Name: Launcher (0)
+  m_Name: Relay Cannon (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
