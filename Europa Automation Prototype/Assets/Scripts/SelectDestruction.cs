@@ -51,7 +51,7 @@ public class SelectDestruction : MonoBehaviour
         Collider2D[] overlaps = Physics2D.OverlapBoxAll(mid, size, 0, itemLayerMask,Mathf.NegativeInfinity, Mathf.Infinity);
         foreach (Collider2D obj in overlaps)
         {
-            if (obj.gameObject.tag == "Item")
+            if (obj.gameObject.tag == "Item" || obj.gameObject.tag == "Egg")
             {
 
                 Instantiate(deathEffect, obj.transform.position, Quaternion.identity);

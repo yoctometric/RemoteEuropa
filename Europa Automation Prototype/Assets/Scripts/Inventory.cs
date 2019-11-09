@@ -21,7 +21,6 @@ public class Inventory : MonoBehaviour
         else
         {
         }
-        print(abb);
         return abb;
 
     }
@@ -29,7 +28,6 @@ public class Inventory : MonoBehaviour
     public void UpdateDisplayTexts(string type, string value)
     {
         //updates the inventories based on the type given. better than running it in update
-        print(value);
         if(type == "Refined Copper")
         {
             countDisplays[0].text = value;
@@ -45,7 +43,7 @@ public class Inventory : MonoBehaviour
         else
         {
             //solid error
-            print("no inventory at index " + type.ToString());
+            //print("no inventory at index " + type.ToString());
         }
     }
 }

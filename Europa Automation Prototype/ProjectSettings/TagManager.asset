@@ -10,6 +10,7 @@ TagManager:
   - HeadsUpPanel
   - Inventory
   - GameInfo
+  - Egg
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Editing
   - Ore
   - OtherEditing
-  - 
+  - Item
   - 
   - 
   - 

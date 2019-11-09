@@ -51,6 +51,10 @@ public class Item : MonoBehaviour
         if(transform.localScale.x < 0.01f)
         {
             Destroy(gameObject);
+            if (transform.parent)
+            {
+                print(transform.parent);
+            }
         }
         else
         {

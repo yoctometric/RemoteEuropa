@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6680847359289098656}
   - component: {fileID: 5703052019510390029}
   - component: {fileID: 3850795872741532072}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Pycrete
   m_TagString: Item
   m_Icon: {fileID: 0}

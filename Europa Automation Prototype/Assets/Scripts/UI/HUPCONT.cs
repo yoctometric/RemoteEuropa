@@ -85,6 +85,20 @@ public class HUPCONT : MonoBehaviour
             crafterPanel.SetActive(true);
 
         }
+        if (obj.GetComponent<UnPackager>())
+        {
+            typeSelected = 5;
+        }
+        if (obj.GetComponent<Packager>())
+        {
+            Packager pack = obj.GetComponent<Packager>();
+            typeSelected = 6;
+            s1.gameObject.SetActive(true);
+            s1.maxValue = 100;
+            s1.minValue = 10;
+            s1.value = pack.maxItems;
+            s1T.text = "Maximum Items: " + Mathf.RoundToInt(s1.value).ToString();
+        }
     }
     private void Update()
     {
@@ -106,6 +120,11 @@ public class HUPCONT : MonoBehaviour
             obj.GetComponent<LauncherController>().launchForce = s1.value;
             s1T.text = "Launch Force: " + s1.value.ToString();
         }
+        if (typeSelected == 6)
+        {
+            obj.GetComponent<Packager>().maxItems = Mathf.RoundToInt(s1.value);
+            s1T.text = "Maximum Items: " + s1.value.ToString();
+        }
     }
     //allows slider 2 to set values
     public void SetValueSlider2()
@@ -124,11 +143,12 @@ public class HUPCONT : MonoBehaviour
         {
             s2T.text = "Set a recipe";
         }
+
     }
 
     public void SetCrafterRecipe(ScriptableRecipe rec)
     {
-        if(typeSelected == 4)
+        if(typeSelected == 4)   
         {
             //instead of directly setting the recipe, call a function on the crafter so that I can activate other shit when it changes recipe.
             obj.GetComponent<Crafting>().ChangeRecipe(rec);
