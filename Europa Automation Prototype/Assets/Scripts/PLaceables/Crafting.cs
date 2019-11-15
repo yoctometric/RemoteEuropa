@@ -7,14 +7,14 @@ public class Crafting : MonoBehaviour
 {
     [SerializeField] Transform launchPoint;
     public ScriptableRecipe recipe;
-    [SerializeField] List<string> currentItems;
+    public List<string> currentItems;
     List<int> currentAmounts;
     List<string> currentRecipe;
     bool crafting = false;
     [SerializeField] SpriteRenderer recipeDisplay;
     [SerializeField] GameInfo info;
     [SerializeField] SpriteRenderer display;
-    private void Start()
+    private void Awake()
     {
         info = GameObject.FindObjectOfType<GameInfo>();
         ChangeRecipe(info.storedRecipe);
@@ -22,37 +22,44 @@ public class Crafting : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        bool reject = true;
        
         if (other.tag == "Item")
         {
-            Item item = other.GetComponent<Item>();
-
-            //add the item to the storage only if it is in the recipe
-            if (currentRecipe.Contains(item.typeOfItem))
-            {
-
-                //if the recipe still has capacity for that type of item
-                int indexOfAmount = currentRecipe.IndexOf(item.typeOfItem);
-
-                if(currentAmounts[indexOfAmount] > 0)
-                {
-                    UpdateDisplayColor(1);
-                    print("acceptedInput");
-                    currentAmounts[indexOfAmount] -= 1;
-                    print(currentAmounts[indexOfAmount]);
-                    Destroy(other.gameObject);
-                    reject = false;
-                }          
-            }
-            if (reject)
-            {
-                other.GetComponent<Rigidbody2D>().AddForce(transform.up * -400);
-            }
-            CheckCraft();
-
+            AddItemToCrafter(other.GetComponent<Item>());
         }
 
+    }
+    public void AddItemToCrafter(Item item)
+    {
+        bool reject = true;
+        //add the item to the storage only if it is in the recipe
+        if (currentRecipe.Contains(item.typeOfItem))
+        {
+
+            //if the recipe still has capacity for that type of item
+            int indexOfAmount = currentRecipe.IndexOf(item.typeOfItem);
+
+            if (currentAmounts[indexOfAmount] > 0)
+            {
+                UpdateDisplayColor(1);
+                currentAmounts[indexOfAmount] -= 1;
+                
+                //purely for the purpose of saving/loading, update the amount of items in the crafter
+                currentItems.Add(item.typeOfItem);
+                foreach(string it in currentItems)
+                {
+                    print(it);
+                }
+                
+                Destroy(item.gameObject);
+                reject = false;
+            }
+        }
+        if (reject)
+        {
+            item.GetComponent<Rigidbody2D>().AddForce(transform.up * -400);
+        }
+        CheckCraft();
     }
     void UpdateDisplayColor(int val)
     {
@@ -76,7 +83,6 @@ public class Crafting : MonoBehaviour
         if(satisfactionRemaining == 0)
         {
             UpdateDisplayColor(2);
-            print("crafting");
             StartCoroutine(Craft());
             currentAmounts = new List<int>();
             for (int i = 0; i < recipe.input.Count; i++)
@@ -133,7 +139,10 @@ public class Crafting : MonoBehaviour
         recipeDisplay.sprite = r.img;
         recipeDisplay.color = r.imgColor;
         //also set a stored default recipe so that it is easier to make a lot of the same machine
-        info.storedRecipe = r;
+        if (r)
+        {
+            info.storedRecipe = r;
+        }
         //set recipe string list and int list
         currentRecipe = new List<string> ();
         currentAmounts = new List<int> ();
@@ -143,10 +152,8 @@ public class Crafting : MonoBehaviour
         for (int i = 0; i < recipe.input.Count; i++)
         {
             string temp = recipe.input[i].Split(',')[0];
-            print(temp);
             currentAmounts.Add(int.Parse(temp) + 1);
             currentRecipe.Add(recipe.input[i].Split(',')[1]);
-            print(recipe.input[i].Split(',')[1]);
         }
         //the way this works means that you must order your recipes as "1,sand 2,rock etc"
     }

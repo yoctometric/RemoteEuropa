@@ -132,4 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeOfItem: Crushed Ice
+  typeInt: 2
   canSink: 1
+  onEnableSystem: {fileID: 1757797309248541439, guid: 734eb96f8f7bf1d479a0f70ecc838e43,
+    type: 3}

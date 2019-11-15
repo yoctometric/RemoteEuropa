@@ -36,7 +36,7 @@ public class ScrollMenuController : MonoBehaviour
             //set up button
             if (loadPath != null)
             {
-                b.GetComponentInChildren<ActivateLoader>().SetPath(loadPath);
+                //load from path
             }
         }
         scroller.numberOfSteps = saves.Count;

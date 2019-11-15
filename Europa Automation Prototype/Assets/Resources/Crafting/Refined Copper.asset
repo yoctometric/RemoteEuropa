@@ -18,3 +18,4 @@ MonoBehaviour:
   - {fileID: 6680847359289098659, guid: f77d5c7a2b7b88845957a409063ce20f, type: 3}
   img: {fileID: 21300002, guid: 8a692478398f8ce4f88f8895174839df, type: 3}
   imgColor: {r: 1, g: 0.3137255, b: 0, a: 1}
+  id: 3

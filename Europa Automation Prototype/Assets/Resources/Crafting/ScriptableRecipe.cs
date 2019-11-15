@@ -9,4 +9,5 @@ public class ScriptableRecipe : ScriptableObject
     [SerializeField] public List<GameObject> output;
     [SerializeField] public Sprite img;
     [SerializeField] public Color imgColor;
+    [SerializeField] public int id = 0;
 }

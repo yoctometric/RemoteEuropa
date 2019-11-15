@@ -338,8 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchPoint: {fileID: 7999567105030459250}
   recipe: {fileID: 11400000, guid: 69f1636661df24248a73f66bf695fd25, type: 2}
-  currentItems:
-  - 
+  currentItems: []
   recipeDisplay: {fileID: 7999567106456837719}
   info: {fileID: 0}
   display: {fileID: 7999567106979348311}

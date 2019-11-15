@@ -274,6 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemsInLauncher: []
   launchPoint: {fileID: 3312618417930752545}
+  launchRotationVertex: {fileID: 7041851984982389623}
   capacityIndicator: {fileID: 2726552371250299504}
   coolDown: 1
   launchForce: 500

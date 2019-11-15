@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6680847359289098656}
   - component: {fileID: 5703052019510390029}
   m_Layer: 12
-  m_Name: Rock
+  m_Name: Refined Copper
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6680847359289098659}
   m_LocalRotation: {x: -0, y: -0, z: 0.8867296, w: 0.46228844}
-  m_LocalPosition: {x: 10.226533, y: -1.9954798, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -71,8 +71,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -40
-  m_Sprite: {fileID: 21300000, guid: cbed27b4ecce1b64bb27d9d5b565fab6, type: 3}
-  m_Color: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
+  m_Sprite: {fileID: 21300002, guid: 8a692478398f8ce4f88f8895174839df, type: 3}
+  m_Color: {r: 1, g: 0.31488848, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,7 +97,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.56
+  m_Radius: 0.2
 --- !u!50 &6680847359289098656
 Rigidbody2D:
   serializedVersion: 4
@@ -131,5 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4d04b1f58f14347a9e71c01257058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeOfItem: Rock
+  typeOfItem: Refined Copper
+  typeInt: 6
   canSink: 1
+  onEnableSystem: {fileID: 1757797309248541439, guid: 734eb96f8f7bf1d479a0f70ecc838e43,
+    type: 3}

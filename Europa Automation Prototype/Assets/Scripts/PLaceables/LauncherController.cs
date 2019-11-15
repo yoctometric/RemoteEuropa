@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class LauncherController : MonoBehaviour
 {
-    [SerializeField] List<Rigidbody2D> itemsInLauncher;
+    public List<Rigidbody2D> itemsInLauncher;
     [SerializeField] Transform launchPoint;
+    public Transform launchRotationVertex; //this is pretty much only for saving and loading right here
     [SerializeField] Transform capacityIndicator;
     SpriteRenderer capacitySP;
     public float coolDown = 1;

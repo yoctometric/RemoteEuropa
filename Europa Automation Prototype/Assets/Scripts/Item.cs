@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Item : MonoBehaviour
 {
     public string typeOfItem = "";
+    public int typeInt = -1;
     public bool canSink = true;
     bool passedInvulnerability = false;
     bool startedShrinking = false;
     Rigidbody2D rb;
+    [SerializeField] ParticleSystem onEnableSystem;
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -37,6 +38,7 @@ public class Item : MonoBehaviour
         //when the object passes thru a launcher it will deactivate. Set this up so that it doesnt shrinkk when it stops moving.
         passedInvulnerability = false;
         StartCoroutine(StartInvulnerability());
+        Instantiate(onEnableSystem, transform.position, Quaternion.identity);
     }
     IEnumerator StartInvulnerability()
     {

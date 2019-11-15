@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f12fa7b0f56a41d40bcf41ef974894f8, type: 3}
-  m_Name: Pycrete
+  m_Name: Refined Iron
   m_EditorClassIdentifier: 
   input:
-  - 6,Crushed Ice
-  - 1,Sand
+  - 1,Iron
   output:
-  - {fileID: 6680847359289098659, guid: 0a94560866f7d8c43a690636573a1988, type: 3}
-  img: {fileID: 21300012, guid: 7e5076135fb0e114cbc55484a24beac5, type: 3}
-  imgColor: {r: 0.6509434, g: 0.58579624, b: 0.26713246, a: 1}
+  - {fileID: 6680847359289098659, guid: 6140b3f57bedd6b40bc78e1a6e1de902, type: 3}
+  img: {fileID: 21300002, guid: 8a692478398f8ce4f88f8895174839df, type: 3}
+  imgColor: {r: 0.8000001, g: 0.87843144, b: 0.8705883, a: 1}
+  id: 4
