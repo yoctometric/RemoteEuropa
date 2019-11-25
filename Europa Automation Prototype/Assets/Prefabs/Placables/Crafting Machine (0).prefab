@@ -222,6 +222,7 @@ GameObject:
   - component: {fileID: 7999567105687476350}
   - component: {fileID: 7999567105687476345}
   - component: {fileID: 7999567105687476349}
+  - component: {fileID: 7787381154138019457}
   m_Layer: 8
   m_Name: Crafting Machine (0)
   m_TagString: Untagged
@@ -363,6 +364,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7787381154138019457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7999567105687476344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a2ba099292c644b92808e826a892b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  costs:
+  - -5,Pycrete
 --- !u!1 &7999567106456837713
 GameObject:
   m_ObjectHideFlags: 0

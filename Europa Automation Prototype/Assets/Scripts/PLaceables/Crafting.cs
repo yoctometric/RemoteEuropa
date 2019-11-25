@@ -46,11 +46,6 @@ public class Crafting : MonoBehaviour
                 
                 //purely for the purpose of saving/loading, update the amount of items in the crafter
                 currentItems.Add(item.typeOfItem);
-                foreach(string it in currentItems)
-                {
-                    print(it);
-                }
-                
                 Destroy(item.gameObject);
                 reject = false;
             }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveMaster : MonoBehaviour
 {
@@ -8,84 +9,208 @@ public class SaveMaster : MonoBehaviour
     public LauncherController[] cannons;
     public GameObject[] fans;
     public Crafting[] crafters;
+    public Item[] items;
+    public Miner[] miners;
+    public OreController[] ores;
+    public Inventory invent;
 
     //prefabs
     public LauncherController cannonPrefab;
     public Transform fanPrefab;
     public Crafting crafterPrefab;
+    public Miner minerPrefab;
+    public OreController orePrefab;
+
     //functions
 
-    public void SaveGame()
+    private void Start()
+    {
+        //stop from going away
+        DontDestroyOnLoad(this.gameObject);
+    }
+    public void SaveGame(string path)
     {
         //save the launchers
         cannons = GameObject.FindObjectsOfType<LauncherController>();
         fans = GameObject.FindGameObjectsWithTag("Fan");
-        crafters = GameInfo.FindObjectsOfType<Crafting>();
-        //debug
-        print(crafters[0].currentItems[0]);
-        SaveLoadManager.SaveData(this, "test");
-
+        crafters = GameObject.FindObjectsOfType<Crafting>();
+        items = GameObject.FindObjectsOfType<Item>();
+        miners = GameObject.FindObjectsOfType<Miner>();
+        ores = GameObject.FindObjectsOfType<OreController>();
+        invent = GameObject.FindObjectOfType<Inventory>();
+        SaveLoadManager.SaveData(this, path);
     }
 
-    public void LoadGame()
+    public void LoadGame(string path)
     {
-        AllData allData = SaveLoadManager.LoadData("test");
+
+        //now reload scene
+        StartCoroutine(Load("BlankScene", path));
+
+    }
+    IEnumerator Load(string scene, string path)
+    {
+        //wait until the scene is loaded to instantiate, otherwise shit gets overwritten
+        AsyncOperation async = SceneManager.LoadSceneAsync(scene);
+        while (!async.isDone)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+        //now that the scene is loaded, send it brother
+        AllData allData = SaveLoadManager.LoadData(path);
         //Launchers first
         Cannons(allData);
         Fans(allData);
         Crafters(allData);
+        Items(allData);
+        Miners(allData);
+        Ores(allData);
+        LoadInventory(allData);
     }
 
     void Cannons(AllData allData)
     {
-        float[] cannonData = allData.cannon.stats;
-        int num = allData.cannon.numStats;
-        int cannonAmount = cannonData.Length / num;//because every n'th element starts a new box
-        for (int i = 0; i < cannonAmount; i++)
+        if(allData.cannon != null)
         {
-            LauncherController cannon = Instantiate(cannonPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            cannon.transform.position = new Vector3(cannonData[(i*num)], cannonData[(i * num) + 1], 0);
-            cannon.transform.rotation = Quaternion.Euler(0, 0, cannonData[(i * num) + 2]);
-            cannon.coolDown = cannonData[(i * num) + 3];
-            cannon.launchForce = cannonData[(i * num) + 4];
-            cannon.launchRotationVertex.rotation = Quaternion.Euler(0, 0, cannonData[(i * num) + 5]);
+            float[] cannonData = allData.cannon.stats;
+            int num = allData.cannon.numStats;
+            int cannonAmount = cannonData.Length / num;//because every n'th element starts a new box
+            for (int i = 0; i < cannonAmount; i++)
+            {
+                LauncherController cannon = Instantiate(cannonPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                cannon.transform.position = new Vector3(cannonData[(i * num)], cannonData[(i * num) + 1], 0);
+                cannon.transform.rotation = Quaternion.Euler(0, 0, cannonData[(i * num) + 2]);
+                cannon.coolDown = cannonData[(i * num) + 3];
+                cannon.launchForce = cannonData[(i * num) + 4];
+                cannon.launchRotationVertex.rotation = Quaternion.Euler(0, 0, cannonData[(i * num) + 5]);
+            }
         }
     }
 
     void Fans(AllData allData)
     {
-        float[] fansData = allData.fan.stats;
-        int num = allData.fan.numStats;
-        int fanAmount = fansData.Length / num;//because every n'th element starts a new box
-        for (int i = 0; i < fanAmount; i++)
+        if (allData.fan != null)
         {
-            Transform fan = Instantiate(fanPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            fan.position = new Vector3(fansData[(i * num)], fansData[(i * num) + 1], 0);
-            fan.rotation = Quaternion.Euler(0, 0, fansData[(i * num) + 2]);
+            float[] fansData = allData.fan.stats;
+            int num = allData.fan.numStats;
+            int fanAmount = fansData.Length / num;//because every n'th element starts a new box
+            for (int i = 0; i < fanAmount; i++)
+            {
+                Transform fan = Instantiate(fanPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                fan.position = new Vector3(fansData[(i * num)], fansData[(i * num) + 1], 0);
+                fan.rotation = Quaternion.Euler(0, 0, fansData[(i * num) + 2]);
+            }
         }
     }
 
     void Crafters(AllData allData)
     {
-        float[] craftersData = allData.crafter.stats;
-        int num = allData.crafter.numStats;
-        int crafterAmount = craftersData.Length / num;//because every n'th element starts a new box
-        string[][] items = allData.crafter.allItems;
-        for (int i = 0; i < crafterAmount; i++)
+        if(allData.crafter != null)
         {
-            Crafting crafter = Instantiate(crafterPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            crafter.transform.position = new Vector3(craftersData[(i * num)], craftersData[(i * num) + 1], 0);
-            crafter.transform.rotation = Quaternion.Euler(0, 0, craftersData[(i * num) + 2]);
-            crafter.ChangeRecipe(StaticFunctions.GetRecipeFromIndex(Mathf.RoundToInt(craftersData[(i * num) + 3])));
-
-            //now give it items
-            for(int j = 0; j < items[i].Length; j++)
+            float[] craftersData = allData.crafter.stats;
+            int num = allData.crafter.numStats;
+            int crafterAmount = craftersData.Length / num;//because every n'th element starts a new box
+            string[][] items = allData.crafter.allItems;
+            for (int i = 0; i < crafterAmount; i++)
             {
-                print(items[i][j]);
-                Item it = Instantiate(StaticFunctions.GetItemFromString(items[i][j]), transform.position, Quaternion.identity);
-                print(it.name);
-                crafter.AddItemToCrafter(it);
+                Crafting crafter = Instantiate(crafterPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                crafter.transform.position = new Vector3(craftersData[(i * num)], craftersData[(i * num) + 1], 0);
+                crafter.transform.rotation = Quaternion.Euler(0, 0, craftersData[(i * num) + 2]);
+                crafter.ChangeRecipe(StaticFunctions.GetRecipeFromIndex(Mathf.RoundToInt(craftersData[(i * num) + 3])));
+
+                //now give it items
+                for (int j = 0; j < items[i].Length; j++)
+                {
+                    Item it = Instantiate(StaticFunctions.GetItemFromString(items[i][j]), transform.position, Quaternion.identity);
+                    crafter.AddItemToCrafter(it);
+                }
             }
         }
     }
+
+    void Items(AllData allData)
+    {
+        if(allData.item != null)
+        {
+            string[] itemsData = allData.item.stats;
+            int num = allData.item.numStats;
+            int amount = itemsData.Length / num;//because every n'th element starts a new item
+            for (int i = 0; i < amount; i++)
+            {
+                Item it = Instantiate(StaticFunctions.GetItemFromString(itemsData[(i * num) + 5]), Vector3.zero, Quaternion.identity);
+
+                it.transform.position = new Vector3(float.Parse(itemsData[(i * num)]), float.Parse(itemsData[(i * num) + 1]), 0);
+                it.transform.rotation = Quaternion.Euler(0, 0, float.Parse(itemsData[(i * num) + 2]));
+
+                Rigidbody2D rb = it.GetComponent<Rigidbody2D>();
+                rb.velocity = new Vector3(float.Parse(itemsData[(i * num) + 3]), float.Parse(itemsData[(i * num) + 4]), 0);
+            }
+        }
+    }
+
+    void Miners(AllData allData)
+    {
+        if(allData.miner != null)
+        {
+            float[] data = allData.miner.stats;
+            int num = allData.miner.numStats;
+            int amount = data.Length / num;//because every n'th element starts a new item
+            for (int i = 0; i < amount; i++)
+            {
+                Miner min = Instantiate(minerPrefab, Vector3.zero, Quaternion.identity);
+                min.transform.position = new Vector3(data[(i * num)], data[(i * num) + 1], 0);
+                min.transform.rotation = Quaternion.Euler(0, 0, data[(i * num) + 2]);
+                min.launchForce = data[(i * num) + 3];
+            }
+        }
+    }
+
+    void Ores(AllData allData)
+    {
+        if (allData.ore != null)
+        {
+            string[] data = allData.ore.stats;
+            int num = allData.ore.numStats;
+            int amount = data.Length / num;//because every n'th element starts a new item
+            for (int i = 0; i < amount; i++)
+            {
+                OreController o = Instantiate(StaticFunctions.GetOreFromString(data[(i * num) + 4]), Vector3.zero, Quaternion.identity);
+                o.transform.position = new Vector3(float.Parse(data[(i * num)]), float.Parse(data[(i * num) + 1]), 0);
+                o.transform.rotation = Quaternion.Euler(0, 0, float.Parse(data[(i * num) + 2]));
+                o.currentQuantity = int.Parse(data[(i * num) + 3]);
+                o.quantity = int.Parse(data[(i * num) + 3]);
+                //string[] color = data[(i * num) + 4].Split(',');
+                //o.oreColor = new Color(float.Parse(color[0]), float.Parse(color[1]), float.Parse(color[2]));
+                //o.product = StaticFunctions.GetItemFromString(data[(i * num) + 5]);
+
+                o.transform.localScale = new Vector2(float.Parse(data[(i * num) + 5]), float.Parse(data[(i * num) + 6]));
+            }
+        }
+
+    }
+    
+    void LoadInventory(AllData allData)
+    {
+        if(allData.invent != null)
+        {
+            Inventory inv = GameObject.FindObjectOfType<Inventory>();
+            string[] data = allData.invent.stats;
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (data[i] != null)
+                {
+                    string k = data[i].Split(',')[0];//key
+                    int v = int.Parse(data[i].Split(',')[1]);//value
+                    print(k + ':' + v.ToString());
+                    inv.storedVals[k] = v;
+                }
+            }
+            inv.UpdateAllInventories();
+        }
+        else
+        {
+            print("no inventory found");
+        }
+    }
+
 }

@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class Core : MonoBehaviour
 {
     Inventory invent;
-    Dictionary<string, int> inventory = new Dictionary<string, int>();
+    ///Dictionary<string, int> inventory = new Dictionary<string, int>();
     void Start()
     {
         invent = GameObject.FindObjectOfType<Inventory>();
@@ -15,8 +15,10 @@ public class Core : MonoBehaviour
     {
         if (other.GetComponent<Item>())
         {
+
             Item it = other.GetComponent<Item>();
             string itemType = it.typeOfItem;
+            /*
             if (inventory.TryGetValue(itemType, out int value))
             {
                 inventory[itemType] += 1;
@@ -26,10 +28,17 @@ public class Core : MonoBehaviour
             {
                 inventory.Add(itemType, 1);
                 Destroy(it.gameObject, 0.1f);
+            }*/
+            //string val = StaticFunctions.AbbreviateNumber(inventory[itemType]);
+            if (invent.storedVals.Keys.ToList().Contains(itemType))
+            {
+                invent.UpdateInventory(itemType, 1);
+                Destroy(it.gameObject);
             }
-            string val = invent.AbbreviateNumber(inventory[itemType]);
-            invent.UpdateDisplayTexts(itemType,val);
-
+            else
+            {
+                print("repell item");
+            }
         }
     }
 }

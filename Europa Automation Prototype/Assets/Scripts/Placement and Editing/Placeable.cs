@@ -17,12 +17,10 @@ public class Placeable : MonoBehaviour
         if (cursor.canPlace)
         {
             sp.color = new Color(0, 1, 0, 0.25f);
-
         }
         else
         {
             sp.color = new Color(1, 0, 0, 0.25f);
-
         }
     }
     /*

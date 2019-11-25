@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5703052019510390029}
   - component: {fileID: 5744084813343365692}
   m_Layer: 12
-  m_Name: Refined iron
+  m_Name: Refined Iron
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

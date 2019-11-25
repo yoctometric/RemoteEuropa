@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Pycrete
   m_EditorClassIdentifier: 
   input:
-  - 6,Crushed Ice
-  - 1,Sand
+  - 5,Crushed Ice
+  - 0,Sand
   output:
   - {fileID: 6680847359289098659, guid: 0a94560866f7d8c43a690636573a1988, type: 3}
   img: {fileID: 21300012, guid: 7e5076135fb0e114cbc55484a24beac5, type: 3}

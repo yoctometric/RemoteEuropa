@@ -513,6 +513,7 @@ GameObject:
   - component: {fileID: 5497672362734681425}
   - component: {fileID: 5497672362734681424}
   - component: {fileID: 5497672362734681431}
+  - component: {fileID: 2300542453393948783}
   m_Layer: 0
   m_Name: UnPackager (0)
   m_TagString: Untagged
@@ -674,6 +675,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2300542453393948783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5497672362734681453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a2ba099292c644b92808e826a892b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  costs:
+  - -10,Pycrete
+  - -50,Refined Iron
+  - -50,Refined Copper
 --- !u!1 &5497672362787967938
 GameObject:
   m_ObjectHideFlags: 0

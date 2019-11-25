@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2415686138039632240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2415686138039632254}
+  - component: {fileID: 2415686138039632255}
+  - component: {fileID: 2415686138039632253}
+  m_Layer: 0
+  m_Name: Game info
+  m_TagString: GameInfo
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2415686138039632254
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2415686138039632240}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2415686138039632255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2415686138039632240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8dca79eab8b4734cb4fee3c4f0971de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storedRecipe: {fileID: 11400000, guid: 69f1636661df24248a73f66bf695fd25, type: 2}
+--- !u!114 &2415686138039632253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2415686138039632240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bbd33725f8aee428b3668e807ca08a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cannons: []
+  fans: []
+  crafters: []
+  items: []
+  miners: []
+  ores: []
+  cannonPrefab: {fileID: 3312618416205876941, guid: 86da3ab54db7e924ea3454327621ce83,
+    type: 3}
+  fanPrefab: {fileID: 3184438532275898518, guid: fc93efb81d3e9604ba905c6aac4c6836,
+    type: 3}
+  crafterPrefab: {fileID: 7999567105687476345, guid: 0945fd29c7d569149b97dc3f28bb2315,
+    type: 3}
+  minerPrefab: {fileID: 1222705123023840278, guid: fbdd77a658d2e984db771e0a3dd284c8,
+    type: 3}
+  orePrefab: {fileID: 8233500952119286089, guid: 58d6ec6b7a7af6748a2cc627519b2797,
+    type: 3}

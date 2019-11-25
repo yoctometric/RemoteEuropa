@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 7529614626092336313}
   - component: {fileID: 7529614626092336319}
   - component: {fileID: 7529614626092336312}
+  - component: {fileID: 5690021832614041866}
   m_Layer: 8
   m_Name: Packaging Machine (0)
   m_TagString: Untagged
@@ -131,6 +132,7 @@ MonoBehaviour:
     type: 3}
   firePoint: {fileID: 7529614624586951101}
   launchForce: 5000
+  maxItems: 50
 --- !u!50 &7529614626092336319
 Rigidbody2D:
   serializedVersion: 4
@@ -181,6 +183,22 @@ PolygonCollider2D:
       - {x: 0.64694905, y: -1.0266943}
       - {x: -0.61385155, y: -1.0022211}
       - {x: -0.3733418, y: -0.6715183}
+--- !u!114 &5690021832614041866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7529614626092336308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a2ba099292c644b92808e826a892b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  costs:
+  - -10,Pycrete
+  - -50,Refined Iron
+  - -50,Refined Copper
 --- !u!1 &7529614626191881764
 GameObject:
   m_ObjectHideFlags: 0

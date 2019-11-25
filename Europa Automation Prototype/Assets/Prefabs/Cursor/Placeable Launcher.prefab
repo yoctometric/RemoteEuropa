@@ -179,6 +179,7 @@ MonoBehaviour:
     type: 3}
   sp: {fileID: 6645840437552995780}
   index: 0
+  cost: 010000000100000001000000
 --- !u!1 &3312618417930752546
 GameObject:
   m_ObjectHideFlags: 0

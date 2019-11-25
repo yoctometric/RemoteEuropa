@@ -11,6 +11,8 @@ public class ObjectPlacer : MonoBehaviour
     [SerializeField] float overlapRadius;
     [SerializeField] LayerMask overlapLayerMask;
     [SerializeField] LayerMask editingLayerMask;
+    [SerializeField] LayerMask groundLayerMask;
+    [SerializeField] LayerMask OreMask;
     
     public bool canPlace = true;
     bool canEdit = false;
@@ -40,6 +42,7 @@ public class ObjectPlacer : MonoBehaviour
 
     void Update()
     {
+
         overUI = EventSystem.current.IsPointerOverGameObject();
 
         //place the placable when able to
@@ -66,7 +69,7 @@ public class ObjectPlacer : MonoBehaviour
             {
                 if(Physics2D.OverlapCircle(transform.position, 0.5f, editingLayerMask).gameObject.GetComponent<EditorValues>().hasPanel)
                 {
-                    Cursor.visible = true;
+                    //Cursor.visible = true;
 
                     HUP.GetComponent<HUPCONT>().OpenEditor(Physics2D.OverlapCircle(transform.position, 0.5f, editingLayerMask).gameObject);
                 }
@@ -81,9 +84,17 @@ public class ObjectPlacer : MonoBehaviour
         else
         {
             //if you have a miner, u need an ore. U can stack miners this way. This is not a bug. Shut up
-            if(Physics2D.OverlapCircle(transform.position, 1, overlapLayerMask))
+            if(Physics2D.OverlapCircle(transform.position, 1, OreMask))
             {
-                canPlace = Physics2D.OverlapCircle(transform.position, 1, overlapLayerMask).GetComponent<OreController>();
+                //also if u arent over a hardcollider
+                if(!Physics2D.OverlapCircle(transform.position, 0.5f, groundLayerMask))
+                {
+                    canPlace = Physics2D.OverlapCircle(transform.position, 1, OreMask).GetComponent<OreController>();
+                }
+                else
+                {
+                    canPlace = false;
+                }
             }
             else
             {
@@ -185,7 +196,7 @@ public class ObjectPlacer : MonoBehaviour
     public void CloseUI()
     {
         UIOpened = false;
-        Cursor.visible = false;
+        //Cursor.visible = false;
         HUP.SetActive(false);
     }
 
@@ -194,7 +205,9 @@ public class ObjectPlacer : MonoBehaviour
         //check if there is a placeable attatched
         if (obj)
         {
-            Instantiate(obj, transform.position, transform.rotation);
+            Instantiate(obj, transform.position, transform.rotation);//place it
+            //activate the objs place function so that it can lose me money
+
         }
     }
 

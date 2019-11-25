@@ -13,7 +13,7 @@ public class SaveLoadManager
         BinaryFormatter bf = new BinaryFormatter();
         FileStream stream = new FileStream(Application.persistentDataPath + "/" + path + ".europa", FileMode.Create);
 
-        AllData data = new AllData(new RelayCannonsData(master), new FansData(master), new CrafterData(master));
+        AllData data = new AllData(new RelayCannonsData(master), new FansData(master), new CrafterData(master), new ItemObjectsData(master), new MinersData(master), new OreData(master), new InventoryData(master));
         bf.Serialize(stream, data);
 
         stream.Close();
@@ -36,7 +36,7 @@ public class SaveLoadManager
         else
         {
             Debug.LogError("NO FILE AT PATH BROTHER!");
-            return new AllData(null, null, null);
+            return new AllData(null, null, null, null, null, null, null);
         }
     }
 }
@@ -48,11 +48,19 @@ public class AllData
     public RelayCannonsData cannon;
     public FansData fan;
     public CrafterData crafter;
-    public AllData(RelayCannonsData cannons, FansData fans, CrafterData crafters)
+    public ItemObjectsData item;
+    public MinersData miner;
+    public OreData ore;
+    public InventoryData invent;
+    public AllData(RelayCannonsData cannons, FansData fans, CrafterData crafters, ItemObjectsData items, MinersData miners, OreData ores, InventoryData invents)
     {
         cannon = cannons;
         fan = fans;
         crafter = crafters;
+        item = items;
+        miner = miners;
+        ore = ores;
+        invent = invents;
     }
 
 }
@@ -101,6 +109,62 @@ public class FansData
         }
     }
 }
+[Serializable]
+public class OreData
+{
+    public string[] stats;
+    public int numStats = 0;
+
+    public OreData(SaveMaster mast)
+    {
+        numStats = 7; //posx, y, rot, count of remaining items, color r, g, b
+        //actually, its just the product lol
+        //actually, thats wrong too lol
+        stats = new string[mast.ores.Length * numStats];
+        for(int i = 0; i < mast.ores.Length; i++)
+        {
+            OreController ore = mast.ores[i];
+            
+            stats[(i * numStats)] = ore.transform.position.x.ToString();
+            stats[(i * numStats) + 1] = ore.transform.position.y.ToString();
+            stats[(i * numStats) + 2] = ore.transform.rotation.eulerAngles.z.ToString();
+            //numitems
+            stats[(i * numStats) + 3] = ore.currentQuantity.ToString();
+            //item type
+            stats[(i * numStats) + 4] = ore.product.GetComponent<Item>().typeOfItem;//for getting the prefab later
+            //scale mod
+            
+            stats[(i * numStats) + 5] = ore.transform.localScale.x.ToString();
+            stats[(i * numStats) + 6] = ore.transform.localScale.y.ToString();
+        }
+    }
+}
+[Serializable]
+public class InventoryData
+{
+    public int numStats = 0;
+    //CANNNOT SERIALIZE DICTIONARY! MAKE CUSTOM CLASS OR STRING LIST SILLY
+    public string[] stats;
+
+    public InventoryData(SaveMaster mast)
+    {
+        numStats = 3; //because what if I add more items?
+        stats = new string[numStats];
+        int i = 0;
+        foreach(KeyValuePair<string, int> keyVal in mast.invent.storedVals)
+        {
+            stats[i] = keyVal.Key + "," + keyVal.Value.ToString(); //"Key,Value"
+            if (i > numStats)
+            {
+                Debug.LogError("More keys in storedvals dictionary than are allowed to be saved! Increase numstats");
+            }
+            i++;
+        }
+    }
+}
+
+
+
 [Serializable] 
 public class CrafterData
 {
@@ -124,7 +188,53 @@ public class CrafterData
         }
     }
 }
+[Serializable] 
+public class ItemObjectsData
+{
+    public string[] stats;
+    public int numStats = 0;
 
+    public ItemObjectsData(SaveMaster mast)
+    {
+        numStats = 6;
+        stats = new string[mast.items.Length * numStats];
+        //x, y, rot, xV, yV, type.
+        for (int i = 0; i < mast.items.Length; i++)
+        {
+            //Debug.Log(mast.items[i].name);
+            Item item = mast.items[i];
+            //Debug.Log(item.name);
+
+            stats[(i * numStats)] = item.transform.position.x.ToString();
+            stats[(i * numStats) + 1] = item.transform.position.y.ToString();
+            stats[(i * numStats) + 2] = item.transform.rotation.eulerAngles.z.ToString();
+            Rigidbody2D rb = item.GetComponent<Rigidbody2D>();
+            stats[(i * numStats) + 3] = rb.velocity.x.ToString();
+            stats[(i * numStats) + 4] = rb.velocity.y.ToString();
+            stats[(i * numStats) + 5] = item.typeOfItem;
+        }
+    }
+}
+[Serializable]
+public class MinersData
+{
+    public float[] stats;
+    public int numStats = 0;
+    
+    public MinersData(SaveMaster mast)
+    {
+        numStats = 4;
+        stats = new float[mast.miners.Length * numStats];
+        for (int i = 0; i < mast.miners.Length; i++)
+        {
+            Miner miner = mast.miners[i];
+            stats[(i * numStats)] = miner.transform.position.x;
+            stats[(i * numStats) + 1] = miner.transform.position.y;
+            stats[(i * numStats) + 2] = miner.transform.rotation.eulerAngles.z;
+            stats[(i * numStats) + 3] = miner.launchForce;
+        }
+    }
+}
 [Serializable]
 public class ItemListSave
 {
@@ -132,9 +242,9 @@ public class ItemListSave
     
     public ItemListSave(List<string> its)
     {
+
         items = its;
         items.ToArray();
-        Debug.Log(items[0]);
     }
 }
 /*    public float[] transforms;

@@ -6,6 +6,7 @@ public class Miner : MonoBehaviour
 {
     Rigidbody2D product;
     [SerializeField] float coolDown;
+    float hardnessMultiplier = 1;
     public float launchForce;
     [SerializeField] Transform launchPoint;
     [SerializeField] LayerMask layerMask;
@@ -19,8 +20,8 @@ public class Miner : MonoBehaviour
         if(Physics2D.OverlapCircle(transform.position, 1, layerMask))
         {
             orePatch = Physics2D.OverlapCircle(transform.position, 1, layerMask).gameObject.GetComponent<OreController>();
-            product = orePatch.product;
-
+            product = orePatch.product.GetComponent<Rigidbody2D>();
+            hardnessMultiplier = orePatch.hardness;
         }
     }
 
@@ -28,18 +29,26 @@ public class Miner : MonoBehaviour
     {
         ///I think that any launcher which does not start with an item is failing rn because it errors and then stops
         ///I need it to only launch if there is an item in it. This is vital. Otherwise it stops the loop
-        yield return new WaitForSeconds(coolDown);
+        yield return new WaitForSeconds(coolDown * hardnessMultiplier);
         if (!orePatch)
         {
-            product = null;
+            //product = null;
             sp.color = new Color(0.2f, 0.2f, 0.2f, 1);
-        }
-        if (product)
+            orePatch = Physics2D.OverlapCircle(transform.position, 1, layerMask).gameObject.GetComponent<OreController>();
+            if (orePatch)
+            {
+                hardnessMultiplier = orePatch.hardness;
+
+                product = orePatch.product.GetComponent<Rigidbody2D>();
+            }
+            StartCoroutine(LaunchItem());
+        }else
         {
             Rigidbody2D p = Instantiate(product, launchPoint.position, launchPoint.rotation);
             p.gameObject.SetActive(true);
             p.AddForce(launchPoint.up * launchForce);
             orePatch.currentQuantity -= 1;
+            sp.color = Color.white;
             StartCoroutine(LaunchItem());
         }
     }

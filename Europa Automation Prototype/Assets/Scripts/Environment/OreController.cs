@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class OreController : MonoBehaviour
 {
+    public float hardness = 1;//needs no saving, just for miners to know how hard it is to mine. (multiplies miner speed)
     //the product
-    public Rigidbody2D product;
+    public Item product;
     //how many it starts with
-    [SerializeField] int quantity;
+    public int quantity;
     //obvious
     public int currentQuantity;
+    public Color oreColor;
     SpriteRenderer sp;
     //alpha value of the sp
     float aVal = 1;
@@ -17,6 +19,7 @@ public class OreController : MonoBehaviour
     {
         //setup
         sp = gameObject.GetComponent<SpriteRenderer>();
+        sp.color = oreColor;
         currentQuantity = quantity;
     }
 

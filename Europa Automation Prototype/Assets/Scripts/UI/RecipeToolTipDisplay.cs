@@ -33,6 +33,7 @@ public class RecipeToolTipDisplay : MonoBehaviour
         {
             //create an image
             Image im = new GameObject("image " + i.ToString()).AddComponent<Image>();
+            im.raycastTarget = false;
             im.transform.SetParent(parent.transform);
             im.preserveAspect = true;
             //set parent and sprite and color
@@ -44,6 +45,7 @@ public class RecipeToolTipDisplay : MonoBehaviour
             //set the text up
             t = Instantiate(defaultTextTemplate, im.rectTransform);
             t.text = imageString[i];
+            t.raycastTarget = false;
             //make the tmptext's box like super long so that it is never a problem
             float boxWidth = 1000;
             float boxOffset = boxWidth / 2;

@@ -24,16 +24,47 @@ public static class StaticFunctions
         Item nullItem = Resources.Load<Item>("Items/NullItem");
         for (int i = 0; i < allItems.Length; i++)
         {
-            Debug.Log(allItems[i].name + ":" + input);
-            //currently, input is always an empty string...
-            if(allItems[i].name == input)
+            if(allItems[i].typeOfItem == input)
             {
                 return allItems[i];
             }
         }
         //currently no functionality to handle a scenario where there is no  item in the crafter. Solution? IDK
-        Debug.Log("RETURNING NULL BECAUSE FUCK yoU THATS WHY");
+        Debug.Log("RETURNING NULL ITEM BECAUSE FUCK yoU THATS WHY");
         return nullItem;
+    }
+    public static OreController GetOreFromString(string input)
+    {
+        OreController[] allOres = Resources.LoadAll<OreController>("Ores");
+        OreController nullOre = Resources.Load<OreController>("Ores/NullOre");
+        for (int i = 0; i < allOres.Length; i++)
+        {
+            //Debug.Log(allItems[i].name + ":" + input);
+            if (allOres[i].product.typeOfItem == input)
+            {
+                return allOres[i];
+            }
+        }
+        Debug.Log("RETURNING NULL ORE BECAUSE FUCK yoU THATS WHY");
+        return nullOre;
+    }
+    public static string AbbreviateNumber(int number)
+    {
+        string abb = number.ToString();
+        //abbreviates integers based on k, mil
+        if (number >= 1000000)
+        {
+            abb = abb.Substring(0, abb.Length - 6) + "m";
+        }
+        else if (number >= 1000)
+        {
+            abb = abb.Substring(0, abb.Length - 3) + "k";
+        }
+        else
+        {
+        }
+        return abb;
+
     }
     /*
         public static int GetMasterIntFromListOfItems(Item[] its)

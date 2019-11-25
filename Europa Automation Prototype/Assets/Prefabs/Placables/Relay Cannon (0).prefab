@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: 3312618416205876941}
   - component: {fileID: 3312618416205876940}
   - component: {fileID: 6414022451674387488}
+  - component: {fileID: 2473862395804175591}
   m_Layer: 0
   m_Name: Relay Cannon (0)
   m_TagString: Untagged
@@ -348,6 +349,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2473862395804175591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3312618416205876936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a2ba099292c644b92808e826a892b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  costs:
+  - -5,Pycrete
+  - -2,Refined Iron
 --- !u!1 &3312618417930752546
 GameObject:
   m_ObjectHideFlags: 0

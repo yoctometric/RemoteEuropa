@@ -232,6 +232,7 @@ MonoBehaviour:
     type: 3}
   sp: {fileID: 6968299423405148836}
   index: 2
+  cost: 000000000000000005000000
 --- !u!1 &1222705123390829850
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,8 +340,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a1249c8b70a06488191277955a3dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasPanel: 1
   canBeDestroyed: 1
   destroyedValue: 0
+  aimer: {fileID: 0}
 --- !u!1 &1222705123899354805
 GameObject:
   m_ObjectHideFlags: 0

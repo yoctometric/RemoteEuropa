@@ -75,7 +75,8 @@ public class HUPCONT : MonoBehaviour
             typeSelected = 3;
             ore = obj.GetComponent<OreController>();
             MidInfoT.gameObject.SetActive(true);
-            MidInfoT.text = "Quantity: " + ore.currentQuantity.ToString();
+            MidInfoT.text = "Quantity: " + ore.currentQuantity.ToString() + System.Environment.NewLine + "Hardness: " + ore.hardness;
+            print(ore.hardness);
             MidInfoT.color = ore.GetComponent<SpriteRenderer>().color;
         }
         if (obj.GetComponent<Crafting>())
@@ -104,7 +105,8 @@ public class HUPCONT : MonoBehaviour
     {
         if(typeSelected == 3)
         {
-            MidInfoT.text = "Quantity: " + ore.currentQuantity.ToString();
+            MidInfoT.text = "Quantity: " + ore.currentQuantity.ToString() + System.Environment.NewLine + "Hardness: " + ore.hardness;
+
         }
     }
     //allows slider one to set values
@@ -151,7 +153,10 @@ public class HUPCONT : MonoBehaviour
         if(typeSelected == 4)   
         {
             //instead of directly setting the recipe, call a function on the crafter so that I can activate other shit when it changes recipe.
-            obj.GetComponent<Crafting>().ChangeRecipe(rec);
+            if (obj)
+            {
+                obj.GetComponent<Crafting>().ChangeRecipe(rec);
+            }
         }
         else
         {

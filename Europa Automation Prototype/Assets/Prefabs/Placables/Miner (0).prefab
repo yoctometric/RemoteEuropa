@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: 1222705123023840277}
   - component: {fileID: 1222705123023840278}
   - component: {fileID: 1222705123023840281}
+  - component: {fileID: 3214288576139351587}
   m_Layer: 8
   m_Name: Miner (0)
   m_TagString: Untagged
@@ -361,6 +362,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3214288576139351587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222705123023840274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a2ba099292c644b92808e826a892b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  costs:
+  - -5,Pycrete
 --- !u!1 &1222705123390829850
 GameObject:
   m_ObjectHideFlags: 0
