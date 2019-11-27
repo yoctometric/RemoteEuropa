@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   costs:
-  - -5,Pycrete
+  - -10,Brick
   - -2,Refined Iron
 --- !u!1 &3312618417930752546
 GameObject:

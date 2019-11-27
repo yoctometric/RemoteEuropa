@@ -148,7 +148,7 @@ public class InventoryData
 
     public InventoryData(SaveMaster mast)
     {
-        numStats = 3; //because what if I add more items?
+        numStats = 4; //because what if I add more items?
         stats = new string[numStats];
         int i = 0;
         foreach(KeyValuePair<string, int> keyVal in mast.invent.storedVals)

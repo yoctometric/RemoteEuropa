@@ -40,6 +40,10 @@ public class Inventory : MonoBehaviour
             {
                 countDisplays[2].transform.parent.GetComponent<Animator>().SetTrigger("Flash");
             }
+            else if (index == "Brick")
+            {
+                countDisplays[3].transform.parent.GetComponent<Animator>().SetTrigger("Flash");
+            }
             return false;
             
         }
@@ -69,6 +73,11 @@ public class Inventory : MonoBehaviour
             countDisplays[2].text = value;
             storedVals["Pycrete"] = int.Parse(noAbb);
         }
+        else if (type == "Brick")
+        {
+            countDisplays[3].text = value;
+            storedVals["Brick"] = int.Parse(noAbb);
+        }
         else
         {
             //solid error
@@ -81,15 +90,19 @@ public class Inventory : MonoBehaviour
     {
         if(!storedVals.ContainsKey("Refined Copper"))
         {
-            storedVals.Add("Refined Copper", 0);
+            storedVals.Add("Refined Copper", 20);
         }
         if (!storedVals.ContainsKey("Refined Iron"))
         {
-            storedVals.Add("Refined Iron", 0);
+            storedVals.Add("Refined Iron", 20);
         }
         if (!storedVals.ContainsKey("Pycrete"))
         {
-            storedVals.Add("Pycrete", 50);
+            storedVals.Add("Pycrete", 0);
+        }
+        if (!storedVals.ContainsKey("Brick"))
+        {
+            storedVals.Add("Brick", 50);
         }
         foreach (string key in storedVals.Keys.ToList())
         {

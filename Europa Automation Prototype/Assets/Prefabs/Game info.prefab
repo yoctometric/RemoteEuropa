@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2415686138039632254}
   - component: {fileID: 2415686138039632255}
   - component: {fileID: 2415686138039632253}
+  - component: {fileID: 352069584776367673}
   m_Layer: 0
   m_Name: Game info
   m_TagString: GameInfo
@@ -63,6 +64,7 @@ MonoBehaviour:
   items: []
   miners: []
   ores: []
+  invent: {fileID: 0}
   cannonPrefab: {fileID: 3312618416205876941, guid: 86da3ab54db7e924ea3454327621ce83,
     type: 3}
   fanPrefab: {fileID: 3184438532275898518, guid: fc93efb81d3e9604ba905c6aac4c6836,
@@ -73,3 +75,17 @@ MonoBehaviour:
     type: 3}
   orePrefab: {fileID: 8233500952119286089, guid: 58d6ec6b7a7af6748a2cc627519b2797,
     type: 3}
+--- !u!114 &352069584776367673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2415686138039632240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53f0ebceabb6b9d4691e34e09d4311f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coolDown: 1
+  sp: {fileID: 0}

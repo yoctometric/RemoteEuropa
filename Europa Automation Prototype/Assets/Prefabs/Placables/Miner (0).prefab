@@ -335,7 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972a91bc71e12d54a938cd86c32a7de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolDown: 1
+  coolDown: 10
   launchForce: 750
   launchPoint: {fileID: 1222705122403093120}
   layerMask:
@@ -375,7 +375,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   costs:
-  - -5,Pycrete
+  - -5,Brick
+  - -1,Refined Copper
+  - -1,Refined Iron
 --- !u!1 &1222705123390829850
 GameObject:
   m_ObjectHideFlags: 0
