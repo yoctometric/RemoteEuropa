@@ -9,6 +9,7 @@ public class CapsuleController : MonoBehaviour
 
     //public int maxItems = 50;//moved to packager
     public List<Item> items;
+    public List<string> stringIts;
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
@@ -28,6 +29,7 @@ public class CapsuleController : MonoBehaviour
             Item itemmmmm = iter.GetComponent<Item>();
             itemmmmm.gameObject.SetActive(false);
             items.Add(itemmmmm);
+            stringIts.Add(itemmmmm.typeOfItem);
             Destroy(it.gameObject);
             //it.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             return true;

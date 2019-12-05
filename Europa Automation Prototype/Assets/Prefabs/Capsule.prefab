@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7058420905072547121}
   - component: {fileID: 7058420905072547120}
   - component: {fileID: 3487163221458722909}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Capsule
   m_TagString: Egg
   m_Icon: {fileID: 0}
@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ada01e97d1511eb4daf019c6ee3eb08c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxItems: 10
   items: []
+  stringIts: []
 --- !u!1 &7058420905375561397
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,7 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7058420905375561394}
   - component: {fileID: 7058420905375561395}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Half1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7058420906108857737}
   - component: {fileID: 7058420906108857782}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Half2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

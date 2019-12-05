@@ -14,6 +14,9 @@ public class Item : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         StartCoroutine(StartInvulnerability());
+        TrailRenderer t = gameObject.GetComponent<TrailRenderer>();
+        t.startColor = gameObject.GetComponent<SpriteRenderer>().color;
+        t.endColor = new Color(1, 1, 1, 0.5f);
     }
     //this allows the item to sink into the ice after it gets too slow, to improve performance and fun
     private void Update()

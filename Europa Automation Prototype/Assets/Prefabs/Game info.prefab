@@ -65,6 +65,9 @@ MonoBehaviour:
   miners: []
   ores: []
   invent: {fileID: 0}
+  packers: []
+  unPackers: []
+  capsules: []
   cannonPrefab: {fileID: 3312618416205876941, guid: 86da3ab54db7e924ea3454327621ce83,
     type: 3}
   fanPrefab: {fileID: 3184438532275898518, guid: fc93efb81d3e9604ba905c6aac4c6836,
@@ -74,6 +77,12 @@ MonoBehaviour:
   minerPrefab: {fileID: 1222705123023840278, guid: fbdd77a658d2e984db771e0a3dd284c8,
     type: 3}
   orePrefab: {fileID: 8233500952119286089, guid: 58d6ec6b7a7af6748a2cc627519b2797,
+    type: 3}
+  eggPrefab: {fileID: 3487163221458722909, guid: 3d3351ecf5077524b842323006b399ec,
+    type: 3}
+  unPackPrefab: {fileID: 5497672362734681425, guid: bc4d30ecad8053648bbdd06cf5f8dff6,
+    type: 3}
+  packPrefab: {fileID: 7529614626092336313, guid: 15bd39645d48f2642a9016ec383dff6a,
     type: 3}
 --- !u!114 &352069584776367673
 MonoBehaviour:
@@ -87,5 +96,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f0ebceabb6b9d4691e34e09d4311f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolDown: 1
-  sp: {fileID: 0}
+  miners: []

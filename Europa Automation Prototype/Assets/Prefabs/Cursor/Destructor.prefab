@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 20480
   deathEffect: {fileID: 410601855901505999, guid: a98063de64cab6147a1418033c700e41,
     type: 3}
 --- !u!120 &5387382661271241368

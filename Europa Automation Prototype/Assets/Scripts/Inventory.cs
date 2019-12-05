@@ -90,19 +90,19 @@ public class Inventory : MonoBehaviour
     {
         if(!storedVals.ContainsKey("Refined Copper"))
         {
-            storedVals.Add("Refined Copper", 20);
+            storedVals.Add("Refined Copper", 200);
         }
         if (!storedVals.ContainsKey("Refined Iron"))
         {
-            storedVals.Add("Refined Iron", 20);
+            storedVals.Add("Refined Iron", 200);
         }
         if (!storedVals.ContainsKey("Pycrete"))
         {
-            storedVals.Add("Pycrete", 0);
+            storedVals.Add("Pycrete", 200);
         }
         if (!storedVals.ContainsKey("Brick"))
         {
-            storedVals.Add("Brick", 50);
+            storedVals.Add("Brick", 200);
         }
         foreach (string key in storedVals.Keys.ToList())
         {

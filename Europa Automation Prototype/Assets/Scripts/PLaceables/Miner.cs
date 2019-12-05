@@ -20,7 +20,7 @@ public class Miner : MonoBehaviour
         //get the timer
         tim = GameObject.FindObjectOfType<Timer>();
         tim.miners.Add(gameObject.GetComponent<Miner>());
-        StartCoroutine(LaunchItem());
+        //StartCoroutine(LaunchItem());
         sp = gameObject.GetComponent<SpriteRenderer>();
         //make sure you dont add shit behind this, because it will error out and fail if the miner isnt on a patch
         if(Physics2D.OverlapCircle(transform.position, 1, layerMask))
@@ -95,7 +95,10 @@ public class Miner : MonoBehaviour
         {
             //product = null;
             sp.color = new Color(0.2f, 0.2f, 0.2f, 1);
-            orePatch = Physics2D.OverlapCircle(transform.position, 1, layerMask).gameObject.GetComponent<OreController>();
+            if (Physics2D.OverlapCircle(transform.position, 1, layerMask))
+            {
+                orePatch = Physics2D.OverlapCircle(transform.position, 1, layerMask).gameObject.GetComponent<OreController>();
+            }
             if (orePatch)
             {
                 hardnessMultiplier = orePatch.hardness;

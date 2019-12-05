@@ -13,7 +13,9 @@ public class SaveLoadManager
         BinaryFormatter bf = new BinaryFormatter();
         FileStream stream = new FileStream(Application.persistentDataPath + "/" + path + ".europa", FileMode.Create);
 
-        AllData data = new AllData(new RelayCannonsData(master), new FansData(master), new CrafterData(master), new ItemObjectsData(master), new MinersData(master), new OreData(master), new InventoryData(master));
+        AllData data = new AllData(new RelayCannonsData(master), new FansData(master), new CrafterData(master),
+            new ItemObjectsData(master), new MinersData(master), new OreData(master), new InventoryData(master), 
+            new UnPackagerData(master), new PackagerData(master), new EggData(master));
         bf.Serialize(stream, data);
 
         stream.Close();
@@ -36,7 +38,7 @@ public class SaveLoadManager
         else
         {
             Debug.LogError("NO FILE AT PATH BROTHER!");
-            return new AllData(null, null, null, null, null, null, null);
+            return new AllData(null, null, null, null, null, null, null, null, null, null);
         }
     }
 }
@@ -52,7 +54,11 @@ public class AllData
     public MinersData miner;
     public OreData ore;
     public InventoryData invent;
-    public AllData(RelayCannonsData cannons, FansData fans, CrafterData crafters, ItemObjectsData items, MinersData miners, OreData ores, InventoryData invents)
+    public UnPackagerData unPack;
+    public PackagerData pack;
+    public EggData egg;
+    public AllData(RelayCannonsData cannons, FansData fans, CrafterData crafters, ItemObjectsData items, MinersData miners, OreData ores, InventoryData invents, UnPackagerData unPacks,
+        PackagerData packs, EggData eggs)
     {
         cannon = cannons;
         fan = fans;
@@ -61,6 +67,9 @@ public class AllData
         miner = miners;
         ore = ores;
         invent = invents;
+        unPack = unPacks;
+        pack = packs;
+        egg = eggs;
     }
 
 }
@@ -242,9 +251,106 @@ public class ItemListSave
     
     public ItemListSave(List<string> its)
     {
-
         items = its;
         items.ToArray();
+    }
+}
+[Serializable]
+public class PackagerData
+{
+    public float[] x;
+    public float[] y;
+    public float[] z;
+
+    public int[] mI;
+    public float[] ft;
+
+    public PackagerData(SaveMaster mast)
+    {
+        int num = mast.packers.Length;
+        x = new float[num];
+        y = new float[num];
+        z = new float[num];
+
+        mI = new int[num];
+        ft = new float[num];
+        for (int i = 0; i < mast.packers.Length; i++)
+        {
+            Packager p = mast.packers[i];
+            x[i] = p.transform.position.x;
+            y[i] = p.transform.position.y;
+            z[i] = p.transform.rotation.eulerAngles.z;
+
+            mI[i] = p.maxItems;
+            ft[i] = p.launchForce;
+        }
+    }
+}
+[Serializable]
+public class UnPackagerData
+{
+    public float[] x;
+    public float[] y;
+    public float[] z;
+
+    public float[] fF;
+    public float[] ft;
+    public string[][] allItems;
+
+    public UnPackagerData(SaveMaster mast)
+    {
+        int num = mast.unPackers.Length;
+        x = new float[num];
+        y = new float[num];
+        z = new float[num];
+
+        fF = new float[num];
+        ft = new float[num];
+        allItems = new string[num][];
+        for(int i = 0; i < num; i++)
+        {
+            UnPackager uP = mast.unPackers[i];
+            Debug.Log(uP.name);
+            x[i] = uP.transform.position.x;
+            y[i] = uP.transform.position.y;
+            z[i] = uP.transform.rotation.eulerAngles.z;
+
+            fF[i] = uP.fireForce;
+            ft[i] = uP.fireDelay;
+        }
+    }
+}
+[Serializable]
+public class EggData
+{
+    public float[][] vels;
+    public float[][] transes;
+    public string[][] allItems;
+
+    public EggData(SaveMaster mast)
+    {
+        int num = mast.capsules.Length;
+        vels = new float[num][];
+        transes = new float[num][];
+        allItems = new string[num][];
+        for (int i = 0; i < mast.capsules.Length; i++)
+        {
+            CapsuleController egg = mast.capsules[i];
+            Rigidbody2D rb = egg.GetComponent<Rigidbody2D>();
+            float[] v = new float[2];
+            v[0] = rb.velocity.x;
+            v[1] = rb.velocity.y;
+            Debug.Log(v[0] + ' ' + v[1]);
+            vels[i] = v;
+
+            float[] t = new float[3];
+            t[0] = egg.transform.position.x;
+            t[1] = egg.transform.position.y;
+            t[2] = egg.transform.rotation.eulerAngles.z;
+            transes[i] = t;
+
+            allItems[i] = new ItemListSave(egg.stringIts).items.ToArray();  
+        }
     }
 }
 /*    public float[] transforms;

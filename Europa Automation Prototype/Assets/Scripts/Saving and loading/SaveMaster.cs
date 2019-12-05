@@ -13,14 +13,18 @@ public class SaveMaster : MonoBehaviour
     public Miner[] miners;
     public OreController[] ores;
     public Inventory invent;
-
+    public Packager[] packers;
+    public UnPackager[] unPackers;
+    public CapsuleController[] capsules;
     //prefabs
     public LauncherController cannonPrefab;
     public Transform fanPrefab;
     public Crafting crafterPrefab;
     public Miner minerPrefab;
     public OreController orePrefab;
-
+    public CapsuleController eggPrefab;
+    public UnPackager unPackPrefab;
+    public Packager packPrefab;
     //functions
 
     private void Start()
@@ -38,6 +42,9 @@ public class SaveMaster : MonoBehaviour
         miners = GameObject.FindObjectsOfType<Miner>();
         ores = GameObject.FindObjectsOfType<OreController>();
         invent = GameObject.FindObjectOfType<Inventory>();
+        packers = GameObject.FindObjectsOfType<Packager>();
+        unPackers = GameObject.FindObjectsOfType<UnPackager>();
+        capsules = GameObject.FindObjectsOfType<CapsuleController>();
         SaveLoadManager.SaveData(this, path);
     }
 
@@ -52,9 +59,11 @@ public class SaveMaster : MonoBehaviour
     {
         //wait until the scene is loaded to instantiate, otherwise shit gets overwritten
         AsyncOperation async = SceneManager.LoadSceneAsync(scene);
+
         while (!async.isDone)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(1f);
+            yield return new WaitForEndOfFrame();
         }
         //now that the scene is loaded, send it brother
         AllData allData = SaveLoadManager.LoadData(path);
@@ -66,6 +75,9 @@ public class SaveMaster : MonoBehaviour
         Miners(allData);
         Ores(allData);
         LoadInventory(allData);
+        UnPackers(allData);
+        Packers(allData);
+        Eggs(allData);
     }
 
     void Cannons(AllData allData)
@@ -78,6 +90,7 @@ public class SaveMaster : MonoBehaviour
             for (int i = 0; i < cannonAmount; i++)
             {
                 LauncherController cannon = Instantiate(cannonPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                cannon.GetComponent<Price>().byPass = true;
                 cannon.transform.position = new Vector3(cannonData[(i * num)], cannonData[(i * num) + 1], 0);
                 cannon.transform.rotation = Quaternion.Euler(0, 0, cannonData[(i * num) + 2]);
                 cannon.coolDown = cannonData[(i * num) + 3];
@@ -97,6 +110,8 @@ public class SaveMaster : MonoBehaviour
             for (int i = 0; i < fanAmount; i++)
             {
                 Transform fan = Instantiate(fanPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                fan.GetComponent<Price>().byPass = true;
+
                 fan.position = new Vector3(fansData[(i * num)], fansData[(i * num) + 1], 0);
                 fan.rotation = Quaternion.Euler(0, 0, fansData[(i * num) + 2]);
             }
@@ -114,6 +129,7 @@ public class SaveMaster : MonoBehaviour
             for (int i = 0; i < crafterAmount; i++)
             {
                 Crafting crafter = Instantiate(crafterPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                crafter.GetComponent<Price>().byPass = true;
                 crafter.transform.position = new Vector3(craftersData[(i * num)], craftersData[(i * num) + 1], 0);
                 crafter.transform.rotation = Quaternion.Euler(0, 0, craftersData[(i * num) + 2]);
                 crafter.ChangeRecipe(StaticFunctions.GetRecipeFromIndex(Mathf.RoundToInt(craftersData[(i * num) + 3])));
@@ -158,6 +174,7 @@ public class SaveMaster : MonoBehaviour
             for (int i = 0; i < amount; i++)
             {
                 Miner min = Instantiate(minerPrefab, Vector3.zero, Quaternion.identity);
+                min.GetComponent<Price>().byPass = true;
                 min.transform.position = new Vector3(data[(i * num)], data[(i * num) + 1], 0);
                 min.transform.rotation = Quaternion.Euler(0, 0, data[(i * num) + 2]);
                 min.launchForce = data[(i * num) + 3];
@@ -201,7 +218,6 @@ public class SaveMaster : MonoBehaviour
                 {
                     string k = data[i].Split(',')[0];//key
                     int v = int.Parse(data[i].Split(',')[1]);//value
-                    print(k + ':' + v.ToString());
                     inv.storedVals[k] = v;
                 }
             }
@@ -213,4 +229,74 @@ public class SaveMaster : MonoBehaviour
         }
     }
 
+    void UnPackers(AllData allData)
+    {
+        if (allData.unPack.x != null)
+        {
+            float[] x = allData.unPack.x;
+            float[] y = allData.unPack.y;
+            float[] z = allData.unPack.z;
+
+            float[] fF = allData.unPack.fF;
+            float[] ft = allData.unPack.ft;
+            for (int i = 0; i < allData.unPack.x.Length; i++)
+            {
+                UnPackager uP = Instantiate(unPackPrefab, Vector3.zero, Quaternion.identity);
+                uP.GetComponent<Price>().byPass = true;
+                uP.transform.position = new Vector3(x[i], y[i], 0);
+                uP.transform.rotation = Quaternion.Euler(0, 0, z[i]);
+                uP.fireForce = fF[i];
+            }
+        }
+    }
+
+    void Packers(AllData allData)
+    {
+        if(allData.pack.x.Length > 0)
+        {
+            float[] x = allData.pack.x;
+            float[] y = allData.pack.y;
+            float[] z = allData.pack.z;
+
+            int[] mI = allData.pack.mI;
+            float[] ft = allData.pack.ft;
+            for (int i = 0; i < allData.pack.x.Length; i++)
+            {
+                Packager p = Instantiate(packPrefab, Vector3.zero, Quaternion.identity);
+                p.GetComponent<Price>().byPass = true;
+                p.transform.position = new Vector3(x[i], y[i], 0);
+                p.transform.rotation = Quaternion.Euler(0, 0, z[i]);
+                Debug.Log(mI[i]);
+                p.launchForce = Mathf.RoundToInt(ft[i]);
+            }
+        }
+    }
+
+    void Eggs(AllData allData)
+    {
+        if(/*allData.egg.vels != null*/true)
+        {
+            float[][] vels = allData.egg.vels;
+            float[][] transes = allData.egg.transes;
+            string[][] allItems = allData.egg.allItems;
+
+            for (int i = 0; i < allData.egg.vels.Length; i++)
+            {
+                CapsuleController e = Instantiate(eggPrefab, Vector3.zero, Quaternion.identity);
+                e.transform.position = new Vector3(transes[i][0], transes[i][1], 0);
+                e.transform.rotation = Quaternion.Euler(0, 0, transes[i][2]);
+                Rigidbody2D rb = e.GetComponent<Rigidbody2D>();
+                rb.velocity = new Vector2(vels[i][0], vels[i][1]);
+                for (int j = 0; j < allItems[i].Length; j++)
+                {
+                    Item it = Instantiate(StaticFunctions.GetItemFromString(allItems[i][j]), transform.position, Quaternion.identity);
+                    e.AddItem(it);
+                }
+            }
+        }
+        else
+        {
+            print("no eggs");
+        }
+    }
 }

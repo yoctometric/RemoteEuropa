@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class UnPackager : MonoBehaviour
 {
-    [SerializeField] float fireDelay = 1;
-    [SerializeField] float fireForce = 500;
+    public float fireDelay = 1;
+    public float fireForce = 500;
     [SerializeField] Transform holdingPoint;
     [SerializeField] Transform launchPoint;
     [SerializeField] ParticleSystem eggParticle;
@@ -46,6 +46,10 @@ public class UnPackager : MonoBehaviour
     IEnumerator ReturnEgg()
     {
         yield return new WaitForSeconds(1);
+        if (!egg)
+        {
+            yield break;
+        }
         if(egg.items.Count > 0)
         {
             StartCoroutine(ReturnEgg());
@@ -74,9 +78,13 @@ public class UnPackager : MonoBehaviour
                 }
 
             }
-            Transform part = Instantiate(eggParticle, egg.transform.position, Quaternion.identity).transform;
-            
-            Destroy(egg.gameObject);
+            if (egg)
+            {
+                Transform part = Instantiate(eggParticle, egg.transform.position, Quaternion.identity).transform;
+                Destroy(egg.gameObject);
+            }
+
+
             //times 5 becuz of hge mass of egg
             egg = null;
         } 

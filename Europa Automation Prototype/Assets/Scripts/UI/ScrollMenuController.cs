@@ -53,13 +53,13 @@ public class ScrollMenuController : MonoBehaviour
                 //load from path
             }
         }
-        scroller.numberOfSteps = saves.Count;
+        scroller.numberOfSteps = saves.Count * 20;
     }
 
     void Update()
     {
         //scroll wheel input
-        float mod = Mathf.RoundToInt(Input.mouseScrollDelta.y);
+        float mod = -Input.mouseScrollDelta.y * 0.1f;
         scroller.value += mod;
         //moving
         scrollingMaster.position = new Vector3(0, (scroller.value * saveHeight * sav.Count), 0);

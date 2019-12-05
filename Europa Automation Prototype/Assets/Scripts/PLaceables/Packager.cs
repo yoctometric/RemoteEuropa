@@ -6,18 +6,37 @@ public class Packager : MonoBehaviour
 {
     [SerializeField] CapsuleController eggPrefab;
     [SerializeField] Transform firePoint;
-    [SerializeField] float launchForce = 1000;
+    [SerializeField] LayerMask eggMask;
+    public int launchForce = 3000;
     CapsuleController egg;
     public int maxItems = 50;
+    bool launching = false;
 
     //inventory
     List<Item> items;
     private void Start()
     {
+        StartCoroutine(OnBegin());
+    }
+    IEnumerator OnBegin()
+    {
+        yield return new WaitForSeconds(0.5f);
         //now check if u have an egg
         if (!egg)
         {
-            egg = Instantiate(eggPrefab, firePoint.position, firePoint.rotation);
+            //check if there is an egg nearby
+            bool obj = Physics2D.OverlapCircle(firePoint.position, 4, eggMask);
+            print(obj);
+            if (obj)
+            {
+                egg = Physics2D.OverlapCircle(firePoint.position, 1, eggMask).GetComponent<CapsuleController>();
+                egg.transform.position = firePoint.position;
+                egg.transform.rotation = firePoint.rotation;
+            }
+            else
+            {
+                egg = Instantiate(eggPrefab, firePoint.position, firePoint.rotation);
+            }
             egg.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             egg.transform.parent = transform;
         }
@@ -45,12 +64,21 @@ public class Packager : MonoBehaviour
             {
                 //if no egg, reject
                 other.GetComponent<Rigidbody2D>().AddForce(firePoint.up * -200);
+                //if not launching, that means no egg is being created to replace. So, another must be made
+                if (!launching)
+                {
+                    egg = Instantiate(eggPrefab, firePoint.position, firePoint.rotation);
+                    egg.transform.parent = transform;
+                    egg.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    egg.AddItem(other.GetComponent<Item>());
+                }
             }
         }
     }
 
     IEnumerator LaunchEgg()
     {
+        launching = true;
         egg.transform.parent = null;
         Rigidbody2D r = egg.GetComponent<Rigidbody2D>();
         r.constraints = RigidbodyConstraints2D.None;
@@ -63,6 +91,7 @@ public class Packager : MonoBehaviour
         egg = Instantiate(eggPrefab, firePoint.position, firePoint.rotation);
         egg.transform.parent = transform;
         egg.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        launching = false;
     }
 
 }
