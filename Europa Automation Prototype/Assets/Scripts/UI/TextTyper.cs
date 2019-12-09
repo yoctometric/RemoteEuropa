@@ -16,7 +16,7 @@ public class TextTyper : MonoBehaviour
     public float charDelay = 0.1f;
     public float blinkDelay = 0.5f;
     bool done = false;
-
+    bool started = false;
     public GameObject objToActivate;
 
     string cursor = " ";
@@ -51,6 +51,13 @@ public class TextTyper : MonoBehaviour
         {
             Ttext.text = currentString + cursor;
         }
+        if (Input.anyKeyDown)
+        {
+            charDelay = 0.005f;
+            StartCoroutine(StartTyping(0));
+
+        }
+
     }
     //blinking IEnum
     IEnumerator Blinking()
@@ -79,6 +86,11 @@ public class TextTyper : MonoBehaviour
     {
         //wait start delay
         yield return new WaitForSeconds(delay);
+        if (started)
+        {
+            yield break;
+        }
+        started = true;
         //set obj active if exists
         if (objToActivate)
         {

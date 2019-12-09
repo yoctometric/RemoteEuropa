@@ -26,7 +26,7 @@ public class Packager : MonoBehaviour
         {
             //check if there is an egg nearby
             bool obj = Physics2D.OverlapCircle(firePoint.position, 4, eggMask);
-            print(obj);
+
             if (obj)
             {
                 egg = Physics2D.OverlapCircle(firePoint.position, 1, eggMask).GetComponent<CapsuleController>();

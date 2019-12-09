@@ -412,3 +412,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateable: {fileID: 7529614626092336314}
   rotBounds: 0
+  mouseAim: 0
+  rotOff: 270

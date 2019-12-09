@@ -232,7 +232,6 @@ MonoBehaviour:
     type: 3}
   sp: {fileID: 6968299423405148836}
   index: 2
-  cost: 000000000000000005000000
 --- !u!1 &1222705123390829850
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +242,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1222705123390829853}
   - component: {fileID: 1222705123390829854}
-  - component: {fileID: 1222705123390829855}
   - component: {fileID: 1222705123390829857}
   m_Layer: 9
   m_Name: EditCollider
@@ -314,20 +312,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1222705123390829855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1222705123390829850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 784d7e2739495534c91b9c8b796974fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotateable: {fileID: 1222705123023840279}
-  rotBounds: 0
 --- !u!114 &1222705123390829857
 MonoBehaviour:
   m_ObjectHideFlags: 0

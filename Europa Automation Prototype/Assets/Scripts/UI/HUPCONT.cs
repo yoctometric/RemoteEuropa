@@ -22,11 +22,51 @@ public class HUPCONT : MonoBehaviour
     Miner miner;
     LauncherController launcher;
     OreController ore;
+    EditRotation eRot;
 
+    [SerializeField] List<GameObject> elements;
+
+    public void Close()
+    {
+        ObjectPlacer op = GameObject.FindObjectOfType<ObjectPlacer>();
+        op.CloseUI();
+        //close all the elements on the hupcont to reset it.
+        foreach (GameObject go in elements)
+        {
+            if (go)
+            {
+                go.SetActive(false);
+            }
+        }
+    }
+    public void ActivateMouseAim()
+    {       
+        if (eRot)
+        {
+            print("now do the mouse aiming");
+            eRot.StartMouseAim();
+            //handle the mouseaiming thru the erot
+            
+            Close();
+        }
+    }
     public void OpenEditor(GameObject editable)
     {
+        //activate cursor
+        Cursor.visible = true;
+
         //get editable
         obj = editable.transform.parent.gameObject;
+        if (editable.GetComponent<EditRotation>())
+        {
+            eRot = editable.GetComponent<EditRotation>();
+            elements[4].SetActive(true);
+        }
+        else
+        {
+            eRot = null;
+            //so that you never end up doing it for something else
+        }
         //make the title of the ui the obj name
         string objName = obj.name;
         //if it has a (, remove everything after that (

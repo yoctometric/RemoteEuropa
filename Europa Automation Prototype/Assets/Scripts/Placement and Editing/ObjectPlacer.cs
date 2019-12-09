@@ -19,7 +19,7 @@ public class ObjectPlacer : MonoBehaviour
     bool UIOpened = false;
     bool overUI = false;
     int placeableIndex = 0;
-    int previousIndex = 0;
+    [HideInInspector] public int previousIndex = 0;
     //cooldown for editing so that the window isnt immideately opened
     int editCoolDown = 4;
     GameObject editingObject;
@@ -35,14 +35,45 @@ public class ObjectPlacer : MonoBehaviour
         HUP.SetActive(false);
         cam = Camera.main;
         Cursor.visible = false;
-        SetIndex(0);
+        SetIndex(1);
         //set sensitivity of scroll
         rotSpeed = PlayerPrefs.GetFloat("ScrollSense");
     }
 
     void Update()
     {
-
+        //input
+        if (Input.anyKeyDown)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                SetIndex(0);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                SetIndex(2);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                SetIndex(3);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                SetIndex(4);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                SetIndex(6);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                SetIndex(7);
+            }
+            else if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                SetIndex(5);
+            }
+        }
         overUI = EventSystem.current.IsPointerOverGameObject();
 
         //place the placable when able to
@@ -187,7 +218,7 @@ public class ObjectPlacer : MonoBehaviour
         {
             Cursor.visible = true;
         }
-        else
+        else if(!UIOpened)
         {
             Cursor.visible = false;
         }
@@ -264,7 +295,6 @@ public class ObjectPlacer : MonoBehaviour
                 editReader.GetComponent<EditorValues>().aimer.ToggleAimerOff();
             }
         }
-
     }
 
     //change the index and set all others unactive

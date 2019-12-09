@@ -60,7 +60,7 @@ public class Miner : MonoBehaviour
     {
         //setup modifier
         float mod = 1;
-        if (hardnessMultiplier != null)
+        if (hardnessMultiplier != 0)
         {
             mod = hardnessMultiplier;
         }

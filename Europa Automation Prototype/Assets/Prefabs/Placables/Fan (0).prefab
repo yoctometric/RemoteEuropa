@@ -138,6 +138,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateable: {fileID: 3184438532275898518}
   rotBounds: 0
+  mouseAim: 1
+  rotOff: 0
 --- !u!1 &3184438532275898514
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,6 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a2ba099292c644b92808e826a892b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  byPass: 0
   costs:
   - -2,Brick
   - -1,Refined Iron
