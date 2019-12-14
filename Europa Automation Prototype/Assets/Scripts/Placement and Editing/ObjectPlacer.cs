@@ -13,11 +13,13 @@ public class ObjectPlacer : MonoBehaviour
     [SerializeField] LayerMask editingLayerMask;
     [SerializeField] LayerMask groundLayerMask;
     [SerializeField] LayerMask OreMask;
+    [SerializeField] GameObject escMenu;
     
     public bool canPlace = true;
     bool canEdit = false;
     bool UIOpened = false;
     bool overUI = false;
+    bool escMenuOpen = false;
     int placeableIndex = 0;
     [HideInInspector] public int previousIndex = 0;
     //cooldown for editing so that the window isnt immideately opened
@@ -72,6 +74,22 @@ public class ObjectPlacer : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Alpha0))
             {
                 SetIndex(5);
+            }else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                //open pause men if hupcont isnt open
+                if (!UIOpened)
+                {
+                    if (escMenuOpen)
+                    {
+                        escMenu.SetActive(false);
+                        escMenuOpen = false;
+                    }
+                    else
+                    {
+                        escMenu.SetActive(true);
+                        escMenuOpen = true;
+                    }
+                }
             }
         }
         overUI = EventSystem.current.IsPointerOverGameObject();

@@ -41,7 +41,7 @@ public class RecipeToolTipDisplay : MonoBehaviour
             im.color = imgColors[i];
             //scale image based on origional sprite scale
             im.rectTransform.sizeDelta = new Vector2(imageWandH, imageWandH);
-            im.rectTransform.position = new Vector3(transform.position.x - imageWandH - 5, transform.position.y + (imageWandH * i) + (imageWandH / 2) + tmText.fontSize + 5, transform.position.z);
+            im.rectTransform.position = new Vector3(transform.position.x - imageWandH - 5, transform.position.y + (imageWandH * i) + (imageWandH / 2) + tmText.fontSize + 15, transform.position.z);
             //set the text up
             t = Instantiate(defaultTextTemplate, im.rectTransform);
             t.text = imageString[i];
@@ -64,7 +64,7 @@ public class RecipeToolTipDisplay : MonoBehaviour
         float bodyWidth = sortedStrings[sortedStrings.Count - 1].Length * t.fontSize / 2 + (imageWandH * 2.5f);
         //choose the larger one
         float biggestWidth = Mathf.Max(mainTextWidth, bodyWidth);
-        Vector2 size = new Vector2(biggestWidth,(images.Count * imageWandH) + 10 + tmText.fontSize);
+        Vector2 size = new Vector2(biggestWidth,(images.Count * imageWandH) + 15 + tmText.fontSize);
         //set sizes
         im2.rectTransform.sizeDelta = size;
         img.rectTransform.sizeDelta = new Vector2(size.x + 5, size.y + 5);

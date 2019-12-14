@@ -35,10 +35,6 @@ public class Core : MonoBehaviour
                 invent.UpdateInventory(itemType, 1);
                 Destroy(it.gameObject);
             }
-            else
-            {
-                print("repell item");
-            }
         }
     }
 }

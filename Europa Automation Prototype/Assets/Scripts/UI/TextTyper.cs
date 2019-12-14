@@ -31,6 +31,8 @@ public class TextTyper : MonoBehaviour
     AudioSource aud;
     void Start()
     {
+        //reset started
+        started = false;
         //get the string from the tmp asset
         aud = gameObject.GetComponent<AudioSource>();
         Ttext = gameObject.GetComponent<TMP_Text>();
@@ -45,6 +47,7 @@ public class TextTyper : MonoBehaviour
         }
 
     }
+
     private void Update()
     {
         if (!done)
@@ -62,10 +65,10 @@ public class TextTyper : MonoBehaviour
     //blinking IEnum
     IEnumerator Blinking()
     {
-        yield return new WaitForSeconds(blinkDelay);
+        yield return new WaitForSecondsRealtime(blinkDelay);
 
         cursor = " ";
-        yield return new WaitForSeconds(blinkDelay);
+        yield return new WaitForSecondsRealtime(blinkDelay);
         if (!done)
         {
             cursor = "|";
@@ -85,11 +88,12 @@ public class TextTyper : MonoBehaviour
     IEnumerator StartTyping(float delay)
     {
         //wait start delay
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSecondsRealtime(delay);
         if (started)
         {
             yield break;
         }
+
         started = true;
         //set obj active if exists
         if (objToActivate)
@@ -121,7 +125,7 @@ public class TextTyper : MonoBehaviour
         aud.pitch += pitchCurrentShift;
 
         //wait
-        yield return new WaitForSeconds(charDelay);
+        yield return new WaitForSecondsRealtime(charDelay);
         //play audio and reset pitch
         aud.Play();
         aud.pitch -= pitchCurrentShift;
@@ -136,7 +140,7 @@ public class TextTyper : MonoBehaviour
         else
         {
             //currentString = currentString + initialString[initialString.Length - 1];
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSecondsRealtime(0.1f);
             done = true;
         }
     }

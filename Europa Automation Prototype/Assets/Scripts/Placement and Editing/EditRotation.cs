@@ -57,9 +57,7 @@ public class EditRotation : MonoBehaviour
             Vector3 aimDir = (mP - transform.position)/*.normalized*/;
             
             float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
-            print(angle);
             angle += rotOff;
-            print(angle);
             rotateable.rotation = Quaternion.Euler(0, 0, angle);
             if(rotBounds != 0)
             {

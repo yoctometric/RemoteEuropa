@@ -146,7 +146,10 @@ public class HUPCONT : MonoBehaviour
         if(typeSelected == 3)
         {
             MidInfoT.text = "Quantity: " + ore.currentQuantity.ToString() + System.Environment.NewLine + "Hardness: " + ore.hardness;
-
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Close();
         }
     }
     //allows slider one to set values

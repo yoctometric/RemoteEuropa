@@ -7,10 +7,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuCont : MonoBehaviour
 {
+    
     [SerializeField] Slider musicVolumeSlider;
     [SerializeField] Slider SFXVolumeSlider;
     [SerializeField] Slider scrollSenseSlider;
     [SerializeField] AudioMixer mainMixer;
+    [SerializeField] Toggle graphicsToggle;
+    [SerializeField] Toggle FPSToggle;
     private void Start()
     {
         musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume");
@@ -20,6 +23,14 @@ public class MainMenuCont : MonoBehaviour
         if(PlayerPrefs.GetFloat("ScrollSense") == 0)
         {
             PlayerPrefs.SetFloat("ScrollSense", 1);
+        }
+        if(PlayerPrefs.GetInt("LowGraphics") == 1)
+        {
+            graphicsToggle.isOn = true;
+        }
+        if(PlayerPrefs.GetInt("ShowFPS") == 1)
+        {
+            FPSToggle.isOn = true;
         }
 
     }
@@ -56,5 +67,33 @@ public class MainMenuCont : MonoBehaviour
     public void LoadAScene(int scene)
     {
         SceneManager.LoadScene(scene);
+    }
+    public void ToggleFPS()
+    {
+        if (FPSToggle.isOn)
+        {
+            print("on");
+            StaticFunctions.ShowFPS = true;
+            PlayerPrefs.SetInt("ShowFPS", 1);
+        }
+        else
+        {
+            print("off");
+            StaticFunctions.ShowFPS = false;
+            PlayerPrefs.SetInt("ShowFPS", 0);
+        }
+    }
+    public void ToggleGraphics()
+    {
+        if (graphicsToggle.isOn)
+        {
+            StaticFunctions.lowGraphics = true;
+            PlayerPrefs.SetInt("LowGraphics", 1);
+        }
+        else
+        {
+            StaticFunctions.lowGraphics = false;
+            PlayerPrefs.SetInt("LowGraphics", 0);
+        }
     }
 }

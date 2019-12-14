@@ -14,7 +14,6 @@ public class PauseMenu : MonoBehaviour
         else
         {
             Time.timeScale = 1;
-
         }
     }
 }

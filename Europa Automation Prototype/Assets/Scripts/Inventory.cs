@@ -50,33 +50,34 @@ public class Inventory : MonoBehaviour
         string disp = StaticFunctions.AbbreviateNumber(cAmnt + amount);
         UpdateDisplayTexts(index, disp);
         storedVals[index] = cAmnt + amount;
+        print(storedVals["Refined Copper"]);
         return true;
     }
     public bool UpdateDisplayTexts(string type, string value)
     {
-        string noAbb = value;
-        noAbb.Replace("k", "000");
-        noAbb.Replace("m", "000000");
+        //string noAbb = value;
+        //noAbb = noAbb.Replace("k", "000");
+        //noAbb = noAbb.Replace("m", "000000");
         //updates the inventories based on the type given. better than running it in update
         if (type == "Refined Copper")
         {
             countDisplays[0].text = value;
-            storedVals["Refined Copper"] = int.Parse(noAbb);
+            //storedVals["Refined Copper"] = int.Parse(noAbb);
         }
         else if (type == "Refined Iron")
         {
             countDisplays[1].text = value;
-            storedVals["Refined Iron"] = int.Parse(noAbb);
+            //storedVals["Refined Iron"] = int.Parse(noAbb);
         }
         else if (type == "Pycrete")
         {
             countDisplays[2].text = value;
-            storedVals["Pycrete"] = int.Parse(noAbb);
+            //storedVals["Pycrete"] = int.Parse(noAbb);
         }
         else if (type == "Brick")
         {
             countDisplays[3].text = value;
-            storedVals["Brick"] = int.Parse(noAbb);
+            //storedVals["Brick"] = int.Parse(noAbb);            
         }
         else
         {
@@ -90,7 +91,7 @@ public class Inventory : MonoBehaviour
     {
         if(!storedVals.ContainsKey("Refined Copper"))
         {
-            storedVals.Add("Refined Copper", 200);
+            storedVals.Add("Refined Copper", 999);
         }
         if (!storedVals.ContainsKey("Refined Iron"))
         {
