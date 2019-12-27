@@ -17,6 +17,9 @@ public class Item : MonoBehaviour
         TrailRenderer t = gameObject.GetComponent<TrailRenderer>();
         t.startColor = gameObject.GetComponent<SpriteRenderer>().color;
         t.endColor = new Color(1, 1, 1, 0.5f);
+        t.endWidth = 0f;
+        t.startWidth = 0.4f;
+
     }
     //this allows the item to sink into the ice after it gets too slow, to improve performance and fun
     private void Update()

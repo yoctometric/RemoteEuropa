@@ -14,6 +14,8 @@ public class HUPCONT : MonoBehaviour
     [SerializeField] TMP_Text s1T;
     [SerializeField] TMP_Text s2T;
     [SerializeField] GameObject crafterPanel;
+    [SerializeField] GameObject mouseAimButton;
+    [SerializeField] GameObject filterPanel;
 
     [SerializeField] TMP_Text MidInfoT;
     int typeSelected = 0;
@@ -23,6 +25,7 @@ public class HUPCONT : MonoBehaviour
     LauncherController launcher;
     OreController ore;
     EditRotation eRot;
+    Splitter split;
 
     [SerializeField] List<GameObject> elements;
 
@@ -59,11 +62,14 @@ public class HUPCONT : MonoBehaviour
         obj = editable.transform.parent.gameObject;
         if (editable.GetComponent<EditRotation>())
         {
+            //activate mouseaim if...
+            mouseAimButton.SetActive(true);
             eRot = editable.GetComponent<EditRotation>();
             elements[4].SetActive(true);
         }
         else
         {
+            mouseAimButton.SetActive(false);
             eRot = null;
             //so that you never end up doing it for something else
         }
@@ -116,7 +122,6 @@ public class HUPCONT : MonoBehaviour
             ore = obj.GetComponent<OreController>();
             MidInfoT.gameObject.SetActive(true);
             MidInfoT.text = "Quantity: " + ore.currentQuantity.ToString() + System.Environment.NewLine + "Hardness: " + ore.hardness;
-            print(ore.hardness);
             MidInfoT.color = ore.GetComponent<SpriteRenderer>().color;
         }
         if (obj.GetComponent<Crafting>())
@@ -139,6 +144,48 @@ public class HUPCONT : MonoBehaviour
             s1.minValue = 10;
             s1.value = pack.maxItems;
             s1T.text = "Maximum Items: " + Mathf.RoundToInt(s1.value).ToString();
+        }else if (obj.GetComponent<Splitter>())
+        {
+            split = obj.GetComponent<Splitter>();
+            typeSelected = 7;
+            MidInfoT.gameObject.SetActive(true);
+            MidInfoT.text = "Set a filter ->";
+            MidInfoT.color = new Color(0, 255, 255, 255);
+            filterPanel.gameObject.SetActive(true);
+            //setup filter panel
+            UIButtonArray ar = filterPanel.GetComponent<UIButtonArray>();
+            foreach (Button b in ar.buttons)
+            {
+                ///THIS
+                ///MEANS
+                ///THAT
+                ///ALL
+                ///BUTTONS
+                ///MUST BE NAMED
+                ///P R O P E R L Y !!!
+                if(b.name == split.typeName)
+                {
+                    ar.BClick(b);
+                }
+                else
+                {
+                    if(b.name == "Empty filter" && split.typeName == "")
+                    {
+                        ar.BClick(b);
+                    }
+                }
+            }
+        }
+    }
+    public void SetFilter(string input)
+    {
+        if (split)
+        {
+            split.typeName = input;
+        }
+        else
+        {
+            print("wetf why no split");
         }
     }
     private void Update()
@@ -150,6 +197,7 @@ public class HUPCONT : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Close();
+            Cursor.visible = false;
         }
     }
     //allows slider one to set values

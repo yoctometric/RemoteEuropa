@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ToolTipDisplay : MonoBehaviour
 {
+    bool clickToToggle = false;
     [SerializeField] Color BGC;
     [SerializeField] Image im2;
     [SerializeField] TMP_Text tmText;
@@ -21,20 +22,26 @@ public class ToolTipDisplay : MonoBehaviour
     }
     private void Update()
     {
+        if(clickToToggle && Input.GetMouseButtonDown(0))
+        {
+            UnSetToolTip();
+        }
         Vector3 pos = Input.mousePosition + new Vector3(-10, 10, 0);
-        pos = new Vector2(Mathf.Clamp(pos.x, img.rectTransform.sizeDelta.x, Screen.width), Mathf.Clamp(pos.y, 0, Screen.height - img.rectTransform.sizeDelta.y));//an attempt to clamp the tooltip
+        pos = new Vector2(Mathf.Clamp(pos.x, img.rectTransform.sizeDelta.x * 1.5f, Screen.width), Mathf.Clamp(pos.y, 0, Screen.height - img.rectTransform.sizeDelta.y * 1.5f));//an attempt to clamp the tooltip
         transform.position = pos;
         Vector2 size = new Vector2(tmText.text.Length * tmText.fontSize / 2, tmText.fontSize);
         im2.rectTransform.sizeDelta = size;
         img.rectTransform.sizeDelta = new Vector2(size.x + 5, size.y + 5);
     }
-    public void SetToolTip(string t)
+    public void SetToolTip(string t, bool clickOff)
     {
         tmText.text = t;
+        clickToToggle = clickOff;
         img.color = new Color(BGC.r, BGC.g, BGC.b, 1);
     }
     public void UnSetToolTip()
     {
+        clickToToggle = false;
         tmText.text = "";
         img.color = new Color(BGC.r, BGC.g, BGC.b, 0);
     }

@@ -448,7 +448,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1000
+  m_SortingOrder: 101
   m_Sprite: {fileID: 21300002, guid: 7e5076135fb0e114cbc55484a24beac5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -558,6 +558,7 @@ MonoBehaviour:
   rotBounds: 0
   mouseAim: 0
   rotOff: 270
+  masterPos: {fileID: 0}
 --- !u!114 &7999567106517690090
 MonoBehaviour:
   m_ObjectHideFlags: 0

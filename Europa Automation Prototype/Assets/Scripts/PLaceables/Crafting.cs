@@ -121,7 +121,8 @@ public class Crafting : MonoBehaviour
         {
             Rigidbody2D result = Instantiate(recipe.output[i], launchPoint.position, launchPoint.rotation).GetComponent<Rigidbody2D>();
             result.AddForce(launchPoint.up * 500);
-            result.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
+            //result.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360)); //It has been decided that this randomness was introducing too many problems with fan chains
+            yield return new WaitForSeconds(0.1f);
         }
         UpdateDisplayColor(0);
 

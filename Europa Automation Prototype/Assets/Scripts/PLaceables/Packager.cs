@@ -7,6 +7,7 @@ public class Packager : MonoBehaviour
     [SerializeField] CapsuleController eggPrefab;
     [SerializeField] Transform firePoint;
     [SerializeField] LayerMask eggMask;
+    [SerializeField] SpriteRenderer capacityDisplay;
     public int launchForce = 3000;
     CapsuleController egg;
     public int maxItems = 50;
@@ -50,10 +51,14 @@ public class Packager : MonoBehaviour
             //okay now load egg with item
             if (egg)
             {
+                //now update the sprite display
+                float color = (egg.items.Count  * 1f/ maxItems * 1f);
+                capacityDisplay.color = new Color((1 - color), color, 0, 1);
                 if (egg.items.Count < maxItems)
                 {
                     //print(other.name);
                     egg.AddItem(other.GetComponent<Item>());
+
                 }
                 else
                 {
@@ -92,6 +97,7 @@ public class Packager : MonoBehaviour
         egg.transform.parent = transform;
         egg.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         launching = false;
+        capacityDisplay.color = Color.red;
     }
 
 }

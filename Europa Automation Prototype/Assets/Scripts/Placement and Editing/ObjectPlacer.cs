@@ -14,10 +14,12 @@ public class ObjectPlacer : MonoBehaviour
     [SerializeField] LayerMask groundLayerMask;
     [SerializeField] LayerMask OreMask;
     [SerializeField] GameObject escMenu;
+    [SerializeField] GameObject placeParticle;
     
     public bool canPlace = true;
     bool canEdit = false;
     bool UIOpened = false;
+    public bool freezeMovement = false;
     bool overUI = false;
     bool escMenuOpen = false;
     int placeableIndex = 0;
@@ -29,8 +31,10 @@ public class ObjectPlacer : MonoBehaviour
     EditRotation eRot = null;
     Camera cam;
     GameObject HUP;
+    Core core;
     void Start()
     {
+        core = GameObject.FindObjectOfType<Core>();
         //can only find objs when they are active, so set it inactive immideately
         HUP = GameObject.FindWithTag("HeadsUpPanel");
         //HUP needs to always be active at the start of the scene
@@ -49,7 +53,7 @@ public class ObjectPlacer : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                SetIndex(0);
+                SetIndex(4);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
@@ -59,22 +63,41 @@ public class ObjectPlacer : MonoBehaviour
             {
                 SetIndex(3);
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            if (core.level > 0)
             {
-                SetIndex(4);
+                if (Input.GetKeyDown(KeyCode.Alpha4))
+                {
+                    SetIndex(0);
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha5))
+                {
+                    SetIndex(6);
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha6))
+                {
+                    SetIndex(7);
+                }
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha5))
+            if (core.level > 1)
             {
-                SetIndex(6);
+                //third tier items
+                if (Input.GetKeyDown(KeyCode.Alpha7))
+                {
+                    SetIndex(9);
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha8))
+                {
+                    SetIndex(10);
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha9))
+                {
+                    SetIndex(11);
+                }
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha6))
-            {
-                SetIndex(7);
-            }
-            else if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Alpha0))
+            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Alpha0))
             {
                 SetIndex(5);
-            }else if (Input.GetKeyDown(KeyCode.Escape))
+            } else if (Input.GetKeyDown(KeyCode.Escape))
             {
                 //open pause men if hupcont isnt open
                 if (!UIOpened)
@@ -82,15 +105,27 @@ public class ObjectPlacer : MonoBehaviour
                     if (escMenuOpen)
                     {
                         escMenu.SetActive(false);
+                        Cursor.visible = false;
+                        escMenu.GetComponent<PauseMenu>().FreezeTime(false);
                         escMenuOpen = false;
                     }
                     else
                     {
                         escMenu.SetActive(true);
+                        escMenu.GetComponent<PauseMenu>().FreezeTime(true);
                         escMenuOpen = true;
                     }
                 }
+            } else if (Input.GetKeyDown(KeyCode.F))
+            {
+                //activate mouse aim
+                if (eRot)
+                {
+                    eRot.StartMouseAim();
+                }
             }
+            
+
         }
         overUI = EventSystem.current.IsPointerOverGameObject();
 
@@ -178,7 +213,7 @@ public class ObjectPlacer : MonoBehaviour
         }
 
         //make the ""cursor"" follow the "cursor" if that makes any sense whatsoever
-        if (!UIOpened)
+        if (!UIOpened && !freezeMovement)
         {
             Vector2 mPos = cam.ScreenToWorldPoint(Input.mousePosition);
             transform.position = mPos;
@@ -220,9 +255,6 @@ public class ObjectPlacer : MonoBehaviour
             {
                 Destroy(Physics2D.OverlapCircle(transform.position, 0.5f, editingLayerMask).transform.parent.transform.gameObject);
             }
-            else
-            {
-            }
 
             //destroy parent
         }
@@ -232,7 +264,7 @@ public class ObjectPlacer : MonoBehaviour
         //if you hover over the ui element, set cursor to visible
         
         bool onUI = EventSystem.current.IsPointerOverGameObject();
-        if (onUI)
+        if (onUI || freezeMovement)
         {
             Cursor.visible = true;
         }
@@ -254,7 +286,8 @@ public class ObjectPlacer : MonoBehaviour
         //check if there is a placeable attatched
         if (obj)
         {
-            Instantiate(obj, transform.position, transform.rotation);//place it
+            Instantiate(obj, transform.position, placeables[placeableIndex].transform.rotation);//place it
+            Instantiate(placeParticle, transform.position, Quaternion.identity).transform.localScale *= 0.15f;
             //activate the objs place function so that it can lose me money
 
         }

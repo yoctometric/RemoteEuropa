@@ -16,7 +16,14 @@ public static class StaticFunctions
     public static ScriptableRecipe GetRecipeFromIndex(int index)
     {
         ScriptableRecipe[] recipes = Resources.LoadAll<ScriptableRecipe>("Crafting");
-        return recipes[index];
+        foreach (ScriptableRecipe r in recipes)
+        {
+            if(r.id == index)
+            {              
+                return r;
+            }
+        }
+        return recipes[0];
     }
 
     public static Item GetItemFromString(string input)
@@ -55,11 +62,16 @@ public static class StaticFunctions
         //abbreviates integers based on k, mil
         if (number >= 1000000)
         {
-            abb = abb.Substring(0, abb.Length - 6) + "m";
+            abb = abb.Substring(0, abb.Length - 6);
+            string intermediate = number.ToString();
+            abb += "." + intermediate[intermediate.Length - 6] + "m";
+
         }
         else if (number >= 1000)
         {
-            abb = abb.Substring(0, abb.Length - 3) + "k";
+            abb = abb.Substring(0, abb.Length - 3);
+            string intermediate = number.ToString();
+            abb += "." + intermediate[intermediate.Length - 3] + "k";
         }
         else
         {

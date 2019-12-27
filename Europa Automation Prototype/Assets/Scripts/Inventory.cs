@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     [SerializeField] List<TMP_Text> countDisplays;
     public Dictionary<string, int> storedVals = new Dictionary<string, int>();
+    [HideInInspector]public Core core;
+    [SerializeField] Button upButton;
+    bool buttonOn = false;
     private void Start()
     {
+        core = GameObject.FindObjectOfType<Core>();
         //storedVals.Add("Refined Copper", 0);
         //storedVals.Add("Refined Iron", 0);
         //storedVals.Add("Pycrete", 50);
@@ -47,11 +52,44 @@ public class Inventory : MonoBehaviour
             return false;
             
         }
+        if(core.level < 2)
+        {
+            if (storedVals["Brick"] >= core.lvlCosts[core.level].w & storedVals["Refined Copper"] >= core.lvlCosts[core.level].x && storedVals["Refined Iron"] >= core.lvlCosts[core.level].y && storedVals["Pycrete"] >= core.lvlCosts[core.level].z)
+            {
+                if (!buttonOn)
+                {
+                    ToggleUpButton(true);
+                }
+            }
+            else
+            {
+                ToggleUpButton(false);
+            }
+        }
+        else
+        {
+            ToggleUpButton(false);
+        }
+
         string disp = StaticFunctions.AbbreviateNumber(cAmnt + amount);
         UpdateDisplayTexts(index, disp);
         storedVals[index] = cAmnt + amount;
-        print(storedVals["Refined Copper"]);
         return true;
+    }
+    public void ToggleUpButton(bool yesnt)
+    {
+        if (yesnt)
+        {
+            buttonOn = true;
+            upButton.gameObject.SetActive(true);
+            upButton.GetComponent<Animator>().SetBool("flash", true);
+        }
+        else
+        {
+            buttonOn = false;
+            upButton.GetComponent<Animator>().SetBool("flash", false);
+            upButton.gameObject.SetActive(false);
+        }
     }
     public bool UpdateDisplayTexts(string type, string value)
     {
@@ -91,23 +129,25 @@ public class Inventory : MonoBehaviour
     {
         if(!storedVals.ContainsKey("Refined Copper"))
         {
-            storedVals.Add("Refined Copper", 999);
+            storedVals.Add("Refined Copper", 50);
         }
         if (!storedVals.ContainsKey("Refined Iron"))
         {
-            storedVals.Add("Refined Iron", 200);
+            storedVals.Add("Refined Iron", 50);
         }
         if (!storedVals.ContainsKey("Pycrete"))
         {
-            storedVals.Add("Pycrete", 200);
+            storedVals.Add("Pycrete", 0);
         }
         if (!storedVals.ContainsKey("Brick"))
         {
-            storedVals.Add("Brick", 200);
+            storedVals.Add("Brick", 100);
         }
         foreach (string key in storedVals.Keys.ToList())
         {
             bool yes = UpdateDisplayTexts(key, StaticFunctions.AbbreviateNumber(storedVals[key]));
         }
     }
+
+    
 }

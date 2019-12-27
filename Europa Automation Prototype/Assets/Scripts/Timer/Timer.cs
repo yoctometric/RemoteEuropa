@@ -9,6 +9,7 @@ public class Timer : MonoBehaviour
     ///besides, this only has to be done for miners, right? All else depends on them.
     //
     public List<Miner> miners;
+    public List<Pump> pumps;
     private void Start()
     {
         StartCoroutine(Tick());
@@ -26,6 +27,10 @@ public class Timer : MonoBehaviour
             }
         }
         StartCoroutine(Tick());
+        foreach(Pump p in pumps)
+        {
+            p.Tick();
+        }
 
     }
 

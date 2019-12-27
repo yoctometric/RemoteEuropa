@@ -15,7 +15,7 @@ public class SaveLoadManager
 
         AllData data = new AllData(new RelayCannonsData(master), new FansData(master), new CrafterData(master),
             new ItemObjectsData(master), new MinersData(master), new OreData(master), new InventoryData(master), 
-            new UnPackagerData(master), new PackagerData(master), new EggData(master));
+            new UnPackagerData(master), new PackagerData(master), new EggData(master), new SplitterData(master));
         bf.Serialize(stream, data);
 
         stream.Close();
@@ -38,7 +38,7 @@ public class SaveLoadManager
         else
         {
             Debug.LogError("NO FILE AT PATH BROTHER!");
-            return new AllData(null, null, null, null, null, null, null, null, null, null);
+            return new AllData(null, null, null, null, null, null, null, null, null, null, null);
         }
     }
 }
@@ -57,8 +57,9 @@ public class AllData
     public UnPackagerData unPack;
     public PackagerData pack;
     public EggData egg;
+    public SplitterData split;
     public AllData(RelayCannonsData cannons, FansData fans, CrafterData crafters, ItemObjectsData items, MinersData miners, OreData ores, InventoryData invents, UnPackagerData unPacks,
-        PackagerData packs, EggData eggs)
+        PackagerData packs, EggData eggs, SplitterData splits)
     {
         cannon = cannons;
         fan = fans;
@@ -70,6 +71,7 @@ public class AllData
         unPack = unPacks;
         pack = packs;
         egg = eggs;
+        split = splits;
     }
 
 }
@@ -157,7 +159,7 @@ public class InventoryData
 
     public InventoryData(SaveMaster mast)
     {
-        numStats = 4; //because what if I add more items?
+        numStats = 6; //because what if I add more items?
         stats = new string[numStats];
         int i = 0;
         foreach(KeyValuePair<string, int> keyVal in mast.invent.storedVals)
@@ -169,10 +171,32 @@ public class InventoryData
             }
             i++;
         }
+        stats[5] = mast.invent.core.level.ToString();
     }
 }
 
-
+[Serializable]
+public class SplitterData
+{
+    public string[] filters;
+    public float[] stats;
+    public int numStats = 0;
+    public SplitterData(SaveMaster mast)
+    {
+        numStats = 4; ///posx, posy, rot, force
+        stats = new float[mast.splitters.Length * numStats];
+        filters = new string[mast.splitters.Length];
+        for(int i = 0; i < mast.splitters.Length; i++)
+        {
+            Splitter split = mast.splitters[i];
+            stats[i * numStats] = split.transform.position.x;
+            stats[(i * numStats) + 1] = split.transform.position.y;
+            stats[(i * numStats) + 2] = split.transform.rotation.eulerAngles.z;
+            stats[(i * numStats) + 3] = split.fireForce;
+            filters[i] = split.typeName;
+        }
+    }
+}
 
 [Serializable] 
 public class CrafterData

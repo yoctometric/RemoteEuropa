@@ -16,7 +16,6 @@ public class SaveAs : MonoBehaviour
         {
             return;
         }
-        print('s');
         if(p.Length > 0)
         {
             //save

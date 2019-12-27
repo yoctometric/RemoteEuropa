@@ -14,9 +14,13 @@ public class EditRotation : MonoBehaviour
     ObjectPlacer mouse;
     SpriteRenderer sp;
     EditorValues evals;
+    [SerializeField]Transform masterPos;
     private void Start()
     {
-
+        if(masterPos == null)
+        {
+            masterPos = transform;
+        }
         sp = gameObject.GetComponent<SpriteRenderer>();
         cam = Camera.main;
         mouseAim = false;
@@ -28,9 +32,10 @@ public class EditRotation : MonoBehaviour
         mouseAim = true;
         mouse.previousIndex = 1;
         mouse.SetIndex(1);
+        mouse.freezeMovement = true;
+
         if (evals.aimer)
         {
-            print("on");
             evals.aimer.ToggleAimerOn();
         }
     }
@@ -54,7 +59,7 @@ public class EditRotation : MonoBehaviour
         {
             //now point to the mouse
             Vector3 mP = cam.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 aimDir = (mP - transform.position)/*.normalized*/;
+            Vector3 aimDir = (mP - masterPos.position)/*.normalized*/;
             
             float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
             angle += rotOff;
@@ -75,6 +80,8 @@ public class EditRotation : MonoBehaviour
             //now cancel on click
             if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
+                mouse.transform.position += new Vector3(10, 10, 0);
+                mouse.freezeMovement = false;
                 mouseAim = false;
                 GameObject.FindObjectOfType<ToolTipDisplay>().UnSetToolTip();
                 sp.color = new Color(0, 0, 0, 0);

@@ -16,6 +16,7 @@ public class SaveMaster : MonoBehaviour
     public Packager[] packers;
     public UnPackager[] unPackers;
     public CapsuleController[] capsules;
+    public Splitter[] splitters;
     //prefabs
     public LauncherController cannonPrefab;
     public Transform fanPrefab;
@@ -25,6 +26,7 @@ public class SaveMaster : MonoBehaviour
     public CapsuleController eggPrefab;
     public UnPackager unPackPrefab;
     public Packager packPrefab;
+    public Splitter splitterPrefab;
     //functions
 
     private void Start()
@@ -45,6 +47,7 @@ public class SaveMaster : MonoBehaviour
         packers = GameObject.FindObjectsOfType<Packager>();
         unPackers = GameObject.FindObjectsOfType<UnPackager>();
         capsules = GameObject.FindObjectsOfType<CapsuleController>();
+        splitters = GameObject.FindObjectsOfType<Splitter>();
         SaveLoadManager.SaveData(this, path);
     }
 
@@ -78,6 +81,7 @@ public class SaveMaster : MonoBehaviour
         UnPackers(allData);
         Packers(allData);
         Eggs(allData);
+        Splitters(allData);
     }
 
     void Cannons(AllData allData)
@@ -212,7 +216,7 @@ public class SaveMaster : MonoBehaviour
         {
             Inventory inv = GameObject.FindObjectOfType<Inventory>();
             string[] data = allData.invent.stats;
-            for (int i = 0; i < data.Length; i++)
+            for (int i = 0; i < data.Length - 1; i++)
             {
                 if (data[i] != null)
                 {
@@ -221,6 +225,10 @@ public class SaveMaster : MonoBehaviour
                     inv.storedVals[k] = v;
                 }
             }
+            for (int i = 0; i < int.Parse(data[5]); i++){
+                inv.core.Upgrade(true);
+            }
+
             inv.UpdateAllInventories();
         }
         else
@@ -266,12 +274,32 @@ public class SaveMaster : MonoBehaviour
                 p.GetComponent<Price>().byPass = true;
                 p.transform.position = new Vector3(x[i], y[i], 0);
                 p.transform.rotation = Quaternion.Euler(0, 0, z[i]);
-                Debug.Log(mI[i]);
+                p.maxItems = (mI[i]);
                 p.launchForce = Mathf.RoundToInt(ft[i]);
             }
         }
     }
 
+    void Splitters(AllData allData)
+    {
+        if(allData.split.filters.Length > 0)
+        {
+            string[] filts = allData.split.filters;
+            float[] stats = allData.split.stats;
+            int num = allData.split.numStats;
+            for(int i  = 0; i < allData.split.filters.Length; i++)
+            {
+                Splitter sp = Instantiate(splitterPrefab, Vector3.zero, Quaternion.identity);
+                sp.GetComponent<Price>().byPass = true;
+                sp.transform.position = new Vector3(stats[(i * num)], stats[(i * num) + 1], 0);
+                sp.transform.rotation = Quaternion.Euler(0, 0, stats[(i * num) + 2]);
+                sp.fireForce = Mathf.RoundToInt(stats[(i * num) + 3]);
+
+                sp.typeName = filts[i];
+            }
+
+        }
+    }
     void Eggs(AllData allData)
     {
         if(/*allData.egg.vels != null*/true)

@@ -10,7 +10,7 @@ public class ToolTipActivator : MonoBehaviour, IPointerEnterHandler, IPointerExi
     bool mouseOn = false;
     [SerializeField] string toolTipText;
     [SerializeField] bool isRecipeDisplay = false;
-
+    [SerializeField] bool clickOff = false;
     [SerializeField] List<Color> imgColors;
     [SerializeField] List<Sprite> images;
     [SerializeField] List<string> imgDescs;
@@ -26,11 +26,11 @@ public class ToolTipActivator : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         if (isRecipeDisplay)
         {
-            rTT.UpdateToolTip(images, imgDescs, imgColors, toolTipText);
+            rTT.UpdateToolTip(images, imgDescs, imgColors, toolTipText, clickOff);
         }
         else
         {
-            tT.SetToolTip(toolTipText);
+            tT.SetToolTip(toolTipText, clickOff);
         }
     }
 

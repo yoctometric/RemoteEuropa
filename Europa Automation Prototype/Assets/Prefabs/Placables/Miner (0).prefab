@@ -477,7 +477,7 @@ MonoBehaviour:
   rotateable: {fileID: 1222705123023840279}
   rotBounds: 0
   mouseAim: 1
-  rotOff: 270
+  rotOff: 0
 --- !u!58 &1222705123390829852
 CircleCollider2D:
   m_ObjectHideFlags: 0
