@@ -15,7 +15,8 @@ public class SaveLoadManager
 
         AllData data = new AllData(new RelayCannonsData(master), new FansData(master), new CrafterData(master),
             new ItemObjectsData(master), new MinersData(master), new OreData(master), new InventoryData(master), 
-            new UnPackagerData(master), new PackagerData(master), new EggData(master), new SplitterData(master));
+            new UnPackagerData(master), new PackagerData(master), new EggData(master), new SplitterData(master),
+            new PumpsData(master));
         bf.Serialize(stream, data);
 
         stream.Close();
@@ -38,7 +39,7 @@ public class SaveLoadManager
         else
         {
             Debug.LogError("NO FILE AT PATH BROTHER!");
-            return new AllData(null, null, null, null, null, null, null, null, null, null, null);
+            return new AllData(null, null, null, null, null, null, null, null, null, null, null, null);
         }
     }
 }
@@ -58,8 +59,10 @@ public class AllData
     public PackagerData pack;
     public EggData egg;
     public SplitterData split;
+    public PumpsData pump;
+
     public AllData(RelayCannonsData cannons, FansData fans, CrafterData crafters, ItemObjectsData items, MinersData miners, OreData ores, InventoryData invents, UnPackagerData unPacks,
-        PackagerData packs, EggData eggs, SplitterData splits)
+        PackagerData packs, EggData eggs, SplitterData splits, PumpsData pumps)
     {
         cannon = cannons;
         fan = fans;
@@ -72,10 +75,36 @@ public class AllData
         pack = packs;
         egg = eggs;
         split = splits;
+        pump = pumps;
     }
 
 }
 
+[Serializable]
+public class PumpsData
+{
+    public float[] transforms;
+    public int[] storedBarrels;
+    int numStats = 0;
+    public PumpsData(SaveMaster mast)
+    {
+        int len = mast.pumps.Length;
+        numStats = 3;
+        transforms = new float[len * 3];
+        storedBarrels = new int[len];
+
+        for(int i = 0; i < len; i++)
+        {
+            Pump p = mast.pumps[i];
+            //x,y,rot lol
+            transforms[(i * numStats)] = p.transform.position.x;
+            transforms[(i * numStats) + 1] = p.transform.position.y;
+            transforms[(i * numStats) + 2] = p.transform.rotation.eulerAngles.z;
+
+            storedBarrels[i] = p.amntContainersStored;
+        }
+    }
+}
 [Serializable]
 public class RelayCannonsData
 {

@@ -14,6 +14,7 @@ public class EditRotation : MonoBehaviour
     ObjectPlacer mouse;
     SpriteRenderer sp;
     EditorValues evals;
+    GameInfo gameInfo;
     [SerializeField]Transform masterPos;
     private void Start()
     {
@@ -21,6 +22,7 @@ public class EditRotation : MonoBehaviour
         {
             masterPos = transform;
         }
+        gameInfo = GameObject.FindObjectOfType<GameInfo>();
         sp = gameObject.GetComponent<SpriteRenderer>();
         cam = Camera.main;
         mouseAim = false;
@@ -33,7 +35,7 @@ public class EditRotation : MonoBehaviour
         mouse.previousIndex = 1;
         mouse.SetIndex(1);
         mouse.freezeMovement = true;
-
+        gameInfo.currentlyMouseAiming = true;
         if (evals.aimer)
         {
             evals.aimer.ToggleAimerOn();
@@ -89,6 +91,7 @@ public class EditRotation : MonoBehaviour
                 {
                     evals.aimer.ToggleAimerOff();
                 }
+                gameInfo.currentlyMouseAiming = false;
             }
         }
     }

@@ -10,19 +10,18 @@ public class Inventory : MonoBehaviour
     public Dictionary<string, int> storedVals = new Dictionary<string, int>();
     [HideInInspector]public Core core;
     [SerializeField] Button upButton;
+    Project proj;
     bool buttonOn = false;
     private void Start()
     {
+        proj = GameObject.FindObjectOfType<Project>();
         core = GameObject.FindObjectOfType<Core>();
-        //storedVals.Add("Refined Copper", 0);
-        //storedVals.Add("Refined Iron", 0);
-        //storedVals.Add("Pycrete", 50);
-
         UpdateAllInventories();
-        //UpdateDisplayTexts("Refined Copper", storedVals["Refined Copper"].ToString());
-        //UpdateDisplayTexts("Refined Iron", storedVals["Refined Iron"].ToString());
-        //UpdateDisplayTexts("Pycrete", storedVals["Pycrete"].ToString());
-
+        //check project
+        if (proj.panOn)
+        {
+            proj.UpdatePanel(storedVals["Refined Copper"], storedVals["Refined Iron"], storedVals["Pycrete"], storedVals["Brick"]);
+        }
     }
     public bool UpdateInventory(string index, int amount)
     {
@@ -52,6 +51,10 @@ public class Inventory : MonoBehaviour
             return false;
             
         }
+        //update values, then
+        string disp = StaticFunctions.AbbreviateNumber(cAmnt + amount);
+        UpdateDisplayTexts(index, disp);
+        storedVals[index] = cAmnt + amount;/*
         if(core.level < 2)
         {
             if (storedVals["Brick"] >= core.lvlCosts[core.level].w & storedVals["Refined Copper"] >= core.lvlCosts[core.level].x && storedVals["Refined Iron"] >= core.lvlCosts[core.level].y && storedVals["Pycrete"] >= core.lvlCosts[core.level].z)
@@ -69,13 +72,16 @@ public class Inventory : MonoBehaviour
         else
         {
             ToggleUpButton(false);
+        }*/
+        //check project
+        if (proj.panOn)
+        {
+            proj.UpdatePanel(storedVals["Refined Copper"], storedVals["Refined Iron"], storedVals["Pycrete"], storedVals["Brick"]);
         }
-
-        string disp = StaticFunctions.AbbreviateNumber(cAmnt + amount);
-        UpdateDisplayTexts(index, disp);
-        storedVals[index] = cAmnt + amount;
+        //cleanup
         return true;
     }
+    /*
     public void ToggleUpButton(bool yesnt)
     {
         if (yesnt)
@@ -90,12 +96,9 @@ public class Inventory : MonoBehaviour
             upButton.GetComponent<Animator>().SetBool("flash", false);
             upButton.gameObject.SetActive(false);
         }
-    }
+    }*/
     public bool UpdateDisplayTexts(string type, string value)
     {
-        //string noAbb = value;
-        //noAbb = noAbb.Replace("k", "000");
-        //noAbb = noAbb.Replace("m", "000000");
         //updates the inventories based on the type given. better than running it in update
         if (type == "Refined Copper")
         {
@@ -148,6 +151,4 @@ public class Inventory : MonoBehaviour
             bool yes = UpdateDisplayTexts(key, StaticFunctions.AbbreviateNumber(storedVals[key]));
         }
     }
-
-    
 }

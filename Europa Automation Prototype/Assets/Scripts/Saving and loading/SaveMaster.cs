@@ -17,6 +17,7 @@ public class SaveMaster : MonoBehaviour
     public UnPackager[] unPackers;
     public CapsuleController[] capsules;
     public Splitter[] splitters;
+    public Pump[] pumps;
     //prefabs
     public LauncherController cannonPrefab;
     public Transform fanPrefab;
@@ -27,6 +28,7 @@ public class SaveMaster : MonoBehaviour
     public UnPackager unPackPrefab;
     public Packager packPrefab;
     public Splitter splitterPrefab;
+    public Pump pumpPrefab;
     //functions
 
     private void Start()
@@ -48,6 +50,8 @@ public class SaveMaster : MonoBehaviour
         unPackers = GameObject.FindObjectsOfType<UnPackager>();
         capsules = GameObject.FindObjectsOfType<CapsuleController>();
         splitters = GameObject.FindObjectsOfType<Splitter>();
+        pumps = GameObject.FindObjectsOfType<Pump>();
+
         SaveLoadManager.SaveData(this, path);
     }
 
@@ -82,6 +86,7 @@ public class SaveMaster : MonoBehaviour
         Packers(allData);
         Eggs(allData);
         Splitters(allData);
+        Pumps(allData);
     }
 
     void Cannons(AllData allData)
@@ -302,29 +307,38 @@ public class SaveMaster : MonoBehaviour
     }
     void Eggs(AllData allData)
     {
-        if(/*allData.egg.vels != null*/true)
-        {
-            float[][] vels = allData.egg.vels;
-            float[][] transes = allData.egg.transes;
-            string[][] allItems = allData.egg.allItems;
 
-            for (int i = 0; i < allData.egg.vels.Length; i++)
+        float[][] vels = allData.egg.vels;
+        float[][] transes = allData.egg.transes;
+        string[][] allItems = allData.egg.allItems;
+
+        for (int i = 0; i < allData.egg.vels.Length; i++)
+        {
+            CapsuleController e = Instantiate(eggPrefab, Vector3.zero, Quaternion.identity);
+            e.transform.position = new Vector3(transes[i][0], transes[i][1], 0);
+            e.transform.rotation = Quaternion.Euler(0, 0, transes[i][2]);
+            Rigidbody2D rb = e.GetComponent<Rigidbody2D>();
+            rb.velocity = new Vector2(vels[i][0], vels[i][1]);
+            for (int j = 0; j < allItems[i].Length; j++)
             {
-                CapsuleController e = Instantiate(eggPrefab, Vector3.zero, Quaternion.identity);
-                e.transform.position = new Vector3(transes[i][0], transes[i][1], 0);
-                e.transform.rotation = Quaternion.Euler(0, 0, transes[i][2]);
-                Rigidbody2D rb = e.GetComponent<Rigidbody2D>();
-                rb.velocity = new Vector2(vels[i][0], vels[i][1]);
-                for (int j = 0; j < allItems[i].Length; j++)
-                {
-                    Item it = Instantiate(StaticFunctions.GetItemFromString(allItems[i][j]), transform.position, Quaternion.identity);
-                    e.AddItem(it);
-                }
+                Item it = Instantiate(StaticFunctions.GetItemFromString(allItems[i][j]), transform.position, Quaternion.identity);
+                e.AddItem(it);
             }
         }
-        else
+    }
+
+    void Pumps(AllData allData)
+    {
+        float[] transes = allData.pump.transforms;
+        int num = 3;
+        int[] invent = allData.pump.storedBarrels;
+
+        for(int i = 0; i < allData.pump.storedBarrels.Length; i++)
         {
-            print("no eggs");
+            Pump p = Instantiate(pumpPrefab, Vector3.zero, Quaternion.Euler(0, 0, transes[(i * num) + 2]));
+            p.transform.position = new Vector2(transes[(i * num)], transes[(i * num) + 1]);
+
+            p.amntContainersStored = invent[i];
         }
     }
 }

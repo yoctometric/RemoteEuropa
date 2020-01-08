@@ -14,7 +14,11 @@ public class Timer : MonoBehaviour
     {
         StartCoroutine(Tick());
     }
-
+    private void OnLevelWasLoaded(int level)
+    {
+        miners.Clear();
+        pumps.Clear();
+    }
     IEnumerator Tick()
     {
         //now cycle 20 times

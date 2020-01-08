@@ -26,9 +26,13 @@ public class HUPCONT : MonoBehaviour
     OreController ore;
     EditRotation eRot;
     Splitter split;
-
+    Pump pump;
+    GameInfo gameInfo;
     [SerializeField] List<GameObject> elements;
-
+    private void Start()
+    {
+        //get gameinfo for hupcont prevention
+    }
     public void Close()
     {
         ObjectPlacer op = GameObject.FindObjectOfType<ObjectPlacer>();
@@ -55,6 +59,14 @@ public class HUPCONT : MonoBehaviour
     }
     public void OpenEditor(GameObject editable)
     {
+        //break out?
+        gameInfo = GameObject.FindObjectOfType<GameInfo>();
+        print(gameInfo.currentlyMouseAiming);
+        if (gameInfo.currentlyMouseAiming)
+        {
+            Close();
+            return;
+        }
         //activate cursor
         Cursor.visible = true;
 
@@ -175,6 +187,11 @@ public class HUPCONT : MonoBehaviour
                     }
                 }
             }
+        }else if (obj.GetComponent<Pump>())
+        {
+            pump = obj.GetComponent<Pump>();
+            MidInfoT.gameObject.SetActive(true);
+            typeSelected = 8;
         }
     }
     public void SetFilter(string input)
@@ -193,6 +210,16 @@ public class HUPCONT : MonoBehaviour
         if(typeSelected == 3)
         {
             MidInfoT.text = "Quantity: " + ore.currentQuantity.ToString() + System.Environment.NewLine + "Hardness: " + ore.hardness;
+        }else if(typeSelected == 8)
+        {
+            if(pump.amntContainersStored > 0)
+            {
+                MidInfoT.text = "Stored Barrels: " + pump.amntContainersStored.ToString();
+            }
+            else
+            {
+                MidInfoT.text = "Needs empty barrel";
+            }
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {

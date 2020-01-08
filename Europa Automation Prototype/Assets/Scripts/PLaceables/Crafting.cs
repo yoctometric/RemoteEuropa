@@ -14,10 +14,20 @@ public class Crafting : MonoBehaviour
     [SerializeField] SpriteRenderer recipeDisplay;
     [SerializeField] GameInfo info;
     [SerializeField] SpriteRenderer display;
+    [Header("bypass info auto recipe")]
+    [SerializeField] ScriptableRecipe bypassRecipe;
     private void Awake()
     {
         info = GameObject.FindObjectOfType<GameInfo>();
-        ChangeRecipe(info.storedRecipe);
+
+        if (bypassRecipe)
+        {
+            ChangeRecipe(bypassRecipe);
+        }
+        else
+        {
+            ChangeRecipe(info.storedRecipe);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

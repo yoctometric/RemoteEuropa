@@ -22,6 +22,11 @@ public class ToolTipDisplay : MonoBehaviour
     }
     private void Update()
     {
+        //so tat hupcont and other ui closings dont fuck it up...
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UnSetToolTip();
+        }
         if(clickToToggle && Input.GetMouseButtonDown(0))
         {
             UnSetToolTip();

@@ -34,7 +34,28 @@ public class MainMenuCont : MonoBehaviour
         }
 
     }
+    private void Update()
+    {
+        if(Input.GetKey(KeyCode.RightShift) && Input.GetKey(KeyCode.RightControl))
+        {
+            print("Playerprefs cleared");
+            PlayerPrefs.DeleteAll();
+        }
+        
+    }
+    public void EnterTutorial(bool bypass)
+    {
+        if (bypass)
+        {
+            SceneManager.LoadScene(3);
 
+        }else
+        if (PlayerPrefs.GetInt("HasPlayedTutorial") == 0)
+        {
+            PlayerPrefs.SetInt("HasPlayedTutorial", 1);
+            SceneManager.LoadScene(3);
+        }
+    }
     public void QuitGame()
     {
         Application.Quit();

@@ -69,6 +69,7 @@ MonoBehaviour:
   unPackers: []
   capsules: []
   splitters: []
+  pumps: []
   cannonPrefab: {fileID: 3312618416205876941, guid: 86da3ab54db7e924ea3454327621ce83,
     type: 3}
   fanPrefab: {fileID: 3184438532275898518, guid: fc93efb81d3e9604ba905c6aac4c6836,
@@ -86,6 +87,8 @@ MonoBehaviour:
   packPrefab: {fileID: 7529614626092336313, guid: 15bd39645d48f2642a9016ec383dff6a,
     type: 3}
   splitterPrefab: {fileID: 43974909143017524, guid: db28982aae43b2b4594adde6437b85c0,
+    type: 3}
+  pumpPrefab: {fileID: 1203195990625377981, guid: effb01d426eee26429f4b183ab3631ce,
     type: 3}
 --- !u!114 &352069584776367673
 MonoBehaviour:

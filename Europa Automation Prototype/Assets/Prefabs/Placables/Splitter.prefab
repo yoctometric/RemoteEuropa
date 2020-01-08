@@ -447,6 +447,7 @@ GameObject:
   - component: {fileID: 43974909143017531}
   - component: {fileID: 43974909143017525}
   - component: {fileID: 43974909143017524}
+  - component: {fileID: 4370310683345506556}
   m_Layer: 0
   m_Name: Splitter
   m_TagString: Untagged
@@ -555,6 +556,36 @@ MonoBehaviour:
   p2: {fileID: 43974907737068308}
   fireForce: 500
   typeName: 
+--- !u!60 &4370310683345506556
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43974909143017528}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.83, y: 0.56}
+    newSize: {x: 0.83, y: 0.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.1482614, y: 0.23012075}
+      - {x: 0.35907555, y: 0.2537641}
+      - {x: 0.5210438, y: 0.3809267}
+      - {x: -0.54651326, y: 0.40107355}
+      - {x: -0.3418058, y: 0.24431548}
 --- !u!1 &8169967539048279753
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,7 +596,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8169967539048279755}
   - component: {fileID: 8169967539048279754}
-  - component: {fileID: 8169967539048279756}
   m_Layer: 0
   m_Name: inputbit
   m_TagString: Untagged
@@ -635,35 +665,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &8169967539048279756
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8169967539048279753}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.37, y: 1.36}
-    newSize: {x: 0.37, y: 1.36}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.07540004, y: -0.32848477}
-      - {x: 0.07628187, y: 0.3305077}
-      - {x: -0.07706897, y: 0.43357858}
-      - {x: -0.066550575, y: -0.48430046}
 --- !u!1001 &43974908827760173
 PrefabInstance:
   m_ObjectHideFlags: 0

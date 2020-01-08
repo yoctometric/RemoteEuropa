@@ -13,10 +13,13 @@ public class Splitter : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        print("entered");
         if (other.GetComponent<Item>())
         {
             if (typeName == "")
             {
+                print("rando");
+
                 fireLeft = !fireLeft;
 
                 if (fireLeft)
@@ -30,6 +33,8 @@ public class Splitter : MonoBehaviour
             }
             else
             {
+                print("sort");
+
                 Item it = other.GetComponent<Item>();
                 print(it.typeOfItem + "/" + typeName);
 

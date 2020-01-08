@@ -15,7 +15,7 @@ public class ObjectPlacer : MonoBehaviour
     [SerializeField] LayerMask OreMask;
     [SerializeField] GameObject escMenu;
     [SerializeField] GameObject placeParticle;
-    
+
     public bool canPlace = true;
     bool canEdit = false;
     bool UIOpened = false;
@@ -34,6 +34,7 @@ public class ObjectPlacer : MonoBehaviour
     Core core;
     void Start()
     {
+
         core = GameObject.FindObjectOfType<Core>();
         //can only find objs when they are active, so set it inactive immideately
         HUP = GameObject.FindWithTag("HeadsUpPanel");
@@ -48,7 +49,9 @@ public class ObjectPlacer : MonoBehaviour
 
     void Update()
     {
+        //help
         //input
+
         if (Input.anyKeyDown)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -280,7 +283,18 @@ public class ObjectPlacer : MonoBehaviour
         //Cursor.visible = false;
         HUP.SetActive(false);
     }
-
+    public void ResetPosition()
+    {
+        freezeMovement = true;
+        IEnumerator back()
+        {
+            yield return new WaitForSecondsRealtime(2f);
+            transform.position = Vector2.zero;
+            cam.transform.position = new Vector3(0, 0, -10);
+            freezeMovement = false;
+        }
+        StartCoroutine(back());
+    }
     void Place(GameObject obj)
     {
         //check if there is a placeable attatched

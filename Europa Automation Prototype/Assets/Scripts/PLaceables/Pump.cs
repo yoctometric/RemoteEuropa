@@ -9,9 +9,11 @@ public class Pump : MonoBehaviour
     [SerializeField] Transform firePoint;
     [SerializeField] int fireForce = 500;
     [SerializeField] float fireRate = 1;
-    [SerializeField] int amntContainersStored = 0;
+    [HideInInspector] public int amntContainersStored = 0;
     [SerializeField] int maxContained = 10;
-
+    [SerializeField] GameObject emptyIndicator;
+    [SerializeField] Animator anim;
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.GetComponent<Item>())
@@ -35,27 +37,39 @@ public class Pump : MonoBehaviour
             {
                 print("REJECT");
             }
+            //update indic
+            if(amntContainersStored != 0)
+            {
+                emptyIndicator.SetActive(false);
+            }
         }
     }
     public void Tick()
     {
-        print(amntContainersStored);
-        if (amntContainersStored > 0)
+        if (amntContainersStored > 0 && this!=null)
         {
             Item p = Instantiate(product.gameObject, firePoint.position, firePoint.rotation).GetComponent<Item>();
             p.GetComponent<Rigidbody2D>().AddForce(firePoint.up * fireForce);
             amntContainersStored -= 1;
             //color green
+            anim.SetTrigger("go");
+            if (amntContainersStored < 1)
+            {
+                emptyIndicator.SetActive(true);
+            }
         }
-        else
-        {
-            //color red
-        }
-
     }
     private void Start()
     {
         Timer tim = GameObject.FindObjectOfType<Timer>();
         tim.pumps.Add(this);
+        if (amntContainersStored != 0)
+        {
+            emptyIndicator.SetActive(false);
+        }
+        else
+        {
+            emptyIndicator.SetActive(true);
+        }
     }
 }

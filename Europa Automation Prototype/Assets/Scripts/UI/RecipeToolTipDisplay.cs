@@ -22,7 +22,7 @@ public class RecipeToolTipDisplay : MonoBehaviour
         img = gameObject.GetComponent<Image>();
         UnsetToolTip();
     }
-
+    
     public void UpdateToolTip(List<Sprite> images, List<string> imageString, List<Color> imgColors, string mainText, bool clickOff)
     {
         clickToToggleOff = clickOff;
@@ -88,7 +88,12 @@ public class RecipeToolTipDisplay : MonoBehaviour
     }
     void Update()
     {
-        if(clickToToggleOff && Input.GetMouseButtonDown(0))
+        //so tat hupcont and other ui closings dont fuck it up...
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UnsetToolTip();
+        }
+        if (clickToToggleOff && Input.GetMouseButtonDown(0))
         {
             UnsetToolTip();
         }
