@@ -34,6 +34,7 @@ public class MainMenuCont : MonoBehaviour
         }
 
     }
+
     private void Update()
     {
         if(Input.GetKey(KeyCode.RightShift) && Input.GetKey(KeyCode.RightControl))
@@ -42,6 +43,10 @@ public class MainMenuCont : MonoBehaviour
             PlayerPrefs.DeleteAll();
         }
         
+    }
+    public void OpenLink(string link)
+    {
+        Application.OpenURL(link);
     }
     public void EnterTutorial(bool bypass)
     {
@@ -87,6 +92,13 @@ public class MainMenuCont : MonoBehaviour
     }
     public void LoadAScene(int scene)
     {
+        StartCoroutine(Load(scene));
+    }
+    IEnumerator Load(int scene)
+    {
+        print("oout");
+        GameObject.FindObjectOfType<Transition>().GetComponent<Animator>().SetTrigger("Out");
+        yield return new WaitForSeconds(1);
         SceneManager.LoadScene(scene);
     }
     public void ToggleFPS()

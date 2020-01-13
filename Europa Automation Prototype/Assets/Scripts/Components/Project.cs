@@ -19,7 +19,6 @@ public class Project : MonoBehaviour
     private void Start()
     {
         UnsetPanel();
-        costs = new int[4];
     }
     public void SetPanel(int cop, int iro, int pyc, int bri, string objective)
     {
@@ -30,6 +29,8 @@ public class Project : MonoBehaviour
         texts[2].text = StaticFunctions.AbbreviateNumber(iro);
         texts[3].text = StaticFunctions.AbbreviateNumber(pyc);
         texts[4].text = StaticFunctions.AbbreviateNumber(bri);
+        //if you are having issues, move this back to start
+        costs = new int[4];
 
         costs[0] = cop;
         costs[1] = iro;

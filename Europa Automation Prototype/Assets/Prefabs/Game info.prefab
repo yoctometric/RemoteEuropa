@@ -45,7 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8dca79eab8b4734cb4fee3c4f0971de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transPanel: {fileID: 3215116969117518999, guid: 99d2a6098c674b647b8ba171ecd7518d,
+    type: 3}
   storedRecipe: {fileID: 11400000, guid: 69f1636661df24248a73f66bf695fd25, type: 2}
+  currentlyMouseAiming: 0
 --- !u!114 &2415686138039632253
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -26,8 +26,10 @@ public class HUPCONT : MonoBehaviour
     OreController ore;
     EditRotation eRot;
     Splitter split;
+    Crafting craft;
     Pump pump;
     GameInfo gameInfo;
+    Core core;
     [SerializeField] List<GameObject> elements;
     private void Start()
     {
@@ -61,7 +63,6 @@ public class HUPCONT : MonoBehaviour
     {
         //break out?
         gameInfo = GameObject.FindObjectOfType<GameInfo>();
-        print(gameInfo.currentlyMouseAiming);
         if (gameInfo.currentlyMouseAiming)
         {
             Close();
@@ -141,7 +142,24 @@ public class HUPCONT : MonoBehaviour
             //set up crafter ui
             typeSelected = 4;
             crafterPanel.SetActive(true);
+            craft = obj.GetComponent<Crafting>();
 
+            UIButtonArray car = crafterPanel.GetComponent<UIButtonArray>();
+            foreach (Button b in car.buttons)
+            {
+                ///THIS
+                ///MEANS
+                ///THAT
+                ///ALL
+                ///BUTTONS
+                ///MUST BE NAMED
+                ///P R O P E R L Y !!!
+                //print(b.name + " : " + craft.recipe.name);
+                if (b.name == craft.recipe.name)
+                {
+                    car.BClick(b);
+                }
+            }
         }
         if (obj.GetComponent<UnPackager>())
         {
@@ -192,7 +210,14 @@ public class HUPCONT : MonoBehaviour
             pump = obj.GetComponent<Pump>();
             MidInfoT.gameObject.SetActive(true);
             typeSelected = 8;
+        }else if (obj.GetComponent<Core>())
+        {
+            core = obj.GetComponent<Core>();
+            int lv = core.level;
+            MidInfoT.gameObject.SetActive(true);
+            MidInfoT.text = "Level " + lv.ToString();
         }
+
     }
     public void SetFilter(string input)
     {

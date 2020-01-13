@@ -140,7 +140,7 @@ public class Inventory : MonoBehaviour
         }
         if (!storedVals.ContainsKey("Pycrete"))
         {
-            storedVals.Add("Pycrete", 0);
+            storedVals.Add("Pycrete", 50);
         }
         if (!storedVals.ContainsKey("Brick"))
         {

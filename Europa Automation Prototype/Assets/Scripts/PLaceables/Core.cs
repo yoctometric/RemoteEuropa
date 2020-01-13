@@ -21,6 +21,7 @@ public class Core : MonoBehaviour
     [SerializeField] float animScale = 15f;
     bool scaling = false;
 
+    Project proj;
     Tutorial tut;
     Animator anim;
     void Start()
@@ -28,11 +29,11 @@ public class Core : MonoBehaviour
         tut = GameObject.FindObjectOfType<Tutorial>();
         anim = gameObject.GetComponent<Animator>();        
         invent = GameObject.FindObjectOfType<Inventory>();
+        proj = GameObject.FindObjectOfType<Project>();
         //set upgrade target
         if (level < 2)
         {
-            Project proj = GameObject.FindObjectOfType<Project>();
-            proj.SetPanel(Mathf.RoundToInt(lvlCosts[level].x), Mathf.RoundToInt(lvlCosts[level].x), Mathf.RoundToInt(lvlCosts[level].x), Mathf.RoundToInt(lvlCosts[level].x), "Upgrade Core");
+            proj.SetPanel(Mathf.RoundToInt(lvlCosts[level].x), Mathf.RoundToInt(lvlCosts[level].y), Mathf.RoundToInt(lvlCosts[level].z), Mathf.RoundToInt(lvlCosts[level].w), "Upgrade Core");
         }
 
     }
@@ -42,7 +43,6 @@ public class Core : MonoBehaviour
         if (scaling)
         {
             transform.localScale *= 0.9f * scaleSpeed;
-            print(transform.localScale.x);
             if(transform.localScale.x < 0.75f)
             {
                 scaling = false;
@@ -105,25 +105,29 @@ public class Core : MonoBehaviour
         {
             //invent.ToggleUpButton(false);
             level++;
-            if(level == 2)
-            {
-                transform.localScale *= animScale/2;
-            }
-            else
-            {
-                transform.localScale *= animScale;
-            }
             
             levels[level].SetActive(true);
             levels[level - 1].SetActive(false);
             ///Animation area
             if (!bypassCost)
             {
+                if (level == 2)
+                {
+                    transform.localScale *= animScale / 2;
+                }
+                else
+                {
+                    transform.localScale *= animScale;
+                }
                 Instantiate(explosionParticle, transform.position, Quaternion.identity);
                 //make a warning
                 GameObject.FindObjectOfType<Warning>().InitiateWarning("CORE DROP INCOMING", false, true);
                 anim.SetTrigger("Drop");
                 ///End animation area
+            }
+            else
+            {
+                print("bypassing cost");
             }
 
             //set upgrade target
@@ -131,7 +135,11 @@ public class Core : MonoBehaviour
             {
                 Project proj = GameObject.FindObjectOfType<Project>();
 
-                proj.SetPanel(Mathf.RoundToInt(lvlCosts[level].x), Mathf.RoundToInt(lvlCosts[level].x), Mathf.RoundToInt(lvlCosts[level].x), Mathf.RoundToInt(lvlCosts[level].x), "Upgrade Core");
+                proj.SetPanel(Mathf.RoundToInt(lvlCosts[level].x), Mathf.RoundToInt(lvlCosts[level].y), Mathf.RoundToInt(lvlCosts[level].z), Mathf.RoundToInt(lvlCosts[level].w), "Upgrade Core");
+            }
+            else
+            {
+                proj.SetPanel(500, 500, 500, 500, "Build Rocket Pad");
             }
             //set new objs active
             if (level == 1)
@@ -147,6 +155,12 @@ public class Core : MonoBehaviour
                     obj.SetActive(true);
                 }
             }
+        }
+        else
+        {
+            //goisgofailed, reset panel
+            
+            proj.SetPanel(Mathf.RoundToInt(lvlCosts[level].x), Mathf.RoundToInt(lvlCosts[level].y), Mathf.RoundToInt(lvlCosts[level].z), Mathf.RoundToInt(lvlCosts[level].w), "Upgrade Core");
         }
 
     }
