@@ -44,6 +44,5 @@ public class ButtonSubSaver : MonoBehaviour
     {
         t.text = baseText;
         yousure = false;
-        print("off");
     }
 }

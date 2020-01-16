@@ -96,7 +96,6 @@ public class MainMenuCont : MonoBehaviour
     }
     IEnumerator Load(int scene)
     {
-        print("oout");
         GameObject.FindObjectOfType<Transition>().GetComponent<Animator>().SetTrigger("Out");
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(scene);

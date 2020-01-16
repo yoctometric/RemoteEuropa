@@ -65,6 +65,10 @@ public class SaveMaster : MonoBehaviour
     IEnumerator Load(string scene, string path)
     {
         //wait until the scene is loaded to instantiate, otherwise shit gets overwritten
+        //start loading animation
+        Transition trans = GameObject.FindObjectOfType<Transition>();
+        trans.LoadingScene();
+
         AsyncOperation async = SceneManager.LoadSceneAsync(scene);
 
         while (!async.isDone)
@@ -72,6 +76,9 @@ public class SaveMaster : MonoBehaviour
             yield return new WaitForSeconds(1f);
             yield return new WaitForEndOfFrame();
         }
+
+        //now delete and stop any generated ores
+        GameObject.FindObjectOfType<WorldGen>().CancelGen();
         //now that the scene is loaded, send it brother
         AllData allData = SaveLoadManager.LoadData(path);
         //Launchers first
@@ -87,6 +94,9 @@ public class SaveMaster : MonoBehaviour
         Eggs(allData);
         Splitters(allData);
         Pumps(allData);
+        trans.EndLoadingScene();
+
+
     }
 
     void Cannons(AllData allData)

@@ -13,4 +13,17 @@ public class Transition : MonoBehaviour
     {
         anim.SetTrigger("In");
     }
+    public void LoadingScene()
+    {
+        print("loading " + Time.time);
+        anim.SetBool("Loading", true);
+    }
+    public void EndLoadingScene()
+    {
+        print("endloading " + Time.time);
+
+        anim.SetBool("Loading", false);
+        anim.SetBool("Generating", false);
+
+    }
 }

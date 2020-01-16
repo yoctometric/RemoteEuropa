@@ -27,7 +27,7 @@ public class Reflector : MonoBehaviour
         foreach(SpriteRenderer sp in p.GetComponentsInChildren<SpriteRenderer>())
         {
             //check if it is an editor
-            if (sp.transform.name.Contains("Edit"))
+            if (sp.transform.name.Contains("Edit") || sp.transform.name.Contains("noreflect"))
             {
                 continue;
             }
