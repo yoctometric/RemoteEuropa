@@ -52,13 +52,13 @@ public class MainMenuCont : MonoBehaviour
     {
         if (bypass)
         {
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene(4);
 
         }else
         if (PlayerPrefs.GetInt("HasPlayedTutorial") == 0)
         {
             PlayerPrefs.SetInt("HasPlayedTutorial", 1);
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene(4);
         }
     }
     public void QuitGame()

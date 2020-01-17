@@ -26,7 +26,6 @@ public class Core : MonoBehaviour
     Animator anim;
     void Start()
     {
-        tut = GameObject.FindObjectOfType<Tutorial>();
         anim = gameObject.GetComponent<Animator>();        
         invent = GameObject.FindObjectOfType<Inventory>();
         proj = GameObject.FindObjectOfType<Project>();
@@ -35,7 +34,8 @@ public class Core : MonoBehaviour
         {
             proj.SetPanel(Mathf.RoundToInt(lvlCosts[level].x), Mathf.RoundToInt(lvlCosts[level].y), Mathf.RoundToInt(lvlCosts[level].z), Mathf.RoundToInt(lvlCosts[level].w), "Upgrade Core");
         }
-
+        //at the end in case there is an error
+        tut = GameObject.FindObjectOfType<Tutorial>();
     }
     private void FixedUpdate()
     {
@@ -195,13 +195,13 @@ public class Core : MonoBehaviour
                 Destroy(it.gameObject, 0.1f);
             }*/
             //string val = StaticFunctions.AbbreviateNumber(inventory[itemType]);
+            if (tut)
+            {
+                tut.GotItem(itemType);
+            }
             if (invent.storedVals.Keys.ToList().Contains(itemType))
             {
                 invent.UpdateInventory(itemType, 1);
-                if (tut)
-                {
-                    tut.StartEvent(itemType);
-                }
                 Destroy(it.gameObject);
             }
         }

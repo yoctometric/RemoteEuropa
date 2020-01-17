@@ -23,8 +23,8 @@ public class TextTyper : MonoBehaviour
     //audio controls
     public float pitchShift = 0;
 
-    string initialString = "";
-    string currentString = "";
+    string initialString = " ";
+    string currentString = " ";
     int iteration = 0;
 
     TMP_Text Ttext;
@@ -36,18 +36,37 @@ public class TextTyper : MonoBehaviour
         //get the string from the tmp asset
         aud = gameObject.GetComponent<AudioSource>();
         Ttext = gameObject.GetComponent<TMP_Text>();
-
-        initialString =Ttext.text;
-        //clear the tmp asset
-        Ttext.text = "";
-        //if play on start, play it on start dummy
-        if (playOnStart)
+        //do not do anything at all if playdelay is over 100
+        if(playDelay < 100)
         {
-            StartCoroutine(StartTyping(playDelay));
+            initialString = Ttext.text;
+            //clear the tmp asset
+            Ttext.text = "";
+            //if play on start, play it on start dummy
+            if (playOnStart)
+            {
+                StartCoroutine(StartTyping(playDelay));
+            }
         }
-
     }
-
+    public void Play(string text)
+    {
+        if (!Ttext)
+        {
+            Ttext = gameObject.GetComponent<TMP_Text>();
+        }
+        StopCoroutine(Blinking());
+        StopCoroutine(IterateLetterType());
+        StopCoroutine(StartTyping(0));
+        //must reset all
+        done = false;
+        started = false;
+        Ttext.text = "";
+        iteration = 0;
+        initialString = text;
+        currentString = "";
+        StartCoroutine(StartTyping(0));
+    }
     private void Update()
     {
         if (!done)
