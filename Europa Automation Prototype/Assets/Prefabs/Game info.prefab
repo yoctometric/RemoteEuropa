@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2415686138039632255}
   - component: {fileID: 2415686138039632253}
   - component: {fileID: 352069584776367673}
+  - component: {fileID: 6743951327865844419}
   m_Layer: 0
   m_Name: Game info
   m_TagString: GameInfo
@@ -73,6 +74,7 @@ MonoBehaviour:
   capsules: []
   splitters: []
   pumps: []
+  zapTowers: []
   cannonPrefab: {fileID: 3312618416205876941, guid: 86da3ab54db7e924ea3454327621ce83,
     type: 3}
   fanPrefab: {fileID: 3184438532275898518, guid: fc93efb81d3e9604ba905c6aac4c6836,
@@ -93,6 +95,8 @@ MonoBehaviour:
     type: 3}
   pumpPrefab: {fileID: 1203195990625377981, guid: effb01d426eee26429f4b183ab3631ce,
     type: 3}
+  ZapPrefab: {fileID: 3545245580439296057, guid: 212db409fcf8e204f84d24282b415481,
+    type: 3}
 --- !u!114 &352069584776367673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,3 +111,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   miners: []
   pumps: []
+--- !u!114 &6743951327865844419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2415686138039632240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68707adf812547d4f9bb24e79825d7fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourcePrefab: {fileID: 6967713918839322530, guid: 500c6a1d12aea024ba336fc2ab871464,
+    type: 3}

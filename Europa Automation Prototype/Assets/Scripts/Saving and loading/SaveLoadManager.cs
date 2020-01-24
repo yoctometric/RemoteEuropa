@@ -16,7 +16,7 @@ public class SaveLoadManager
         AllData data = new AllData(new RelayCannonsData(master), new FansData(master), new CrafterData(master),
             new ItemObjectsData(master), new MinersData(master), new OreData(master), new InventoryData(master), 
             new UnPackagerData(master), new PackagerData(master), new EggData(master), new SplitterData(master),
-            new PumpsData(master));
+            new PumpsData(master), new ZapTowerData(master));
         bf.Serialize(stream, data);
 
         stream.Close();
@@ -39,7 +39,7 @@ public class SaveLoadManager
         else
         {
             Debug.LogError("NO FILE AT PATH BROTHER!");
-            return new AllData(null, null, null, null, null, null, null, null, null, null, null, null);
+            return new AllData(null, null, null, null, null, null, null, null, null, null, null, null, null);
         }
     }
 }
@@ -60,9 +60,9 @@ public class AllData
     public EggData egg;
     public SplitterData split;
     public PumpsData pump;
-
+    public ZapTowerData zap;
     public AllData(RelayCannonsData cannons, FansData fans, CrafterData crafters, ItemObjectsData items, MinersData miners, OreData ores, InventoryData invents, UnPackagerData unPacks,
-        PackagerData packs, EggData eggs, SplitterData splits, PumpsData pumps)
+        PackagerData packs, EggData eggs, SplitterData splits, PumpsData pumps, ZapTowerData zaps)
     {
         cannon = cannons;
         fan = fans;
@@ -76,6 +76,7 @@ public class AllData
         egg = eggs;
         split = splits;
         pump = pumps;
+        zap = zaps;
     }
 
 }
@@ -306,6 +307,29 @@ public class ItemListSave
     {
         items = its;
         items.ToArray();
+    }
+}
+[Serializable]
+public class ZapTowerData
+{
+    public float[] x;
+    public float[] y;
+    public float[] z;
+    //zaptowers should automatically connect to all local towers
+    public ZapTowerData(SaveMaster mast)
+    {
+        int num = mast.zapTowers.Length;
+        x = new float[num];
+        y = new float[num];
+        z = new float[num];
+
+        for(int i = 0; i < num; i++)
+        {
+            ZapTower zap = mast.zapTowers[i];
+            x[i] = zap.transform.position.x;
+            y[i] = zap.transform.position.y;
+            z[i] = zap.transform.position.z;
+        }
     }
 }
 [Serializable]

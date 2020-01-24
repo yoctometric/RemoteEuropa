@@ -21,6 +21,7 @@ public class Price : MonoBehaviour
                 string index = costs[i].Split(',')[1];
                 int amnt = int.Parse(costs[i].Split(',')[0]);
                 //check if you cant subtract
+                print(index);
                 if (invent.storedVals[costs[i].Split(',')[1]] + int.Parse(costs[i].Split(',')[0]) < 0)
                 {
                     //since u cant afford,

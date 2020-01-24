@@ -18,6 +18,7 @@ public class SaveMaster : MonoBehaviour
     public CapsuleController[] capsules;
     public Splitter[] splitters;
     public Pump[] pumps;
+    public ZapTower[] zapTowers;
     //prefabs
     public LauncherController cannonPrefab;
     public Transform fanPrefab;
@@ -29,6 +30,7 @@ public class SaveMaster : MonoBehaviour
     public Packager packPrefab;
     public Splitter splitterPrefab;
     public Pump pumpPrefab;
+    public ZapTower ZapPrefab;
     //functions
 
     private void Start()
@@ -51,7 +53,7 @@ public class SaveMaster : MonoBehaviour
         capsules = GameObject.FindObjectsOfType<CapsuleController>();
         splitters = GameObject.FindObjectsOfType<Splitter>();
         pumps = GameObject.FindObjectsOfType<Pump>();
-
+        zapTowers = GameObject.FindObjectsOfType<ZapTower>();
         SaveLoadManager.SaveData(this, path);
     }
 
@@ -94,9 +96,9 @@ public class SaveMaster : MonoBehaviour
         Eggs(allData);
         Splitters(allData);
         Pumps(allData);
+        ZapTowers(allData);
+
         trans.EndLoadingScene();
-
-
     }
 
     void Cannons(AllData allData)
@@ -137,6 +139,21 @@ public class SaveMaster : MonoBehaviour
         }
     }
 
+    void ZapTowers(AllData allData)
+    {
+        if(allData.zap != null)
+        {
+            float[] x = allData.zap.x;
+            float[] y = allData.zap.y;
+            float[] z = allData.zap.z;
+            for(int i = 0; i < allData.zap.x.Length; i++)
+            {
+                ZapTower tower = Instantiate(ZapPrefab, Vector3.zero, Quaternion.identity);
+                tower.GetComponent<Price>().byPass = true;
+                tower.transform.position = new Vector3(x[i], y[i], z[i]);
+            }
+        }
+    }
     void Crafters(AllData allData)
     {
         if(allData.crafter != null)

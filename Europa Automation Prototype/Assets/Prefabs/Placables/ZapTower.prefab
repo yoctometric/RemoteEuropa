@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784d7e2739495534c91b9c8b796974fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateable: {fileID: 0}
+  rotateable: {fileID: 3545245580439296056}
   rotBounds: 0
   mouseAim: 1
   rotOff: 0
@@ -200,7 +200,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 201
   m_Sprite: {fileID: 21300000, guid: 38036ca4cf512b346bd04fa4a4c8fbf2, type: 3}
-  m_Color: {r: 0.998996, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.8207547, g: 0.8207547, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 3545245580439296057}
   - component: {fileID: 1265569458091056443}
   - component: {fileID: 653158238776799848}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ZapTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   byPass: 0
   costs:
-  - -10,Pycrete
+  - -50,Pycrete
   - -10,Refined Iron
   - -10,Refined Copper
   - -10,Brick

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Audio;
 public class Warning : MonoBehaviour
 {
     [SerializeField] int maxDist = 250;
@@ -13,10 +14,14 @@ public class Warning : MonoBehaviour
     bool ignoreDistunctions = false;
     Vector2 mid = new Vector2(0, 0);
     Animator anim;
+
+    [SerializeField] AudioClip[] progressionSounds;
+    SoundMaker soundMaker;
     private void Start()
     {
         anim = panel.GetComponent<Animator>();
         attempts = 0;
+        soundMaker = GameObject.FindObjectOfType<SoundMaker>();
     }
     void Update()
     {
@@ -57,10 +62,20 @@ public class Warning : MonoBehaviour
             }
         }
     }
-
+    IEnumerator PlaySounds()
+    {
+        if (!soundMaker)
+        {
+            soundMaker = GameObject.FindObjectOfType<SoundMaker>();
+        }
+        soundMaker.MakeSound(progressionSounds[0]);
+        yield return new WaitForSeconds(progressionSounds[0].length);
+        soundMaker.MakeSound(progressionSounds[1]);
+    }
 
     public void InitiateWarning(string warning, bool reset, bool overrideDistFunctions)
     {
+        StartCoroutine(PlaySounds());
         warningRightNow = true;
         ignoreDistunctions = overrideDistFunctions;
         //panel.SetActive(true);
