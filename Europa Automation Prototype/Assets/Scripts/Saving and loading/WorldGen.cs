@@ -40,7 +40,10 @@ public class WorldGen : MonoBehaviour
             GameObject.FindObjectOfType<Transition>().GetComponent<Animator>().SetBool("Generating", false);
             yield break;
         }
-        GameObject.FindObjectOfType<Transition>().GetComponent<Animator>().SetBool("Generating", true);
+        if (GameObject.FindObjectOfType<Transition>())
+        {
+            GameObject.FindObjectOfType<Transition>().GetComponent<Animator>().SetBool("Generating", true);
+        }
         List<int> weights = new List<int>();
         for(int i = 0; i < ores.Length; i++)
         {

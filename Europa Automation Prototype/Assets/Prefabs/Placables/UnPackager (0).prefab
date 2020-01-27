@@ -98,6 +98,7 @@ MonoBehaviour:
   rotBounds: 0
   mouseAim: 0
   rotOff: 90
+  masterPos: {fileID: 0}
 --- !u!114 &5688436330842996332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,7 +517,7 @@ GameObject:
   - component: {fileID: 5497672362734681424}
   - component: {fileID: 5497672362734681431}
   - component: {fileID: 2300542453393948783}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: UnPackager (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

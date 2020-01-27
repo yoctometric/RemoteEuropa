@@ -34,7 +34,6 @@ public class ObjectPlacer : MonoBehaviour
     Core core;
     void Start()
     {
-
         core = GameObject.FindObjectOfType<Core>();
         //can only find objs when they are active, so set it inactive immideately
         HUP = GameObject.FindWithTag("HeadsUpPanel");
@@ -90,11 +89,11 @@ public class ObjectPlacer : MonoBehaviour
                 }
                 else if (Input.GetKeyDown(KeyCode.Alpha8))
                 {
-                    SetIndex(10);
+                    SetIndex(8);
                 }
                 else if (Input.GetKeyDown(KeyCode.Alpha9))
                 {
-                    SetIndex(11);
+                    SetIndex(10);
                 }
             }
             if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Alpha0))

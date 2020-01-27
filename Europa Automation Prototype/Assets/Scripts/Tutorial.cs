@@ -11,6 +11,8 @@ public class Tutorial : MonoBehaviour
 
     [SerializeField] GameObject[] objectiveObjects;
     [SerializeField] GameObject limiter;
+
+    [SerializeField] GameObject checkDestroyThisCrafter;
     int currentObject = 0;
     //local variable for objective testing
     Transform storedTrans = null;
@@ -88,7 +90,6 @@ public class Tutorial : MonoBehaviour
             prevStoredRot = rot;
         }else if (currentEvent == 5 && prevTime + waitTime < Time.time)
         {
-
             if(recievedCopper)
             {
                 currentEvent++;
@@ -109,11 +110,27 @@ public class Tutorial : MonoBehaviour
         {
             if (recievedIron)
             {
-                limiter.SetActive(false);
                 currentEvent++;
-                objectiveText.Play("Well done, engineer! Return to the main menu by clicking on the top left of the screen. Enjoy the game!");
+                prevTime = Time.time;
+                limiter.SetActive(false);
+                limiter.transform.position = new Vector2(-3.16f, 3.39f);
+                limiter.SetActive(true);
+                limiter.GetComponent<OutsideDistanceRemover>().typeToWatch = 2;
+                limiter.GetComponent<OutsideDistanceRemover>().autoDisable = false;
+                ActivateNextObject();
+                objectiveText.Play("A misplaced crafter has appeared! Right click on the machine to reclaim its resources");
+            }
+        }else if (currentEvent == 7 && prevTime + waitTime < Time.time)
+        {
+            if (!checkDestroyThisCrafter)
+            {
+                currentEvent++;
+                prevTime = Time.time;
+                limiter.SetActive(false);
+                objectiveText.Play("Well done! Return to the main menu by clicking on the top left of the screen. Enjoy the game!");
             }
         }
+
     }
     void ActivateNextObject()
     {

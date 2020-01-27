@@ -137,6 +137,8 @@ MonoBehaviour:
   canSink: 0
   onEnableSystem: {fileID: 1757797309248541439, guid: 734eb96f8f7bf1d479a0f70ecc838e43,
     type: 3}
+  ItemConsumeEffect: {fileID: 4779794973956807363, guid: e5ec68aefa2fd9345bfcc1b793873925,
+    type: 3}
 --- !u!96 &8407798111923457972
 TrailRenderer:
   serializedVersion: 2

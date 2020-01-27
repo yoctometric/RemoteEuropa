@@ -206,4 +206,21 @@ public class Core : MonoBehaviour
             }
         }
     }
+    public void CollidersOff()
+    {
+        ToggleAllColliders(false);
+    }
+    public void CollidersOn()
+    {
+        ToggleAllColliders(true);
+    }
+    void ToggleAllColliders(bool onoff)
+    {
+        Collider2D[] cols = gameObject.GetComponentsInChildren<Collider2D>();
+        foreach (Collider2D col in cols)
+        {
+            print(col.name);
+            col.enabled = onoff;
+        }
+    }
 }

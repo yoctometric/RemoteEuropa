@@ -8,14 +8,20 @@ public class Item : MonoBehaviour
     public bool canSink = true;
     bool passedInvulnerability = false;
     bool startedShrinking = false;
+    bool startedAnimate = false;
     Rigidbody2D rb;
     [SerializeField] ParticleSystem onEnableSystem;
+    [SerializeField] GameObject ItemConsumeEffect;
+    SpriteRenderer sp;
+    bool isApplicationQuitting = false;
+
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         StartCoroutine(StartInvulnerability());
         TrailRenderer t = gameObject.GetComponent<TrailRenderer>();
-        t.startColor = gameObject.GetComponent<SpriteRenderer>().color;
+        sp = gameObject.GetComponent<SpriteRenderer>();
+        t.startColor = sp.color;
         t.endColor = new Color(1, 1, 1, 0.5f);
         t.endWidth = 0f;
         t.startWidth = 0.4f;
@@ -33,8 +39,10 @@ public class Item : MonoBehaviour
                 if (Mathf.Abs(rb.velocity.y) < 0.1f)
                 {
                     //if its y vel is low too, start sinking
-                    startedShrinking = true;
-                    StartCoroutine(Shrink());
+                    ///ACTIVATE TO RETURN TO FORMER SHRINK
+                    //startedShrinking = true;
+                    //StartCoroutine(Shrink());
+                    Destroy(gameObject);
                 }
             }
         }
@@ -51,6 +59,7 @@ public class Item : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         passedInvulnerability = true;
     }
+    /*
     IEnumerator Shrink()
     {
         //every frame, shrink. Once you hit real low, destroy.
@@ -67,6 +76,38 @@ public class Item : MonoBehaviour
         else
         {
             StartCoroutine(Shrink());
+        }
+    }*/
+    private void OnDestroy()
+    {
+        if (!StaticFunctions.lowGraphics && !isApplicationQuitting)
+        {
+            AnimateDestruct();
+        }
+    }
+    private void OnDisable()
+    {
+        if (!StaticFunctions.lowGraphics && !isApplicationQuitting)
+        {
+            AnimateDestruct();
+        }
+    }
+    void OnApplicationQuit()
+    {
+        isApplicationQuitting = true;
+    }
+    void AnimateDestruct()
+    {
+        if (startedAnimate) return;
+        startedAnimate = true;
+
+        SpriteRenderer effect = Instantiate(ItemConsumeEffect, transform.position, transform.rotation).GetComponentInChildren<SpriteRenderer>();
+        effect.transform.localScale = transform.localScale;
+        effect.sprite = sp.sprite;
+        effect.color = sp.color;
+        if (gameObject)
+        {
+            gameObject.SetActive(false);
         }
     }
 }

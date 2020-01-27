@@ -43,7 +43,7 @@ public class Crafting : MonoBehaviour
     {
         bool reject = true;
         //add the item to the storage only if it is in the recipe
-        if (currentRecipe.Contains(item.typeOfItem))
+        if (currentRecipe.Contains(item.typeOfItem) && !crafting)
         {
 
             //if the recipe still has capacity for that type of item

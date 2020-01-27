@@ -122,6 +122,8 @@ MonoBehaviour:
   canSink: 1
   onEnableSystem: {fileID: 1757797309248541439, guid: 734eb96f8f7bf1d479a0f70ecc838e43,
     type: 3}
+  ItemConsumeEffect: {fileID: 4779794973956807362, guid: e5ec68aefa2fd9345bfcc1b793873925,
+    type: 3}
 --- !u!96 &825624382482034727
 TrailRenderer:
   serializedVersion: 2
@@ -243,7 +245,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.24, y: 2.06}
+    oldSize: {x: 0.45090908, y: 0.7490909}
     newSize: {x: 5.12, y: 5.12}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

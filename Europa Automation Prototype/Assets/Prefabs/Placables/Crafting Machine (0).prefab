@@ -324,8 +324,8 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0.025653899, y: -0.5702251}
-      - {x: 0.7298121, y: -1.5075303}
-      - {x: -0.76434594, y: -1.5359651}
+      - {x: 1.0703312, y: -1.7928302}
+      - {x: -1.095662, y: -1.8028584}
 --- !u!114 &7999567105687476345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,6 +344,7 @@ MonoBehaviour:
   recipeDisplay: {fileID: 7999567106456837719}
   info: {fileID: 0}
   display: {fileID: 7999567106979348311}
+  bypassRecipe: {fileID: 0}
 --- !u!50 &7999567105687476349
 Rigidbody2D:
   serializedVersion: 4

@@ -21,7 +21,9 @@ public class ButtonSubSaver : MonoBehaviour
 
     IEnumerator LoadScene(int s)
     {
+        t.text = "Loading...";
         GameObject.FindObjectOfType<Transition>().GetComponent<Animator>().SetTrigger("Out");
+        GameObject.FindObjectOfType<PauseMenu>().FreezeTime(false);
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(s);
     }

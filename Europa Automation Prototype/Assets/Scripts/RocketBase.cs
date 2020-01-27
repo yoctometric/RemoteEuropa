@@ -14,6 +14,7 @@ public class RocketBase : MonoBehaviour
 
     [Header("Various refrences")]
     [SerializeField] Animator hatch;
+    [SerializeField] Animator rocket;
     //item admittence
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -43,11 +44,17 @@ public class RocketBase : MonoBehaviour
             LaunchRocket();
         }
     }
-
-    void LaunchRocket()
+    IEnumerator LaunchLogic()
     {
         storedIron = 0; storedFuel = 0; storedCopper = 0;
 
         hatch.SetTrigger("Open");
+        yield return new WaitForSeconds(1f);
+        rocket.SetTrigger("Launch");
+
+    }
+    void LaunchRocket()
+    {
+        StartCoroutine(LaunchLogic());
     }
 }

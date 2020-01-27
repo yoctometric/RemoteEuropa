@@ -82,17 +82,30 @@ public class EditRotation : MonoBehaviour
             //now cancel on click
             if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
-                mouse.transform.position += new Vector3(10, 10, 0);
-                mouse.freezeMovement = false;
-                mouseAim = false;
-                GameObject.FindObjectOfType<ToolTipDisplay>().UnSetToolTip();
-                sp.color = new Color(0, 0, 0, 0);
-                if (evals.aimer)
-                {
-                    evals.aimer.ToggleAimerOff();
-                }
-                gameInfo.currentlyMouseAiming = false;
+                StopMouseAim();
             }
+        }
+    }
+    void StopMouseAim()
+    {
+        mouse.transform.position += new Vector3(10, 10, 0);
+        mouse.freezeMovement = false;
+        mouseAim = false;
+        GameObject.FindObjectOfType<ToolTipDisplay>().UnSetToolTip();
+        sp.color = new Color(0, 0, 0, 0);
+        if (evals.aimer)
+        {
+            evals.aimer.ToggleAimerOff();
+        }
+        gameInfo.currentlyMouseAiming = false;
+    }
+
+    private void OnDestroy()
+    {
+        //prevetnts f mode failures?
+        if (mouseAim)
+        {
+            StopMouseAim();
         }
     }
 }
