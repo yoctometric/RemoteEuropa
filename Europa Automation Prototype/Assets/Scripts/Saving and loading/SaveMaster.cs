@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SaveMaster : MonoBehaviour
 {
+    [HideInInspector] public string currentPath = "";
+    [HideInInspector] public bool loading = false;
     //data
     public LauncherController[] cannons;
     public GameObject[] fans;
@@ -68,6 +70,8 @@ public class SaveMaster : MonoBehaviour
     {
         //wait until the scene is loaded to instantiate, otherwise shit gets overwritten
         //start loading animation
+        currentPath = path;
+        loading = true;
         Transition trans = GameObject.FindObjectOfType<Transition>();
         trans.LoadingScene();
 
@@ -99,6 +103,7 @@ public class SaveMaster : MonoBehaviour
         ZapTowers(allData);
 
         trans.EndLoadingScene();
+        loading = false;
     }
 
     void Cannons(AllData allData)

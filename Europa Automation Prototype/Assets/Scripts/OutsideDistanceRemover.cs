@@ -32,6 +32,7 @@ public class OutsideDistanceRemover : MonoBehaviour
         {
             if (!omittedList.Contains(min.gameObject) && Vector2.Distance(min.transform.position, transform.position) > dist)
             {
+                print(Vector2.Distance(min.transform.position, transform.position) > dist);
                 if (Vector2.Distance(min.transform.position, transform.position) > dist)
                 {
                     Remove(min.gameObject);
@@ -46,7 +47,6 @@ public class OutsideDistanceRemover : MonoBehaviour
         {
             if (!omittedList.Contains(min.gameObject))
             {
-                print("newcrafter");
                 if (Vector2.Distance(min.transform.position, transform.position) > dist)
                 {
                     Remove(min.gameObject);
@@ -57,16 +57,17 @@ public class OutsideDistanceRemover : MonoBehaviour
                 }
             }
         }
-        foreach (GameObject min in GameObject.FindGameObjectsWithTag("Fan"))
+        foreach (GameObject fan in GameObject.FindGameObjectsWithTag("Fan"))
         {
-            if (!omittedList.Contains(min.gameObject))
+            if (!omittedList.Contains(fan.gameObject))
             {
-                if (Vector2.Distance(min.transform.position, transform.position) > dist)
+                if (Vector2.Distance(fan.transform.position, transform.position) > dist)
                 {
-                    Remove(min.gameObject);
+                    Remove(fan.gameObject);
                 }
                 else if (typeToWatch == 2 && autoDisable)
                 {
+                    print("fandeactivate");
                     this.gameObject.SetActive(false);
                 }
             }

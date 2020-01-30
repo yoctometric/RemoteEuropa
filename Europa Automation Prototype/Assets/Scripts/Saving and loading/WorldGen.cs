@@ -11,6 +11,7 @@ public class OreWeightPair
 }
 public class WorldGen : MonoBehaviour
 {
+    public bool doneGenerating = false;
     public OreWeightPair[] ores;
     [SerializeField] int numberOf;
     [SerializeField] int r;
@@ -20,6 +21,7 @@ public class WorldGen : MonoBehaviour
     {
         StopCoroutine(ScatterOres(0, 0, 0));
         print("cancelling");
+        doneGenerating = true;
         foreach(GameObject g in GeneratedOres)
         {
             Destroy(g);
@@ -72,6 +74,7 @@ public class WorldGen : MonoBehaviour
             }
         }
         //this is where it ends
+        doneGenerating = true;
         GameObject.FindObjectOfType<Transition>().GetComponent<Animator>().SetBool("Generating", false);
     }
 

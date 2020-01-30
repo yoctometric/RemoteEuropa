@@ -24,11 +24,16 @@ public class Core : MonoBehaviour
     Project proj;
     Tutorial tut;
     Animator anim;
+    RewardsManager rewardsManager;
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();        
         invent = GameObject.FindObjectOfType<Inventory>();
         proj = GameObject.FindObjectOfType<Project>();
+        if (GameObject.FindObjectOfType<RewardsManager>())
+        {
+            rewardsManager = GameObject.FindObjectOfType<RewardsManager>();
+        }
         //set upgrade target
         if (level < 2)
         {
@@ -203,6 +208,29 @@ public class Core : MonoBehaviour
             {
                 invent.UpdateInventory(itemType, 1);
                 Destroy(it.gameObject);
+            }
+            if (!rewardsManager)
+            {
+                rewardsManager = GameObject.FindObjectOfType<RewardsManager>();
+            }
+            else
+            {
+                if (itemType == "Refined Copper")
+                {
+                    rewardsManager.copperSinceLastCheck += 1;
+                }
+                else if (itemType == "Refined Iron")
+                {
+                    rewardsManager.ironSinceLastCheck += 1;
+                }
+                else if (itemType == "Brick")
+                {
+                    rewardsManager.brickSinceLastCheck += 1;
+                }
+                else if (itemType == "Pycrete")
+                {
+                    rewardsManager.pycreteSinceLastCheck += 1;
+                }
             }
         }
     }

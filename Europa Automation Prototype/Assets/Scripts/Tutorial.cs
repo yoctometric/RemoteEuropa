@@ -22,6 +22,8 @@ public class Tutorial : MonoBehaviour
     //invenory handlin
     bool recievedCopper = false;
     bool recievedIron = false;
+    bool objectPlaced = false;
+    int objectAliveTimer = 0;
     private void Start()
     {
         panel.SetTrigger("go");
@@ -53,8 +55,21 @@ public class Tutorial : MonoBehaviour
         }
         else if (currentEvent == 2 && prevTime + waitTime < Time.time)
         {
-            print(GameObject.FindObjectsOfType<Miner>().Length);
-            if (GameObject.FindObjectsOfType<Miner>().Length > 0)
+            if (GameObject.FindObjectsOfType<Miner>().Length > 0 && !objectPlaced)
+            {
+                objectAliveTimer++;//as long as this round isnt over, check if a miner has been alive for a while
+                if(objectAliveTimer > 5)
+                {
+                    //five frames of the miner beign around
+                    objectPlaced = true;
+                    objectAliveTimer = 0;//now reset
+                }
+            }
+            else
+            {
+                objectAliveTimer = 0;//reset timer after no miners so that it dont get in the way
+            }
+            if (objectPlaced)
             {
                 currentEvent++;
                 limiter.SetActive(false);
@@ -63,31 +78,53 @@ public class Tutorial : MonoBehaviour
                 limiter.GetComponent<OutsideDistanceRemover>().typeToWatch = 1;
                 objectiveText.Play("next, Place a crafting machine at the marked position");
                 prevTime = Time.time;
+                objectPlaced = false;//reset obejct placed for next test
             }
         }
         else if (currentEvent == 3 && prevTime + waitTime < Time.time)
         {
-            if (GameObject.FindObjectsOfType<Crafting>().Length > 0)
+            if (GameObject.FindObjectsOfType<Crafting>().Length > 0 && !objectPlaced)
+            {
+                objectAliveTimer++;
+                if(objectAliveTimer > 5)
+                {
+                    objectAliveTimer = 0;
+                    objectPlaced = true;
+                }
+            }
+            else
+            {
+                objectAliveTimer = 0;
+            }
+            if (objectPlaced)
             {
                 storedTrans = GameObject.FindObjectOfType<Crafting>().transform;
                 currentEvent++;
                 objectiveText.Play("next, Hover your cursor over the crafting machine and use 'q','e', 'f' or scroll wheel to rotate it");
                 prevStoredRot = storedTrans.rotation;
                 prevTime = Time.time;
+                objectPlaced = false;
             }
         }
         else if(currentEvent == 4 && prevTime + waitTime < Time.time)
         {
-            Quaternion rot = storedTrans.rotation;
-            if (rot != prevStoredRot)
+            if (!storedTrans)
             {
-                //nice it's moved
-                currentEvent++;
-                objectiveText.Play("Using the same methods, aim the crafter at the core, and the miner at the crafter.");
-                ActivateNextObject();
-                prevTime = Time.time;
+                storedTrans = GameObject.FindObjectOfType<Crafting>().transform;
             }
-            prevStoredRot = rot;
+            else
+            {
+                Quaternion rot = storedTrans.rotation;
+                if (rot != prevStoredRot)
+                {
+                    //nice it's moved
+                    currentEvent++;
+                    objectiveText.Play("Using the same methods, aim the crafter at the core, and the miner at the crafter.");
+                    ActivateNextObject();
+                    prevTime = Time.time;
+                }
+                prevStoredRot = rot;
+            }
         }else if (currentEvent == 5 && prevTime + waitTime < Time.time)
         {
             if(recievedCopper)
