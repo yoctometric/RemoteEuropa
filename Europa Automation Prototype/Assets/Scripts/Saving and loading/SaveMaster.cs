@@ -89,17 +89,29 @@ public class SaveMaster : MonoBehaviour
         AllData allData = SaveLoadManager.LoadData(path);
         //Launchers first
         Cannons(allData);
+        yield return new WaitForSeconds(0.25f);
         Fans(allData);
+        yield return new WaitForSeconds(0.25f);
         Crafters(allData);
+        yield return new WaitForSeconds(0.25f);
         Items(allData);
+        yield return new WaitForSeconds(0.25f);
         Miners(allData);
+        yield return new WaitForSeconds(0.25f);
         Ores(allData);
+        yield return new WaitForSeconds(0.25f);
         LoadInventory(allData);
+        yield return new WaitForSeconds(0.25f);
         UnPackers(allData);
+        yield return new WaitForSeconds(0.25f);
         Packers(allData);
+        yield return new WaitForSeconds(0.25f);
         Eggs(allData);
+        yield return new WaitForSeconds(0.25f);
         Splitters(allData);
+        yield return new WaitForSeconds(0.25f);
         Pumps(allData);
+        yield return new WaitForSeconds(0.25f);
         ZapTowers(allData);
 
         trans.EndLoadingScene();

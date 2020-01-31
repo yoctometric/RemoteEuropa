@@ -5285,6 +5285,7 @@ GameObject:
   - component: {fileID: 2529439737742293134}
   - component: {fileID: 2529439737742293135}
   - component: {fileID: 2529439737742293132}
+  - component: {fileID: 3030220858822900371}
   m_Layer: 5
   m_Name: Deconstruct button
   m_TagString: Untagged
@@ -5389,12 +5390,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: SetIndex
-        m_Mode: 3
+      - m_Target: {fileID: 3030220858822900371}
+        m_MethodName: PlaySound
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 8300000, guid: 7b67cce77af7dbb42a6fcd1abef34aae,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5431,6 +5433,18 @@ MonoBehaviour:
   imgColors: []
   images: []
   imgDescs: []
+--- !u!114 &3030220858822900371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529439737742293129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45954b9048917ba4496cfd4a6d9fcdc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2529439737797744165
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,5 @@ public class EditorValues : MonoBehaviour
     public bool hasPanel = true;
     public bool canBeDestroyed;
     public int destroyedValue;
-    public ShootTubeAiming aimer;
-
-    
+    public ShootTubeAiming aimer; 
 }

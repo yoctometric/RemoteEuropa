@@ -478,6 +478,7 @@ MonoBehaviour:
   rotBounds: 0
   mouseAim: 1
   rotOff: 0
+  masterPos: {fileID: 0}
 --- !u!58 &1222705123390829852
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -493,7 +494,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.0055
+  m_Radius: 0.004
 --- !u!114 &1222705123390829857
 MonoBehaviour:
   m_ObjectHideFlags: 0

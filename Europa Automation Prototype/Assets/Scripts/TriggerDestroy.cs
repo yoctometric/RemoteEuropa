@@ -37,11 +37,7 @@ public class TriggerDestroy : MonoBehaviour
     }
     public void Dest()
     {
-        if (isApplicationQuitting)
-        {
-            return;
-        }
-        if (transform.parent)
+        if (transform.parent && !isApplicationQuitting)
         {
             Destroy(transform.parent.gameObject);
         }

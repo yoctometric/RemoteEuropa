@@ -99,13 +99,14 @@ public class Item : MonoBehaviour
     }
     void AnimateDestruct()
     {
-        if (startedAnimate) return;
         startedAnimate = true;
-
         SpriteRenderer effect = Instantiate(ItemConsumeEffect, transform.position, transform.rotation).GetComponentInChildren<SpriteRenderer>();
         effect.transform.localScale = transform.localScale;
-        effect.sprite = sp.sprite;
-        effect.color = sp.color;
+        if (effect.sprite)
+        {
+            effect.sprite = sp.sprite;
+            effect.color = sp.color;
+        }
         if (gameObject)
         {
             gameObject.SetActive(false);

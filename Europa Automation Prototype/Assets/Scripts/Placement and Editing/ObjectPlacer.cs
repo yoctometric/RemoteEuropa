@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
 public class ObjectPlacer : MonoBehaviour
 {
 
@@ -145,22 +144,7 @@ public class ObjectPlacer : MonoBehaviour
         {
             editCoolDown -= 1;
         }
-        //if ur over an editable object open the ui
-        if ((Input.GetMouseButtonDown(0) && editCoolDown < 0 && Physics2D.OverlapCircle(transform.position, 0.5f, editingLayerMask) || Input.GetKeyDown(KeyCode.Space) && editCoolDown < 0 && Physics2D.OverlapCircle(transform.position, 0.5f, editingLayerMask)) && !overUI)
-        {
 
-            UIOpened = true;
-            HUP.SetActive(true);
-            if (Physics2D.OverlapCircle(transform.position, 0.5f, editingLayerMask))
-            {
-                if(Physics2D.OverlapCircle(transform.position, 0.5f, editingLayerMask).gameObject.GetComponent<EditorValues>().hasPanel)
-                {
-                    //Cursor.visible = true;
-
-                    HUP.GetComponent<HUPCONT>().OpenEditor(Physics2D.OverlapCircle(transform.position, 0.5f, editingLayerMask).gameObject);
-                }
-            }
-        }
         //check if an object is placable or not using an overlap circle
         if(!(placeableIndex == 2))
         {
@@ -187,20 +171,55 @@ public class ObjectPlacer : MonoBehaviour
                 canPlace = false;
             }
         }
+        
         if (Physics2D.OverlapCircle(transform.position, 0.5f, editingLayerMask))
         {
-            editingObject = Physics2D.OverlapCircle(transform.position, 0.5f, editingLayerMask).gameObject;
+            Collider2D[] overlappedEditors = Physics2D.OverlapCircleAll(transform.position, 0.5f, editingLayerMask);
+            float closestDistanceSqr = Mathf.Infinity;
+            Transform closestTrans = null;
+            foreach (Collider2D editor in overlappedEditors)
+            {
+                Transform edit = editor.transform;
+                Vector3 direction = edit.position - transform.position;
+                float dSqrToTarget = direction.sqrMagnitude;
+                if(dSqrToTarget < closestDistanceSqr)
+                {
+                    closestDistanceSqr = dSqrToTarget;
+                    closestTrans = edit;
+                }
+            }
+            //now you have the closest one
+            editingObject = closestTrans.gameObject;
+
             if (editingObject.GetComponent<EditRotation>())
             {
                 eRot = editingObject.GetComponent<EditRotation>();
             }
+
+            //now, hupcont logic
+            ///we already know we are over a valid col, so
+            ///but only open the hupcont if the editing index is active, ie if index is 1
+            ///in fact, dont even rotate if index isnt one
+            if ((Input.GetMouseButtonDown(0) && editCoolDown < 0 || Input.GetKeyDown(KeyCode.Space) && editCoolDown < 0) && !overUI && placeableIndex == 1)
+            {
+                UIOpened = true;
+                HUP.SetActive(true);
+
+                if (editingObject.GetComponent<EditorValues>().hasPanel)
+                {
+                    HUP.GetComponent<HUPCONT>().OpenEditor(editingObject);
+                }
+            }
         }
         else
         {
+            //not over any colliders, cant be an erot
             eRot = null;
         }
+
         //now rotate the rotatable (only if Lshift isnt held because that is for moving the camera)
-        if (eRot && !Input.GetKey(KeyCode.LeftShift))
+        ///also only if index is one because thats the editing index
+        if (eRot && !Input.GetKey(KeyCode.LeftShift) && placeableIndex == 1)
         {
             eRot.rotateable.Rotate(new Vector3(0, 0, Input.mouseScrollDelta.y * rotSpeed));
             if (Input.GetKey(KeyCode.Q))
