@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Item : MonoBehaviour
 {
     public string typeOfItem = "";
     public int typeInt = -1;
     public bool canSink = true;
+    bool sank = false;
     bool passedInvulnerability = false;
     bool startedShrinking = false;
     bool startedAnimate = false;
+    float startTime = 0;
     Rigidbody2D rb;
     [SerializeField] ParticleSystem onEnableSystem;
     [SerializeField] GameObject ItemConsumeEffect;
@@ -18,6 +20,7 @@ public class Item : MonoBehaviour
 
     private void Start()
     {
+        startTime = Time.time;
         rb = gameObject.GetComponent<Rigidbody2D>();
         StartCoroutine(StartInvulnerability());
         TrailRenderer t = gameObject.GetComponent<TrailRenderer>();
@@ -43,6 +46,8 @@ public class Item : MonoBehaviour
                     ///ACTIVATE TO RETURN TO FORMER SHRINK
                     //startedShrinking = true;
                     //StartCoroutine(Shrink());
+                    sank = true;
+                    //print("SINKING");
                     Destroy(gameObject);
                 }
             }
@@ -99,14 +104,21 @@ public class Item : MonoBehaviour
     }
     void AnimateDestruct()
     {
+        if (startTime + 1 > Time.time)
+        {
+            return;
+        }
+        if (!sp)
+        {
+            sp = gameObject.GetComponent<SpriteRenderer>();
+        }
         startedAnimate = true;
         SpriteRenderer effect = Instantiate(ItemConsumeEffect, transform.position, transform.rotation).GetComponentInChildren<SpriteRenderer>();
+        TriggerDestroy dest = effect.GetComponentInParent<TriggerDestroy>();  
+        dest.sank = sank;
         effect.transform.localScale = transform.localScale;
-        if (effect.sprite)
-        {
-            effect.sprite = sp.sprite;
-            effect.color = sp.color;
-        }
+        effect.sprite = sp.sprite;
+        effect.color = sp.color;
         if (gameObject)
         {
             gameObject.SetActive(false);

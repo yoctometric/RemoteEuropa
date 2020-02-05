@@ -533,7 +533,7 @@ GameObject:
   - component: {fileID: 2529439736995768533}
   - component: {fileID: 2529439736995768534}
   m_Layer: 5
-  m_Name: Info Panel (4)
+  m_Name: Dest Info
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -650,7 +650,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -58.72}
+  m_AnchoredPosition: {x: 0, y: -70.06}
   m_SizeDelta: {x: 24.88, y: 24.88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2529439737024616321
@@ -866,13 +866,14 @@ GameObject:
   - component: {fileID: 2529439737033715421}
   - component: {fileID: 2529439737033715420}
   - component: {fileID: 3584871806724413291}
+  - component: {fileID: 5723277886617702950}
   m_Layer: 5
   m_Name: ItemButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2529439737033715417
 RectTransform:
   m_ObjectHideFlags: 0
@@ -975,7 +976,7 @@ MonoBehaviour:
         m_MethodName: PlaySound
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: fbdb5655b6831cb41a59f97768f7c4a4,
+          m_ObjectArgument: {fileID: 8300000, guid: 94539928a8b186246a13e64ad18d6f88,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
@@ -986,6 +987,17 @@ MonoBehaviour:
       - m_Target: {fileID: 2529439738507816055}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 5723277886617702950}
+        m_MethodName: Click
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1051,6 +1063,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45954b9048917ba4496cfd4a6d9fcdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5723277886617702950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529439737033715418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e718e1efd25b54c40b46fb6506396a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 0
 --- !u!1 &2529439737044555958
 GameObject:
   m_ObjectHideFlags: 0
@@ -1265,7 +1290,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: <color="green">Click</color> once, move your cursor, and <color="green">Click</color>
-    again to <color="red"> destroy</color> all selected items
+    again to <color="red"> destroy</color> all selected <color="green">items</color>.
+    hold <color="green">Shift</color> to <color="red"> destroy</color> <color="green">objects</color>
+    instead
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e3704cc03a21018438e5075f64e7ef92, type: 2}
   m_sharedMaterial: {fileID: 21572842488859448, guid: e3704cc03a21018438e5075f64e7ef92,
@@ -1294,8 +1321,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1335,15 +1362,15 @@ MonoBehaviour:
   m_margin: {x: -10.20256, y: 0, z: -10.218063, w: 0}
   m_textInfo:
     textComponent: {fileID: 2529439737070094271}
-    characterCount: 76
+    characterCount: 116
     spriteCount: 0
-    spaceCount: 13
-    wordCount: 13
+    spaceCount: 20
+    wordCount: 19
     linkCount: 0
-    lineCount: 4
+    lineCount: 5
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -2071,6 +2098,7 @@ GameObject:
   - component: {fileID: 2529439737284741585}
   - component: {fileID: 2529439737284741590}
   - component: {fileID: 1880831010215569888}
+  - component: {fileID: 5214379495548103330}
   m_Layer: 5
   m_Name: ItemButton (3)
   m_TagString: Untagged
@@ -2179,7 +2207,7 @@ MonoBehaviour:
         m_MethodName: PlaySound
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: fbdb5655b6831cb41a59f97768f7c4a4,
+          m_ObjectArgument: {fileID: 8300000, guid: 94539928a8b186246a13e64ad18d6f88,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 4
@@ -2190,6 +2218,17 @@ MonoBehaviour:
       - m_Target: {fileID: 2529439738391303500}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 5214379495548103330}
+        m_MethodName: Click
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2236,6 +2275,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45954b9048917ba4496cfd4a6d9fcdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5214379495548103330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529439737284741587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e718e1efd25b54c40b46fb6506396a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 4
 --- !u!1 &2529439737286462039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2324,13 +2376,14 @@ GameObject:
   - component: {fileID: 2529439737344897305}
   - component: {fileID: 2529439737344897306}
   - component: {fileID: 8603692579652619644}
+  - component: {fileID: 5482850741989024800}
   m_Layer: 5
   m_Name: Splitter button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2529439737344897307
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2432,7 +2485,7 @@ MonoBehaviour:
         m_MethodName: PlaySound
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: fbdb5655b6831cb41a59f97768f7c4a4,
+          m_ObjectArgument: {fileID: 8300000, guid: 94539928a8b186246a13e64ad18d6f88,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 9
@@ -2443,6 +2496,17 @@ MonoBehaviour:
       - m_Target: {fileID: 2529439737493558390}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 5482850741989024800}
+        m_MethodName: Click
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2492,6 +2556,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45954b9048917ba4496cfd4a6d9fcdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5482850741989024800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529439737344897300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e718e1efd25b54c40b46fb6506396a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 9
 --- !u!1 &2529439737349710436
 GameObject:
   m_ObjectHideFlags: 0
@@ -3051,13 +3128,14 @@ GameObject:
   - component: {fileID: 2529439737465020718}
   - component: {fileID: 2529439737465020719}
   - component: {fileID: 6672261812619864809}
+  - component: {fileID: 8242970553172954607}
   m_Layer: 5
   m_Name: ZapTowerButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2529439737465020712
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3178,6 +3256,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 8242970553172954607}
+        m_MethodName: Click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2529439737465020719
@@ -3222,6 +3311,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45954b9048917ba4496cfd4a6d9fcdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8242970553172954607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529439737465020713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e718e1efd25b54c40b46fb6506396a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 11
 --- !u!1 &2529439737476654106
 GameObject:
   m_ObjectHideFlags: 0
@@ -3237,13 +3339,14 @@ GameObject:
   - component: {fileID: 2529439737476654109}
   - component: {fileID: 2529439737476654108}
   - component: {fileID: 517497868540407376}
+  - component: {fileID: 7375795149738573269}
   m_Layer: 5
   m_Name: ItemButton (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2529439737476654105
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3345,7 +3448,7 @@ MonoBehaviour:
         m_MethodName: PlaySound
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 7b67cce77af7dbb42a6fcd1abef34aae,
+          m_ObjectArgument: {fileID: 8300000, guid: 94539928a8b186246a13e64ad18d6f88,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 6
@@ -3356,6 +3459,17 @@ MonoBehaviour:
       - m_Target: {fileID: 2529439738794224466}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 7375795149738573269}
+        m_MethodName: Click
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3424,6 +3538,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45954b9048917ba4496cfd4a6d9fcdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7375795149738573269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529439737476654106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e718e1efd25b54c40b46fb6506396a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 6
 --- !u!1 &2529439737482176112
 GameObject:
   m_ObjectHideFlags: 0
@@ -3788,7 +3915,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.14, y: -34.659996}
+  m_AnchoredPosition: {x: -7.14, y: -46}
   m_SizeDelta: {x: 174.63, y: 9.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2529439737533397080
@@ -4403,7 +4530,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -50.78, y: -68.31999}
+  m_AnchoredPosition: {x: -50.78, y: -79.65999}
   m_SizeDelta: {x: 24.88, y: 24.88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2529439737630484721
@@ -4531,13 +4658,14 @@ GameObject:
   - component: {fileID: 2529439737646504856}
   - component: {fileID: 2529439737646504857}
   - component: {fileID: 1971027618396865933}
+  - component: {fileID: 4060170765633860014}
   m_Layer: 5
   m_Name: ItemButton (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2529439737646504861
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4660,6 +4788,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 4060170765633860014}
+        m_MethodName: Click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2529439737646504857
@@ -4701,6 +4840,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45954b9048917ba4496cfd4a6d9fcdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4060170765633860014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529439737646504858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e718e1efd25b54c40b46fb6506396a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 10
 --- !u!1 &2529439737701975965
 GameObject:
   m_ObjectHideFlags: 0
@@ -4864,6 +5016,7 @@ GameObject:
   - component: {fileID: 2529439737715509577}
   - component: {fileID: 2529439737715509582}
   - component: {fileID: 7681932824333140372}
+  - component: {fileID: 2244614372070599169}
   m_Layer: 5
   m_Name: ItemButton (1)
   m_TagString: Untagged
@@ -4972,7 +5125,7 @@ MonoBehaviour:
         m_MethodName: PlaySound
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: fbdb5655b6831cb41a59f97768f7c4a4,
+          m_ObjectArgument: {fileID: 8300000, guid: 94539928a8b186246a13e64ad18d6f88,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 2
@@ -4983,6 +5136,17 @@ MonoBehaviour:
       - m_Target: {fileID: 2529439737944065881}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2244614372070599169}
+        m_MethodName: Click
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5032,6 +5196,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45954b9048917ba4496cfd4a6d9fcdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2244614372070599169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529439737715509579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e718e1efd25b54c40b46fb6506396a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 2
 --- !u!1 &2529439737719295870
 GameObject:
   m_ObjectHideFlags: 0
@@ -5286,6 +5463,7 @@ GameObject:
   - component: {fileID: 2529439737742293135}
   - component: {fileID: 2529439737742293132}
   - component: {fileID: 3030220858822900371}
+  - component: {fileID: 2428287858174604597}
   m_Layer: 5
   m_Name: Deconstruct button
   m_TagString: Untagged
@@ -5394,7 +5572,7 @@ MonoBehaviour:
         m_MethodName: PlaySound
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 7b67cce77af7dbb42a6fcd1abef34aae,
+          m_ObjectArgument: {fileID: 8300000, guid: 94539928a8b186246a13e64ad18d6f88,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 5
@@ -5405,6 +5583,17 @@ MonoBehaviour:
       - m_Target: {fileID: 2529439736995768528}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2428287858174604597}
+        m_MethodName: Click
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5445,6 +5634,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45954b9048917ba4496cfd4a6d9fcdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2428287858174604597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529439737742293129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e718e1efd25b54c40b46fb6506396a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 5
 --- !u!1 &2529439737797744165
 GameObject:
   m_ObjectHideFlags: 0
@@ -5939,7 +6141,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 30.3, y: -93}
+  m_AnchoredPosition: {x: 30.3, y: -104.34}
   m_SizeDelta: {x: 24.88, y: 24.88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2529439737942915005
@@ -6084,6 +6286,7 @@ GameObject:
   - component: {fileID: 2529439737960687218}
   - component: {fileID: 2529439737960687223}
   - component: {fileID: 6954493607878161186}
+  - component: {fileID: 2765063253316540000}
   m_Layer: 5
   m_Name: ItemButton (2)
   m_TagString: Untagged
@@ -6211,6 +6414,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 2765063253316540000}
+        m_MethodName: Click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2529439737960687223
@@ -6249,6 +6463,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45954b9048917ba4496cfd4a6d9fcdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2765063253316540000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529439737960687212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e718e1efd25b54c40b46fb6506396a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 3
 --- !u!1 &2529439737970526620
 GameObject:
   m_ObjectHideFlags: 0
@@ -7220,7 +7447,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 75.5, y: -76.06}
+  m_AnchoredPosition: {x: 75.5, y: -87.399994}
   m_SizeDelta: {x: 90, y: 9.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2529439738175522143
@@ -8143,7 +8370,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.1400146, y: -117.159996}
+  m_AnchoredPosition: {x: -7.1400146, y: -128.5}
   m_SizeDelta: {x: 174.63, y: 9.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2529439738331940937
@@ -9190,7 +9417,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -10325,7 +10552,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -89.5, y: -75.86}
+  m_AnchoredPosition: {x: -89.5, y: -87.2}
   m_SizeDelta: {x: 90, y: 9.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2529439738679898590
@@ -11481,13 +11708,14 @@ GameObject:
   - component: {fileID: 2529439738795665484}
   - component: {fileID: 2529439738795665491}
   - component: {fileID: 1792922416207997093}
+  - component: {fileID: 8931193286370642112}
   m_Layer: 5
   m_Name: ItemButton (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2529439738795665480
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11589,7 +11817,7 @@ MonoBehaviour:
         m_MethodName: PlaySound
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 7b67cce77af7dbb42a6fcd1abef34aae,
+          m_ObjectArgument: {fileID: 8300000, guid: 94539928a8b186246a13e64ad18d6f88,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 7
@@ -11600,6 +11828,17 @@ MonoBehaviour:
       - m_Target: {fileID: 2529439737719295870}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 8931193286370642112}
+        m_MethodName: Click
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11668,6 +11907,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45954b9048917ba4496cfd4a6d9fcdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8931193286370642112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2529439738795665481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e718e1efd25b54c40b46fb6506396a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 7
 --- !u!1 &2529439738816824609
 GameObject:
   m_ObjectHideFlags: 0

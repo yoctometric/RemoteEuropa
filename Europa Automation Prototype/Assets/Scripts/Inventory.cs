@@ -54,27 +54,53 @@ public class Inventory : MonoBehaviour
         //update values, then
         string disp = StaticFunctions.AbbreviateNumber(cAmnt + amount);
         UpdateDisplayTexts(index, disp);
-        storedVals[index] = cAmnt + amount;/*
-        if(core.level < 2)
+        storedVals[index] = cAmnt + amount;
+
+        //Make it pretty if you got a big input
+        if (amount > 50)
         {
-            if (storedVals["Brick"] >= core.lvlCosts[core.level].w & storedVals["Refined Copper"] >= core.lvlCosts[core.level].x && storedVals["Refined Iron"] >= core.lvlCosts[core.level].y && storedVals["Pycrete"] >= core.lvlCosts[core.level].z)
+            //flash the displays green
+            if (index == "Refined Copper")
             {
-                if (!buttonOn)
+                countDisplays[0].transform.parent.GetComponent<Animator>().SetTrigger("FlashGreen");
+            }
+            else if (index == "Refined Iron")
+            {
+                countDisplays[1].transform.parent.GetComponent<Animator>().SetTrigger("FlashGreen");
+
+            }
+            else if (index == "Pycrete")
+            {
+                countDisplays[2].transform.parent.GetComponent<Animator>().SetTrigger("FlashGreen");
+            }
+            else if (index == "Brick")
+            {
+                countDisplays[3].transform.parent.GetComponent<Animator>().SetTrigger("FlashGreen");
+            }
+        }
+            /*
+
+
+            if(core.level < 2)
+            {
+                if (storedVals["Brick"] >= core.lvlCosts[core.level].w & storedVals["Refined Copper"] >= core.lvlCosts[core.level].x && storedVals["Refined Iron"] >= core.lvlCosts[core.level].y && storedVals["Pycrete"] >= core.lvlCosts[core.level].z)
                 {
-                    ToggleUpButton(true);
+                    if (!buttonOn)
+                    {
+                        ToggleUpButton(true);
+                    }
+                }
+                else
+                {
+                    ToggleUpButton(false);
                 }
             }
             else
             {
                 ToggleUpButton(false);
-            }
-        }
-        else
-        {
-            ToggleUpButton(false);
-        }*/
-        //check project
-        if (proj.panOn)
+            }*/
+            //check project
+            if (proj.panOn)
         {
             proj.UpdatePanel(storedVals["Refined Copper"], storedVals["Refined Iron"], storedVals["Pycrete"], storedVals["Brick"]);
         }

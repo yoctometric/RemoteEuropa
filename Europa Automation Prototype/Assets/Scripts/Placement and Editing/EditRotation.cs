@@ -88,16 +88,19 @@ public class EditRotation : MonoBehaviour
     }
     void StopMouseAim()
     {
-        mouse.transform.position += new Vector3(10, 10, 0);
-        mouse.freezeMovement = false;
-        mouseAim = false;
-        GameObject.FindObjectOfType<ToolTipDisplay>().UnSetToolTip();
-        sp.color = new Color(0, 0, 0, 0);
-        if (evals.aimer)
+        if (mouse)
         {
-            evals.aimer.ToggleAimerOff();
+            mouse.transform.position += new Vector3(10, 10, 0);
+            mouse.freezeMovement = false;
+            mouseAim = false;
+            GameObject.FindObjectOfType<ToolTipDisplay>().UnSetToolTip();
+            sp.color = new Color(0, 0, 0, 0);
+            if (evals.aimer)
+            {
+                evals.aimer.ToggleAimerOff();
+            }
+            gameInfo.currentlyMouseAiming = false;
         }
-        gameInfo.currentlyMouseAiming = false;
     }
 
     private void OnDestroy()

@@ -10,6 +10,8 @@ public class Timer : MonoBehaviour
     //
     public List<Miner> miners;
     public List<Pump> pumps;
+
+    WaitForSeconds seconds = new WaitForSeconds(0.25f);
     private void Start()
     {
         StartCoroutine(Tick());
@@ -24,18 +26,17 @@ public class Timer : MonoBehaviour
         //now cycle 20 times
         for(int i = 0; i < 20; i++)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return seconds; //less resource intensive than a new wait every cycle
             foreach (Miner min in miners)
             {
                 min.Tick(i);
             }
+            foreach (Pump p in pumps)
+            {
+                p.Tick(i);
+            }
         }
         StartCoroutine(Tick());
-        foreach(Pump p in pumps)
-        {
-            p.Tick();
-        }
-
     }
 
 

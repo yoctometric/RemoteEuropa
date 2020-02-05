@@ -17,6 +17,7 @@ public class WorldGen : MonoBehaviour
     [SerializeField] int r;
     [SerializeField] float distBon;
     [HideInInspector] public List<GameObject> GeneratedOres;
+    SaveMaster mast;
     public void CancelGen()
     {
         StopCoroutine(ScatterOres(0, 0, 0));
@@ -29,6 +30,7 @@ public class WorldGen : MonoBehaviour
     }
     private void Start()
     {
+        mast = GameObject.FindObjectOfType<SaveMaster>();
         GeneratedOres = new List<GameObject>();
         StartCoroutine(ScatterOres(numberOf, r, distBon));
     }
@@ -60,7 +62,12 @@ public class WorldGen : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             yield return new WaitForEndOfFrame(); // this is actually nescessary to prevent overlapping, believe it or not
-
+            //check to cancel
+            if (mast.loading)
+            {
+                CancelGen();
+                yield break;
+            }
             int choice = Random.Range(0, maxVal);
             //go over every key. if it is less than the count, instantiate
             for(int j = 0; j < weights.Count; j++)

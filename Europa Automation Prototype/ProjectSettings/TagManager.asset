@@ -12,6 +12,7 @@ TagManager:
   - GameInfo
   - Egg
   - Fan
+  - Core
   layers:
   - Default
   - TransparentFX

@@ -13,8 +13,14 @@ public class Reflector : MonoBehaviour
     Vector3 offset;
     Transform p;
     Transform container;
+    bool created = false;
     void Start()
     {
+
+        if (created)
+        {//just that easy
+            return;
+        }
         sps = new List<SpriteRenderer>();
         if (StaticFunctions.lowGraphics)
         {
@@ -24,7 +30,7 @@ public class Reflector : MonoBehaviour
         //container = GameObject.Find("Reflection Container").GetComponent<Transform>();
         offset = new Vector2(0.25f, -0.25f);
         p = gameObject.transform.parent;
-        foreach(SpriteRenderer sp in p.GetComponentsInChildren<SpriteRenderer>())
+        foreach (SpriteRenderer sp in p.GetComponentsInChildren<SpriteRenderer>())
         {
             //check if it is an editor
             if (sp.transform.name.Contains("Edit") || sp.transform.name.Contains("noreflect"))
@@ -42,8 +48,10 @@ public class Reflector : MonoBehaviour
             nsp.name = "reflect";
             nsp.sortingOrder = sp.sortingOrder - 15;
             nsp.transform.localScale = new Vector3(1, 1, 1);
-
         }
+        
+        created = true;
+
     }
 
     void Update()

@@ -8,12 +8,12 @@ public class Pump : MonoBehaviour
     [SerializeField] Item product;
     [SerializeField] Transform firePoint;
     [SerializeField] int fireForce = 500;
-    [SerializeField] float fireRate = 1;
+    [SerializeField] float coolDown = 1;
     [HideInInspector] public int amntContainersStored = 0;
     [SerializeField] int maxContained = 10;
     [SerializeField] GameObject emptyIndicator;
     [SerializeField] Animator anim;
-    
+    Timer tim;
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.GetComponent<Item>())
@@ -44,24 +44,27 @@ public class Pump : MonoBehaviour
             }
         }
     }
-    public void Tick()
+    public void Tick(int iter)
     {
-        if (amntContainersStored > 0 && this!=null)
+        if (iter % Mathf.RoundToInt(coolDown) == 0)
         {
-            Item p = Instantiate(product.gameObject, firePoint.position, firePoint.rotation).GetComponent<Item>();
-            p.GetComponent<Rigidbody2D>().AddForce(firePoint.up * fireForce);
-            amntContainersStored -= 1;
-            //color green
-            anim.SetTrigger("go");
-            if (amntContainersStored < 1)
+            if (amntContainersStored > 0 && this != null)
             {
-                emptyIndicator.SetActive(true);
+                Item p = Instantiate(product.gameObject, firePoint.position, firePoint.rotation).GetComponent<Item>();
+                p.GetComponent<Rigidbody2D>().AddForce(firePoint.up * fireForce);
+                amntContainersStored -= 1;
+                //color green
+                anim.SetTrigger("go");
+                if (amntContainersStored < 1)
+                {
+                    emptyIndicator.SetActive(true);
+                }
             }
         }
     }
     private void Start()
     {
-        Timer tim = GameObject.FindObjectOfType<Timer>();
+        tim = GameObject.FindObjectOfType<Timer>();
         tim.pumps.Add(this);
         if (amntContainersStored != 0)
         {
@@ -71,5 +74,9 @@ public class Pump : MonoBehaviour
         {
             emptyIndicator.SetActive(true);
         }
+    }
+    private void OnDestroy()
+    {
+        tim.pumps.Remove(this);
     }
 }

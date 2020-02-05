@@ -11,11 +11,19 @@ public class SelectDestruction : MonoBehaviour
     BoxCollider2D box;
     LineRenderer line;
     [SerializeField] LayerMask itemLayerMask;
+    [SerializeField] LayerMask objectLayerMask;
     [SerializeField] ParticleSystem deathEffect;
+    [SerializeField] GameObject shiftIndicator;
 
     Vector2 boxSize;
+    bool showObjDestIndicator = false;
+
     void Start()
     {
+        if (GameObject.FindObjectsOfType<SelectDestruction>().Length > 1)
+        {
+            Destroy(gameObject);
+        }
         cam = Camera.main;
         startP = transform.position;
         box = gameObject.GetComponent<BoxCollider2D>();
@@ -34,30 +42,71 @@ public class SelectDestruction : MonoBehaviour
         Vector3[] points = new Vector3[] { startP, (new Vector3(startP.x - (startP.x - endP.x), startP.y, 0)), endP, new Vector3(endP.x - (endP.x - startP.x), endP.y, 0), startP};
         line.SetPositions(points);
         //if the player left clicks, destroy
-        if (Input.GetMouseButtonDown(0))
+        //if they hold leftShift, dest objects instead
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            DestroyOverlaps(transform.position, size);
-        }//if the right click, cancel
-        else if (Input.GetMouseButtonDown(1))
+            showObjDestIndicator = true;
+            if (Input.GetMouseButtonDown(0))
+            {
+                DestroyOverlaps(transform.position, size, true);
+            }
+        }
+        else
         {
-            Destroy(gameObject);
+            showObjDestIndicator = false;
+            if (Input.GetMouseButtonDown(0))
+            {
+                DestroyOverlaps(transform.position, size, false);
+            }
+        }
+        shiftIndicator.SetActive(showObjDestIndicator);
 
+        //if the right click, cancel
+        if (Input.GetMouseButtonDown(1))
+        {
+            Destroy(gameObject, 0.1f);
         }
     }
 
     //function to get all objects in overlap
-    void DestroyOverlaps(Vector3 mid, Vector2 size)
+    void DestroyOverlaps(Vector3 mid, Vector2 size, bool destObjects)
     {
-        Collider2D[] overlaps = Physics2D.OverlapBoxAll(mid, size, 0, itemLayerMask,Mathf.NegativeInfinity, Mathf.Infinity);
-        foreach (Collider2D obj in overlaps)
-        {
-            if (obj.gameObject.tag == "Item" || obj.gameObject.tag == "Egg")
-            {
+        Collider2D[] overlaps;
 
-                Instantiate(deathEffect, obj.transform.position, Quaternion.identity);
-                Destroy(obj.gameObject);
+        if (destObjects)
+        {
+            overlaps = Physics2D.OverlapBoxAll(mid, size, 0, objectLayerMask, Mathf.NegativeInfinity, Mathf.Infinity);
+            foreach (Collider2D obj in overlaps)
+            {
+                if (obj.transform.parent)
+                {
+                    if ((obj.transform.parent.tag != "Ore") && obj.transform.parent.tag != "Core")
+                    {
+                        Instantiate(deathEffect, obj.transform.position, Quaternion.identity);
+                        Destroy(obj.transform.parent.gameObject); //if not ore and there is a parent, destroy
+                    }
+                }
+                else
+                {
+                    Instantiate(deathEffect, obj.transform.position, Quaternion.identity);
+                    Destroy(obj.gameObject);
+                }
             }
         }
+        else
+        {
+            overlaps = Physics2D.OverlapBoxAll(mid, size, 0, itemLayerMask, Mathf.NegativeInfinity, Mathf.Infinity);
+            foreach (Collider2D obj in overlaps)
+            {
+                if (obj.gameObject.tag == "Item" || obj.gameObject.tag == "Egg")
+                {
+
+                    Instantiate(deathEffect, obj.transform.position, Quaternion.identity);
+                    Destroy(obj.gameObject);
+                }
+            }
+        }
+
         Destroy(gameObject);
 
     }

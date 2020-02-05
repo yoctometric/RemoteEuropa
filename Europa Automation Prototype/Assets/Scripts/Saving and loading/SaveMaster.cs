@@ -88,32 +88,32 @@ public class SaveMaster : MonoBehaviour
         //now that the scene is loaded, send it brother
         AllData allData = SaveLoadManager.LoadData(path);
         //Launchers first
+        float waitTime = 0.1f;
         Cannons(allData);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(waitTime);
         Fans(allData);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(waitTime);
         Crafters(allData);
-        yield return new WaitForSeconds(0.25f);
-        Items(allData);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(waitTime);
         Miners(allData);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(waitTime);
         Ores(allData);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(waitTime);
         LoadInventory(allData);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(waitTime);
         UnPackers(allData);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(waitTime);
         Packers(allData);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(waitTime);
         Eggs(allData);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(waitTime);
         Splitters(allData);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(waitTime);
         Pumps(allData);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(waitTime);
         ZapTowers(allData);
-
+        yield return new WaitForSeconds(waitTime);
+        Items(allData);
         trans.EndLoadingScene();
         loading = false;
     }

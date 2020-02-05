@@ -10,6 +10,7 @@ public class TriggerDestroy : MonoBehaviour
     Transform target;
     bool isApplicationQuitting = false;//so that you can cancel isntantiate
     bool activated = false;
+    public bool sank = false;
     [SerializeField] GameObject GoodConsumeEffect;
     private void Start()
     {
@@ -17,7 +18,7 @@ public class TriggerDestroy : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer == 8 && !activated)//this is the ground layer
+        if (other.gameObject.layer == 8 && !activated && !sank)//this is the ground layer
         {
             activated = true;
             Instantiate(GoodConsumeEffect, transform.position, Quaternion.identity);

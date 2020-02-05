@@ -140,6 +140,7 @@ MonoBehaviour:
   rotBounds: 0
   mouseAim: 1
   rotOff: 0
+  masterPos: {fileID: 0}
 --- !u!1 &3184438532275898514
 GameObject:
   m_ObjectHideFlags: 0
@@ -5037,7 +5038,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3184438533251705308}
-  - component: {fileID: 3184438533251705309}
+  - component: {fileID: 6956722389156308464}
   m_Layer: 8
   m_Name: Hardcol
   m_TagString: Untagged
@@ -5059,8 +5060,8 @@ Transform:
   m_Father: {fileID: 3184438532275898518}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &3184438533251705309
-PolygonCollider2D:
+--- !u!61 &6956722389156308464
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5072,7 +5073,7 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.052849144}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5082,19 +5083,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.33413422, y: 0.6940595}
-      - {x: 0.16474271, y: 0.87634534}
-      - {x: 0.018008947, y: 0.81990874}
-      - {x: -0.050601125, y: 0.31802145}
-      - {x: -0.38308406, y: 0.3048088}
-      - {x: -0.36267126, y: -0.44883496}
-      - {x: -0.021501899, y: -0.45324546}
-      - {x: -0.017656207, y: -0.6552668}
-      - {x: 0.1178807, y: -0.8980419}
-      - {x: 0.23660779, y: -0.8630443}
-      - {x: 0.37476516, y: -0.16822433}
+  serializedVersion: 2
+  m_Size: {x: 0.71275234, y: 0.92849237}
+  m_EdgeRadius: 0
 --- !u!1001 &6479110464238990994
 PrefabInstance:
   m_ObjectHideFlags: 0

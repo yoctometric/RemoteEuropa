@@ -15,6 +15,7 @@ public class Miner : MonoBehaviour
     OreController orePatch;
     SpriteRenderer sp;
     Timer tim;
+    bool hasHadOrePatch = false;
     void Start()
     {
         //get the timer
@@ -26,8 +27,26 @@ public class Miner : MonoBehaviour
         if(Physics2D.OverlapCircle(transform.position, 1, layerMask))
         {
             orePatch = Physics2D.OverlapCircle(transform.position, 1, layerMask).gameObject.GetComponent<OreController>();
+            hasHadOrePatch = true;
             product = orePatch.product.GetComponent<Rigidbody2D>();
             hardnessMultiplier = orePatch.hardness;
+        }
+        //draw line renderer to nearby ore
+        if (!StaticFunctions.lowGraphics)
+        {
+            UpdateConnections();
+        }
+    }
+    void UpdateConnections()
+    {
+        if (orePatch)
+        {
+            LineRenderer lr = gameObject.GetComponent<LineRenderer>();
+            Vector3[] poses = new Vector3[2];
+            poses[0] = this.transform.position;
+            poses[1] = orePatch.transform.position;
+            lr.SetPositions(poses);
+            //lr.endColor = orePatch.GetComponent<SpriteRenderer>().color;
         }
     }
     /*
@@ -93,16 +112,22 @@ public class Miner : MonoBehaviour
         yield return new WaitForEndOfFrame();
         if (!orePatch)
         {
+            if (hasHadOrePatch)
+            {
+                //since you used to but dont anymore, the patch must have faded. Remove miner from ticker
+                tim.miners.Remove(this);
+            }
             //product = null;
             sp.color = new Color(0.2f, 0.2f, 0.2f, 1);
             if (Physics2D.OverlapCircle(transform.position, 1, layerMask))
             {
-                orePatch = Physics2D.OverlapCircle(transform.position, 1, layerMask).gameObject.GetComponent<OreController>();
+                orePatch = Physics2D.OverlapCircle(transform.position, 1, layerMask).gameObject.GetComponent<OreController>();              
             }
             if (orePatch)
             {
+                hasHadOrePatch = true;
                 hardnessMultiplier = orePatch.hardness;
-
+                UpdateConnections();
                 product = orePatch.product.GetComponent<Rigidbody2D>();
             }
             //StartCoroutine(LaunchItem());
@@ -120,6 +145,6 @@ public class Miner : MonoBehaviour
     //remove miner from list
     private void OnDestroy()
     {
-        tim.miners.Remove(gameObject.GetComponent<Miner>());
+        tim.miners.Remove(this);
     }
 }

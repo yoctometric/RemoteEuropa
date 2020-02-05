@@ -18,7 +18,6 @@ public class PauseMenu : MonoBehaviour
         {
             wGen = GameObject.FindObjectOfType<WorldGen>();
         }
-        print(mast.currentPath);
         if (input && mast)
         {
             input.text = mast.currentPath;
