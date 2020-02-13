@@ -8,14 +8,20 @@ public class RocketBase : MonoBehaviour
     [HideInInspector] public int storedCopper = 0;
     [HideInInspector] public int storedFuel = 0;
 
-    [SerializeField] int maxIron = 500;
-    [SerializeField] int maxCopper = 500;
-    [SerializeField] int maxFuel = 500;
+    [SerializeField] public int maxIron = 500;
+    [SerializeField] public int maxCopper = 500;
+    [SerializeField] public int maxFuel = 500;
+
+    [HideInInspector] public int totalMax = 0;
 
     [Header("Various refrences")]
     [SerializeField] Animator hatch;
     [SerializeField] Animator rocket;
     //item admittence
+    private void Start()
+    {
+        totalMax = maxCopper + maxIron + maxFuel;
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.GetComponent<Item>())
@@ -36,6 +42,10 @@ public class RocketBase : MonoBehaviour
             {
                 storedFuel++;
                 Destroy(it.gameObject);
+            }
+            else
+            {
+                //reject item
             }
         }
         //Now, check if cann launch

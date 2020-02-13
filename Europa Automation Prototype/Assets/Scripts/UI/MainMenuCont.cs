@@ -14,6 +14,7 @@ public class MainMenuCont : MonoBehaviour
     [SerializeField] AudioMixer mainMixer;
     [SerializeField] Toggle graphicsToggle;
     [SerializeField] Toggle FPSToggle;
+    [SerializeField] Toggle LowParticlesToggle;
     private void Start()
     {
         musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume");
@@ -32,7 +33,10 @@ public class MainMenuCont : MonoBehaviour
         {
             FPSToggle.isOn = true;
         }
-
+        if (PlayerPrefs.GetInt("MinimalParticles") == 1)
+        {
+            LowParticlesToggle.isOn = true;
+        }
     }
 
     private void Update()
@@ -99,6 +103,21 @@ public class MainMenuCont : MonoBehaviour
         GameObject.FindObjectOfType<Transition>().GetComponent<Animator>().SetTrigger("Out");
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(scene);
+    }
+    public void ToggleParticles()
+    {
+        if (LowParticlesToggle.isOn)
+        {
+            print("on");
+            StaticFunctions.minimalParticles = true;
+            PlayerPrefs.SetInt("MinimalParticles", 1);
+        }
+        else
+        {
+            print("off");
+            StaticFunctions.minimalParticles = false;
+            PlayerPrefs.SetInt("MinimalParticles", 0);
+        }
     }
     public void ToggleFPS()
     {

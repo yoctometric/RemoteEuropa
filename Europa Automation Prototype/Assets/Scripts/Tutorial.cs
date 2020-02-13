@@ -16,7 +16,7 @@ public class Tutorial : MonoBehaviour
     int currentObject = 0;
     //local variable for objective testing
     Transform storedTrans = null;
-    Quaternion prevStoredRot;
+    float prevStoredRot;
     float waitTime = 1f;
     float prevTime = 0;
     //invenory handlin
@@ -101,7 +101,7 @@ public class Tutorial : MonoBehaviour
                 storedTrans = GameObject.FindObjectOfType<Crafting>().transform;
                 currentEvent++;
                 objectiveText.Play("next, Hover your cursor over the crafting machine and use 'q','e', 'f' or scroll wheel to rotate it");
-                prevStoredRot = storedTrans.rotation;
+                prevStoredRot = storedTrans.rotation.eulerAngles.z;
                 prevTime = Time.time;
                 objectPlaced = false;
             }
@@ -114,8 +114,8 @@ public class Tutorial : MonoBehaviour
             }
             else
             {
-                Quaternion rot = storedTrans.rotation;
-                if (rot != prevStoredRot)
+                float newRot = storedTrans.rotation.eulerAngles.z;
+                if (!(newRot < prevStoredRot + 25 && newRot > prevStoredRot - 25))
                 {
                     //nice it's moved
                     currentEvent++;
@@ -123,7 +123,7 @@ public class Tutorial : MonoBehaviour
                     ActivateNextObject();
                     prevTime = Time.time;
                 }
-                prevStoredRot = rot;
+                //prevStoredRot = rot;
             }
         }else if (currentEvent == 5 && prevTime + waitTime < Time.time)
         {

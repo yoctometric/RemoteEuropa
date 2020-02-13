@@ -16,6 +16,12 @@ public class HUPCONT : MonoBehaviour
     [SerializeField] GameObject crafterPanel;
     [SerializeField] GameObject mouseAimButton;
     [SerializeField] GameObject filterPanel;
+    [SerializeField] GameObject rocketPanel;
+    [SerializeField] SliderFamily rCopSlider;
+    [SerializeField] SliderFamily rIronSlider;
+    [SerializeField] SliderFamily rFuelSlider;
+    //[SerializeField] TMP_Text[] rTexts;
+
 
     [SerializeField] TMP_Text MidInfoT;
     int typeSelected = 0;
@@ -30,6 +36,7 @@ public class HUPCONT : MonoBehaviour
     Pump pump;
     GameInfo gameInfo;
     Core core;
+    RocketBase rocket;
     [SerializeField] List<GameObject> elements;
     private void Start()
     {
@@ -212,12 +219,26 @@ public class HUPCONT : MonoBehaviour
             typeSelected = 8;
         }else if (obj.GetComponent<Core>())
         {
+            typeSelected = 9;
             core = obj.GetComponent<Core>();
             int lv = core.level;
             MidInfoT.gameObject.SetActive(true);
             MidInfoT.text = "Level " + lv.ToString();
+        }else if (obj.GetComponent<RocketBase>())
+        {
+            typeSelected = 10;
+            rocket = obj.GetComponent<RocketBase>();
+            MidInfoT.gameObject.SetActive(true);
+            rocketPanel.SetActive(true);
+            rIronSlider.slider.maxValue = rocket.maxIron;
+            rCopSlider.slider.maxValue = rocket.maxCopper;
+            rFuelSlider.slider.maxValue = rocket.maxFuel;
+            MidInfoT.text = "Needs rocket fuel";
+            //set max
+            rIronSlider.SetSliderParameters(rocket.maxIron);
+            rCopSlider.SetSliderParameters(rocket.maxCopper);
+            rFuelSlider.SetSliderParameters(rocket.maxFuel);
         }
-
     }
     public void SetFilter(string input)
     {
@@ -244,6 +265,24 @@ public class HUPCONT : MonoBehaviour
             else
             {
                 MidInfoT.text = "Needs empty barrel";
+            }
+        }else if (typeSelected == 10)
+        {
+            rCopSlider.ChangeValue(rocket.storedCopper);
+            rIronSlider.ChangeValue(rocket.storedIron);
+            rFuelSlider.ChangeValue(rocket.storedFuel);
+            //rTexts[0].text = rocket.storedCopper.ToString();
+            //rTexts[1].text = rocket.storedIron.ToString();
+            //rTexts[2].text = rocket.storedFuel.ToString();
+
+            if (rocket.storedFuel < 1)
+            {
+                MidInfoT.text = "Needs rocket fuel";
+            }
+            else
+            {
+                float percent = StaticFunctions.RoundTo((rocket.totalMax / (rocket.storedFuel + rocket.storedIron + rocket.storedCopper) * 100f), 2);
+                MidInfoT.text = "Rocket is "+ percent.ToString() +"% complete";
             }
         }
         if (Input.GetKeyDown(KeyCode.Escape))

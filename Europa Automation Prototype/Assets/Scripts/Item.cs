@@ -20,7 +20,6 @@ public class Item : MonoBehaviour
 
     private void Start()
     {
-        startTime = Time.time;
         rb = gameObject.GetComponent<Rigidbody2D>();
         StartCoroutine(StartInvulnerability());
         TrailRenderer t = gameObject.GetComponent<TrailRenderer>();
@@ -29,7 +28,10 @@ public class Item : MonoBehaviour
         t.endColor = new Color(1, 1, 1, 0.5f);
         t.endWidth = 0f;
         t.startWidth = 0.4f;
-
+    }
+    private void Awake()
+    {
+        startTime = Time.time;
     }
     //this allows the item to sink into the ice after it gets too slow, to improve performance and fun
     private void Update()
@@ -47,7 +49,6 @@ public class Item : MonoBehaviour
                     //startedShrinking = true;
                     //StartCoroutine(Shrink());
                     sank = true;
-                    //print("SINKING");
                     Destroy(gameObject);
                 }
             }
@@ -86,16 +87,25 @@ public class Item : MonoBehaviour
     }*/
     private void OnDestroy()
     {
-        if (!StaticFunctions.lowGraphics && !isApplicationQuitting)
+        //print("low graph: " + StaticFunctions.lowGraphics);
+        //print("minParts: " + StaticFunctions.minimalParticles);
+
+        if ((StaticFunctions.lowGraphics == false && !isApplicationQuitting))
         {
-            AnimateDestruct();
+            if(StaticFunctions.minimalParticles == false)
+            {
+                AnimateDestruct();
+            }
         }
     }
     private void OnDisable()
     {
-        if (!StaticFunctions.lowGraphics && !isApplicationQuitting)
+        if ((!StaticFunctions.lowGraphics == false && !isApplicationQuitting))
         {
-            AnimateDestruct();
+            if (StaticFunctions.minimalParticles == false)
+            {
+                AnimateDestruct();
+            }
         }
     }
     void OnApplicationQuit()
@@ -104,15 +114,25 @@ public class Item : MonoBehaviour
     }
     void AnimateDestruct()
     {
-        if (startTime + 1 > Time.time)
+        if (startedAnimate)
         {
+            return;
+        }
+        else
+        {
+            //print("Have not yet started " + transform.position);
+            startedAnimate = true;
+        }
+
+        if (startTime + 0.01f > Time.time)
+        {
+            //print("Have not yet lived a long and fruitful life");
             return;
         }
         if (!sp)
         {
             sp = gameObject.GetComponent<SpriteRenderer>();
         }
-        startedAnimate = true;
         SpriteRenderer effect = Instantiate(ItemConsumeEffect, transform.position, transform.rotation).GetComponentInChildren<SpriteRenderer>();
         TriggerDestroy dest = effect.GetComponentInParent<TriggerDestroy>();  
         dest.sank = sank;
@@ -122,6 +142,6 @@ public class Item : MonoBehaviour
         if (gameObject)
         {
             gameObject.SetActive(false);
-        }
+        }        
     }
 }

@@ -130,11 +130,6 @@ public class Core : MonoBehaviour
                 anim.SetTrigger("Drop");
                 ///End animation area
             }
-            else
-            {
-                print("bypassing cost");
-            }
-
             //set upgrade target
             if (level < 2)
             {
@@ -144,7 +139,11 @@ public class Core : MonoBehaviour
             }
             else
             {
+                /*
+                Project proj = GameObject.FindObjectOfType<Project>();
                 proj.SetPanel(500, 500, 500, 500, "Build Rocket Pad");
+                //now its just an object. Nothing to see here
+                */ 
             }
             //set new objs active
             if (level == 1)

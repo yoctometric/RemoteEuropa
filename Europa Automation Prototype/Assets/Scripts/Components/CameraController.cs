@@ -18,13 +18,7 @@ public class CameraController : MonoBehaviour
         camSize = Mathf.Clamp(cam.orthographicSize, 5, 40);
 
     }
-    void FixedUpdate()
-    {
-        //move cam based on axis. Shouldn't need TOO much more than just that.
-        //obv move in fixedupdate
-        Vector3 posModifier = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * speed;
-        transform.position += posModifier;
-    }
+
     private void Update()
     {
         //do the zooming here. Only when leftShift is held so that it does not cause mouse rotation.
@@ -33,5 +27,9 @@ public class CameraController : MonoBehaviour
             camSize = Mathf.Clamp(cam.orthographicSize + -Input.mouseScrollDelta.y, minZoom, maxZoom);
             cam.orthographicSize = camSize;
         }
+        //move cam based on axis. Shouldn't need TOO much more than just that.
+        //obv Dont move in fixedupdate
+        Vector3 posModifier = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * speed * Time.fixedDeltaTime * 50;
+        transform.position += posModifier;
     }
 }

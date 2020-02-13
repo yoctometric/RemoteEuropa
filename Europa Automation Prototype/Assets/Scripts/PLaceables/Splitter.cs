@@ -10,16 +10,13 @@ public class Splitter : MonoBehaviour
     public int fireForce = 500;
     public string typeName = "";
     bool priorityLeft = false;
-
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        print("entered");
         if (other.GetComponent<Item>())
         {
             if (typeName == "")
-            {
-                print("rando");
-
+            {   
                 fireLeft = !fireLeft;
 
                 if (fireLeft)
@@ -33,11 +30,7 @@ public class Splitter : MonoBehaviour
             }
             else
             {
-                print("sort");
-
                 Item it = other.GetComponent<Item>();
-                print(it.typeOfItem + "/" + typeName);
-
                 if (priorityLeft && it.typeOfItem == typeName)
                 {
                     StartCoroutine(Fire(p1, other.gameObject));

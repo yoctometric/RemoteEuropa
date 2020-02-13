@@ -43,10 +43,6 @@ public class CapsuleController : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-    }
-
     public void Unload(UnPackager p)
     {
         anim.SetTrigger("Open");

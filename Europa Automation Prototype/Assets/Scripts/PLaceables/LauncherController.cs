@@ -25,6 +25,7 @@ public class LauncherController : MonoBehaviour
         {
             itemsInLauncher.Add(item.gameObject.GetComponent<Rigidbody2D>());
             item.gameObject.SetActive(false);
+            UpdateIndicator();
         }
         else
         {
@@ -32,7 +33,7 @@ public class LauncherController : MonoBehaviour
         }
 
     }
-    private void Update()
+    private void UpdateIndicator()
     {
         //update the storage indicator
         //this should be based on percentage, so that no matter the max capacity it will still work properly
@@ -52,9 +53,7 @@ public class LauncherController : MonoBehaviour
             float percentFilled = 1.25f - (1 / (float)itemsInLauncher.Count);
             capacityIndicator.localScale = new Vector3(percentFilled, 1f, 1f);
             capacitySP.color = new Color(percentFilled, 1, 0, 1);
-
         }
-
     }
     IEnumerator LaunchItem()
     {
@@ -70,10 +69,9 @@ public class LauncherController : MonoBehaviour
             item.gameObject.SetActive(true);
             item.AddForce(launchPoint.up * launchForce);
             itemsInLauncher.RemoveAt(0);
+            UpdateIndicator();
         }
-        else
-        {
-        }
+
         StartCoroutine(LaunchItem());
 
     }

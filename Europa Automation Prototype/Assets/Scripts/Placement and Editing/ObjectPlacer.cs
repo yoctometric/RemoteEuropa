@@ -94,6 +94,10 @@ public class ObjectPlacer : MonoBehaviour
                 {
                     SetIndex(10);
                 }
+                else if (Input.GetKeyDown(KeyCode.Alpha0))
+                {
+                    SetIndex(11);
+                }
             }
             if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Alpha0))
             {
@@ -149,7 +153,15 @@ public class ObjectPlacer : MonoBehaviour
         if(!(placeableIndex == 2))
         {
             //if u dont have the miner selected do this
-            canPlace = !Physics2D.OverlapCircle(transform.position, overlapRadius, overlapLayerMask);
+            if(placeableIndex != 11)
+            {
+                canPlace = !Physics2D.OverlapCircle(transform.position, overlapRadius, overlapLayerMask);
+            }
+            else
+            {
+                //this means you are placing a core, make canplace radius way larger
+                canPlace = !Physics2D.OverlapCircle(transform.position, overlapRadius * 4, overlapLayerMask);
+            }
         }
         else
         {

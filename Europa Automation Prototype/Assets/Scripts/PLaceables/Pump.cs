@@ -22,20 +22,12 @@ public class Pump : MonoBehaviour
             Item o = other.GetComponent<Item>();
             if(o.typeOfItem == inputType)
             {
-                print("ADDING");
                 if(amntContainersStored < maxContained)
                 {
                     amntContainersStored += 1;
                     Destroy(o.gameObject);
                 }
-                else
-                {
-                    print("REJECT");
-                }
-            }
-            else
-            {
-                print("REJECT");
+
             }
             //update indic
             if(amntContainersStored != 0)
@@ -46,8 +38,13 @@ public class Pump : MonoBehaviour
     }
     public void Tick(int iter)
     {
+        //update indicator before launch so that it only shows empty after it tries to launch on empty.
         if (iter % Mathf.RoundToInt(coolDown) == 0)
         {
+            if (amntContainersStored < 1)
+            {
+                emptyIndicator.SetActive(true);
+            }
             if (amntContainersStored > 0 && this != null)
             {
                 Item p = Instantiate(product.gameObject, firePoint.position, firePoint.rotation).GetComponent<Item>();
@@ -55,10 +52,6 @@ public class Pump : MonoBehaviour
                 amntContainersStored -= 1;
                 //color green
                 anim.SetTrigger("go");
-                if (amntContainersStored < 1)
-                {
-                    emptyIndicator.SetActive(true);
-                }
             }
         }
     }

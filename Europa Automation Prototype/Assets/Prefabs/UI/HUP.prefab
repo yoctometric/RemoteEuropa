@@ -107,7 +107,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0.5, y: 0}
   m_SizeDelta: {x: 9, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -427,7 +427,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -534,12 +534,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7858131929204628055}
-        m_MethodName: OnValueChanged
-        m_Mode: 1
+        m_MethodName: ChangeValue
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: -1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -560,6 +560,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 2981102421328794703}
   fillArea: {fileID: 5800729975060020558}
+  slider: {fileID: 0}
 --- !u!1 &3290141022596644199
 GameObject:
   m_ObjectHideFlags: 0
@@ -2277,6 +2278,10 @@ MonoBehaviour:
   crafterPanel: {fileID: 3745843860414568369}
   mouseAimButton: {fileID: 3745843861488722731}
   filterPanel: {fileID: 3745843861455169928}
+  rocketPanel: {fileID: 995807370541711277}
+  rCopSlider: {fileID: 7586262579730395332}
+  rIronSlider: {fileID: 7858131929204628055}
+  rFuelSlider: {fileID: 8335443760408191915}
   MidInfoT: {fileID: 3745843862259296051}
   elements:
   - {fileID: 3745843860934409399}
@@ -2285,6 +2290,7 @@ MonoBehaviour:
   - {fileID: 3745843862259296049}
   - {fileID: 3745843861488722731}
   - {fileID: 3745843861455169928}
+  - {fileID: 995807370541711277}
 --- !u!1 &3745843860763375701
 GameObject:
   m_ObjectHideFlags: 0
@@ -9536,7 +9542,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -9643,12 +9649,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7586262579730395332}
-        m_MethodName: OnValueChanged
-        m_Mode: 1
+        m_MethodName: ChangeValue
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: -1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -9669,6 +9675,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 8446089558934516211}
   fillArea: {fileID: 6024504476092135730}
+  slider: {fileID: 0}
 --- !u!1 &5260147015299755178
 GameObject:
   m_ObjectHideFlags: 0
@@ -10049,17 +10056,17 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 500
   m_WholeNumbers: 1
-  m_Value: 500
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8335443760408191915}
-        m_MethodName: OnValueChanged
-        m_Mode: 1
+        m_MethodName: ChangeValue
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: -1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -10080,6 +10087,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 6430999491714381849}
   fillArea: {fileID: 756511531008118558}
+  slider: {fileID: 0}
 --- !u!1 &8231445364109980909
 GameObject:
   m_ObjectHideFlags: 0
@@ -10232,7 +10240,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -10468,8 +10476,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -113.94997, y: 0}
-  m_SizeDelta: {x: 25, y: 40}
+  m_AnchoredPosition: {x: -113.49, y: -0.58498}
+  m_SizeDelta: {x: 40, y: 62.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5058607837246363840
 CanvasRenderer:

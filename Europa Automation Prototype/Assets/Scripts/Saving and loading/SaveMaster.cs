@@ -21,6 +21,7 @@ public class SaveMaster : MonoBehaviour
     public Splitter[] splitters;
     public Pump[] pumps;
     public ZapTower[] zapTowers;
+    public RocketBase[] rockets;
     //prefabs
     public LauncherController cannonPrefab;
     public Transform fanPrefab;
@@ -33,6 +34,7 @@ public class SaveMaster : MonoBehaviour
     public Splitter splitterPrefab;
     public Pump pumpPrefab;
     public ZapTower ZapPrefab;
+    public RocketBase rocketPrefab;
     //functions
 
     private void Start()
@@ -56,6 +58,7 @@ public class SaveMaster : MonoBehaviour
         splitters = GameObject.FindObjectsOfType<Splitter>();
         pumps = GameObject.FindObjectsOfType<Pump>();
         zapTowers = GameObject.FindObjectsOfType<ZapTower>();
+        rockets = GameObject.FindObjectsOfType<RocketBase>();
         SaveLoadManager.SaveData(this, path);
     }
 
@@ -114,6 +117,8 @@ public class SaveMaster : MonoBehaviour
         ZapTowers(allData);
         yield return new WaitForSeconds(waitTime);
         Items(allData);
+        yield return new WaitForSeconds(waitTime);
+        Rockets(allData);
         trans.EndLoadingScene();
         loading = false;
     }
@@ -152,6 +157,23 @@ public class SaveMaster : MonoBehaviour
 
                 fan.position = new Vector3(fansData[(i * num)], fansData[(i * num) + 1], 0);
                 fan.rotation = Quaternion.Euler(0, 0, fansData[(i * num) + 2]);
+            }
+        }
+    }
+
+    void Rockets(AllData allData)
+    {
+        if(allData.roc != null){
+            float[][] transes = allData.roc.transes;
+            int[][] invents = allData.roc.invents;
+
+            for (int i = 0; i < invents.Length; i++)
+            {
+                RocketBase rocket = Instantiate(rocketPrefab, new Vector3(transes[i][0], transes[i][1], 0), Quaternion.identity);
+                rocket.transform.rotation = Quaternion.Euler(0, 0, transes[i][2]);
+                rocket.storedCopper = invents[i][1];
+                rocket.storedIron = invents[i][0];
+                rocket.storedFuel = invents[i][2];
             }
         }
     }

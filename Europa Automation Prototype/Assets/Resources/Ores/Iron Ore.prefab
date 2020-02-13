@@ -261,7 +261,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -10
   m_Sprite: {fileID: 21300000, guid: cbed27b4ecce1b64bb27d9d5b565fab6, type: 3}
-  m_Color: {r: 0.6509804, g: 0.3254902, b: 0.15686275, a: 1}
+  m_Color: {r: 0.4811321, g: 0.33312884, b: 0.25645247, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -287,7 +287,7 @@ MonoBehaviour:
   product: {fileID: 5703052019510390029, guid: dd0878d6420b08946946f76c47d470c3, type: 3}
   quantity: 1000
   currentQuantity: 0
-  oreColor: {r: 0.6509804, g: 0.3254902, b: 0.15686275, a: 1}
+  oreColor: {r: 0.5188679, g: 0.3537045, b: 0.2667764, a: 1}
 --- !u!50 &8233500952119286093
 Rigidbody2D:
   serializedVersion: 4

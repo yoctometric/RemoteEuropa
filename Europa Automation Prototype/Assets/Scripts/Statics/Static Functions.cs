@@ -8,6 +8,7 @@ public static class StaticFunctions
 {
     public static bool lowGraphics = false;
     public static bool ShowFPS = false;
+    public static bool minimalParticles = false;
     public static float RoundTo(float value, float multipleOf)
     {
         return Mathf.Round(value / multipleOf) * multipleOf;

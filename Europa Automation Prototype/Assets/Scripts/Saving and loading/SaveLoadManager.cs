@@ -16,7 +16,7 @@ public class SaveLoadManager
         AllData data = new AllData(new RelayCannonsData(master), new FansData(master), new CrafterData(master),
             new ItemObjectsData(master), new MinersData(master), new OreData(master), new InventoryData(master), 
             new UnPackagerData(master), new PackagerData(master), new EggData(master), new SplitterData(master),
-            new PumpsData(master), new ZapTowerData(master));
+            new PumpsData(master), new ZapTowerData(master), new RocketData(master));
         bf.Serialize(stream, data);
 
         stream.Close();
@@ -39,7 +39,7 @@ public class SaveLoadManager
         else
         {
             Debug.LogError("NO FILE AT PATH BROTHER!");
-            return new AllData(null, null, null, null, null, null, null, null, null, null, null, null, null);
+            return new AllData(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         }
     }
 }
@@ -61,8 +61,9 @@ public class AllData
     public SplitterData split;
     public PumpsData pump;
     public ZapTowerData zap;
+    public RocketData roc;
     public AllData(RelayCannonsData cannons, FansData fans, CrafterData crafters, ItemObjectsData items, MinersData miners, OreData ores, InventoryData invents, UnPackagerData unPacks,
-        PackagerData packs, EggData eggs, SplitterData splits, PumpsData pumps, ZapTowerData zaps)
+        PackagerData packs, EggData eggs, SplitterData splits, PumpsData pumps, ZapTowerData zaps, RocketData rock)
     {
         cannon = cannons;
         fan = fans;
@@ -77,6 +78,7 @@ public class AllData
         split = splits;
         pump = pumps;
         zap = zaps;
+        roc = rock;
     }
 
 }
@@ -417,7 +419,7 @@ public class EggData
             float[] v = new float[2];
             v[0] = rb.velocity.x;
             v[1] = rb.velocity.y;
-            Debug.Log(v[0] + ' ' + v[1]);
+            //Debug.Log(v[0] + ' ' + v[1]);
             vels[i] = v;
 
             float[] t = new float[3];
@@ -427,6 +429,36 @@ public class EggData
             transes[i] = t;
 
             allItems[i] = new ItemListSave(egg.stringIts).items.ToArray();  
+        }
+    }
+}
+[Serializable]
+public class RocketData
+{
+    public float[][] transes;
+    public int[][] invents;
+
+    public RocketData(SaveMaster mast)
+    {
+        int num = mast.rockets.Length;
+        transes = new float[num][];
+        invents = new int[num][];
+
+        for(int i = 0; i < num; i++)
+        {
+            RocketBase rocket = mast.rockets[i];
+            float[] t = new float[3];
+            t[0] = rocket.transform.position.x;
+            t[1] = rocket.transform.position.y;
+            t[2] = rocket.transform.rotation.eulerAngles.z;
+            transes[i] = t;
+
+            int[] its = new int[3];
+            its[0] = rocket.storedIron;
+            its[1] = rocket.storedCopper;
+            its[2] = rocket.storedFuel;
+
+            invents[i] = its;
         }
     }
 }

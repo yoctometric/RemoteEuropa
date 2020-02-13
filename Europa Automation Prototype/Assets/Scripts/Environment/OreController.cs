@@ -30,11 +30,11 @@ public class OreController : MonoBehaviour
         {
             aVal -= 0.005f;
             sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, aVal);
-        }
-        //remove this GO once it runs out and fades
-        if(sp.color.a <= 0)
-        {
-            Destroy(gameObject);
+            //remove this GO once it runs out and fades
+            if (sp.color.a <= 0.01f)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

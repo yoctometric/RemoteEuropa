@@ -25,11 +25,13 @@ public class TriggerDestroy : MonoBehaviour
             target = other.transform;
         }
     }
+    
     private void Update()
     {
+        
         if (target)
-        {
-            transform.parent.position = Vector2.Lerp(transform.position, target.position, 0.01f);
+        { 
+            transform.parent.position = Vector2.Lerp(transform.position, target.position, 0.001f);
         }
     }
     void OnApplicationQuit()
@@ -40,7 +42,7 @@ public class TriggerDestroy : MonoBehaviour
     {
         if (transform.parent && !isApplicationQuitting)
         {
-            Destroy(transform.parent.gameObject);
+            transform.parent.gameObject.SetActive(false);
         }
     }
 }

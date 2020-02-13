@@ -62,6 +62,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9bbd33725f8aee428b3668e807ca08a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPath: 
+  loading: 0
   cannons: []
   fans: []
   crafters: []
@@ -75,6 +77,7 @@ MonoBehaviour:
   splitters: []
   pumps: []
   zapTowers: []
+  rockets: []
   cannonPrefab: {fileID: 3312618416205876941, guid: 86da3ab54db7e924ea3454327621ce83,
     type: 3}
   fanPrefab: {fileID: 3184438532275898518, guid: fc93efb81d3e9604ba905c6aac4c6836,
@@ -96,6 +99,8 @@ MonoBehaviour:
   pumpPrefab: {fileID: 1203195990625377981, guid: effb01d426eee26429f4b183ab3631ce,
     type: 3}
   ZapPrefab: {fileID: 3545245580439296057, guid: 212db409fcf8e204f84d24282b415481,
+    type: 3}
+  rocketPrefab: {fileID: 6147753561390971819, guid: c52c826f125c68743bd53e8aaa2cd3b9,
     type: 3}
 --- !u!114 &352069584776367673
 MonoBehaviour:

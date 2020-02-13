@@ -123,8 +123,7 @@ public class RewardsManager : MonoBehaviour
             {
                 successRate = pycreteRate;
                 type = "Pycrete";
-            }
-            print(successRate.ToString() + " vs " + currentGoalListenerRate.ToString());
+            }   
             if (successRate >= currentGoalListenerRate)
             {
                 //succeeded goal
@@ -137,7 +136,6 @@ public class RewardsManager : MonoBehaviour
             else
             {
                 //failed goal
-                print("negative index");
                 return false;
             }
         }
