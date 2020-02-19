@@ -23,11 +23,11 @@ public class MusicManager : MonoBehaviour
     IEnumerator MusicLoop()
     {
         yield return new WaitForEndOfFrame();
-
         //every loop, play a different song
 
         int choice = Random.Range(0, songs.Length);
-        if(songs.Length > 1) //There can only be a different song if there is more than one
+        print(choice);
+        if (songs.Length > 1) //There can only be a different song if there is more than one
         {
             while (choice == prevIndex)
             {

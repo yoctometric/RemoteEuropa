@@ -123,7 +123,6 @@ public class MainMenuCont : MonoBehaviour
     {
         if (FPSToggle.isOn)
         {
-            print("on");
             StaticFunctions.ShowFPS = true;
             PlayerPrefs.SetInt("ShowFPS", 1);
         }

@@ -651,8 +651,8 @@ MonoBehaviour:
   storedIron: 0
   storedCopper: 0
   storedFuel: 0
-  maxIron: 10
-  maxCopper: 10
+  maxIron: 50
+  maxCopper: 50
   maxFuel: 10
   totalMax: 0
   hatch: {fileID: 6147753561471729732}

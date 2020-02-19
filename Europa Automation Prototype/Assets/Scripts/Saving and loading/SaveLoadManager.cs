@@ -25,7 +25,8 @@ public class SaveLoadManager
     public static AllData LoadData(string path)
     {
         Debug.Log(Application.persistentDataPath);
-        if (File.Exists(Application.persistentDataPath + "/" + path + ".europa"))
+        //DirectoryInfo di = Directory.CreateDirectory(path);
+        if (File.Exists(Application.dataPath + "/" + path + ".europa"))
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream stream = new FileStream(Application.persistentDataPath + "/" + path + ".europa", FileMode.Open);
