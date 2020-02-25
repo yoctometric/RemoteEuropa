@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f12fa7b0f56a41d40bcf41ef974894f8, type: 3}
-  m_Name: Fuel Barrel
+  m_Name: Nitrogen
   m_EditorClassIdentifier: 
   input:
-  - 0,Nitrogen
-  - 1,Hydrogen
+  - 3,Water Barrel
   output:
-  - {fileID: 6680847359289098659, guid: 6759ef356c8c528408b443122ec4228a, type: 3}
+  - {fileID: 6680847359289098659, guid: 90629df44c24ed944a47727c3fb9773b, type: 3}
   - {fileID: 6680847359289098659, guid: 95647001ed4068744950599c300c630c, type: 3}
   - {fileID: 6680847359289098659, guid: 95647001ed4068744950599c300c630c, type: 3}
-  img: {fileID: 21300006, guid: 3470c63a844a08f4f9968b595dec1dd6, type: 3}
-  imgColor: {r: 1, g: 1, b: 1, a: 1}
-  id: 9
+  - {fileID: 6680847359289098659, guid: 95647001ed4068744950599c300c630c, type: 3}
+  img: {fileID: 21300008, guid: 3470c63a844a08f4f9968b595dec1dd6, type: 3}
+  imgColor: {r: 0.5137255, g: 0.7764706, b: 1, a: 1}
+  id: 11

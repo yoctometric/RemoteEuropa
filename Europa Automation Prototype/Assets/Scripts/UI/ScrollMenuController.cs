@@ -17,10 +17,15 @@ public class ScrollMenuController : MonoBehaviour
     public float scrollMultiplier = 5;
     void Start()
     {
-        string[] filePaths =Directory.GetFiles(Application.persistentDataPath, "*.europa");
+        string[] filePaths = Directory.GetFiles(Application.dataPath + "/saves/", "*.europa");
         for(int i = 0; i < filePaths.Length; i++)
         {
-            filePaths[i] = filePaths[i].Split('\\')[1];
+            int ind = filePaths[i].IndexOf("/saves");
+            print(ind + ":-:" + filePaths[i].Length);
+            filePaths[i] = filePaths[i].Substring(ind, filePaths[i].Length - ind);
+            print(filePaths[i]);
+
+            //filePaths[i] = filePaths[i].Split('\\')[1];
         }
         GenList(filePaths.ToList());
     }

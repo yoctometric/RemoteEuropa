@@ -27,6 +27,8 @@ public class RewardsManager : MonoBehaviour
     int currentGoalListenerIndex = -1;
     float currentGoalListenerRate = 0;
 
+    int timeOfStart = -1;
+
     [SerializeField] TMP_Text[] texts;
     [SerializeField] Image[] indics;
     [SerializeField] Sprite[] indicSprites;
@@ -40,13 +42,17 @@ public class RewardsManager : MonoBehaviour
     Color yellow = new Color(0.9f, 0.9f, 0);
 
     CanvasGroup cGroup;
- 
+    Inventory inv;
+    GameConsole cons;
+
     void Start()
     {
         UpdateTexts();
         cGroup = this.GetComponent<CanvasGroup>();
         StartCoroutine(AnalyzeLoop()); //always run it. It will update twice per minute
         StartCoroutine(ProductionGoalTimer());
+        inv = GameObject.FindObjectOfType<Inventory>();
+        cons = GameObject.FindObjectOfType<GameConsole>();
     }
 
     IEnumerator AnalyzeLoop()
@@ -128,7 +134,29 @@ public class RewardsManager : MonoBehaviour
             {
                 //succeeded goal
                 DropPod pod = Instantiate(dropPodAnim, Vector3.zero, Quaternion.identity);
-                pod.Drop(type, Mathf.RoundToInt(Random.Range(rewardAmountRange.x, rewardAmountRange.y)));
+                //calculate reward
+                string rewardType = "null";
+                int timeSinceStart = Mathf.RoundToInt(Time.time) - timeOfStart;
+                int reward = Mathf.Clamp((Mathf.RoundToInt(successRate * 500)) - timeSinceStart, 100, 2000); // reward based on how well the player did
+                //now find the weakest inv type
+                int curIro = inv.storedVals["Refined Iron"];
+                int curCop = inv.storedVals["Refined Copper"];
+                int curPyc = inv.storedVals["Pycrete"];
+                int curBri = inv.storedVals["Brick"];
+
+                int smallest = Mathf.Min(curIro, curCop, curPyc, curBri);
+
+                if (smallest == curIro) rewardType = "Refined Iron";
+                if (smallest == curCop) rewardType = "Refined Copper";
+                if (smallest == curPyc) rewardType = "Pycrete";
+                if (smallest == curBri) rewardType = "Brick";
+
+                ///it is clamped between 100 and 2000 to make it not too op
+                ///If the reward is tiny at 100, play a flavor message saying words of deprecational encouragement
+                ///if it is greater than 1500, say they have done very well.
+                ///You can pull teh flavor from the Europa writing doc
+                cons?.AddLine("You have been rewarded");
+                pod.Drop(rewardType, reward);
                 //reset listeners
                 currentGoalListenerIndex = -1;
                 return true;
@@ -147,6 +175,7 @@ public class RewardsManager : MonoBehaviour
     }
     void MakeGoal()
     {
+        timeOfStart = Mathf.RoundToInt(Time.time);
         goalText.color = Color.white;
 
         if(cGroup.alpha < 1)

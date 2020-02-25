@@ -9,27 +9,27 @@ public class SaveLoadManager
 {
     public static void SaveData(SaveMaster master, string path)
     {
-
+        DirectoryInfo di = Directory.CreateDirectory(Application.dataPath + "/saves/");
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream stream = new FileStream(Application.persistentDataPath + "/" + path + ".europa", FileMode.Create);
+        FileStream stream = new FileStream(Application.dataPath + "/saves/" + path + ".europa", FileMode.Create);
 
         AllData data = new AllData(new RelayCannonsData(master), new FansData(master), new CrafterData(master),
             new ItemObjectsData(master), new MinersData(master), new OreData(master), new InventoryData(master), 
             new UnPackagerData(master), new PackagerData(master), new EggData(master), new SplitterData(master),
             new PumpsData(master), new ZapTowerData(master), new RocketData(master));
         bf.Serialize(stream, data);
-
+        Debug.Log("The directory was created successfully at " + Directory.CreateDirectory(Application.dataPath + "/saves/" + path).ToString());
         stream.Close();
     }
 
     public static AllData LoadData(string path)
     {
-        Debug.Log(Application.persistentDataPath);
-        //DirectoryInfo di = Directory.CreateDirectory(path);
-        if (File.Exists(Application.dataPath + "/" + path + ".europa"))
+        Debug.Log(path);
+        Debug.Log(Application.dataPath + path + ".europa");
+        if (File.Exists(Application.dataPath + path + ".europa"))
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream stream = new FileStream(Application.persistentDataPath + "/" + path + ".europa", FileMode.Open);
+            FileStream stream = new FileStream(Application.dataPath + path + ".europa", FileMode.Open);
 
 
             AllData data = bf.Deserialize(stream) as AllData;

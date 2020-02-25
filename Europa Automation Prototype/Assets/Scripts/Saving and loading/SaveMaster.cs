@@ -83,7 +83,6 @@ public class SaveMaster : MonoBehaviour
         while (!async.isDone)
         {
             yield return new WaitForSeconds(1f);
-            yield return new WaitForEndOfFrame();
         }
 
         //now delete and stop any generated ores
@@ -296,7 +295,10 @@ public class SaveMaster : MonoBehaviour
                     inv.storedVals[k] = v;
                 }
             }
-            for (int i = 0; i < int.Parse(data[5]); i++){
+            int levels = int.Parse(data[5]);
+            print(levels);
+            for (int i = 0; i < levels; i++){
+                
                 inv.core.Upgrade(true);
             }
 

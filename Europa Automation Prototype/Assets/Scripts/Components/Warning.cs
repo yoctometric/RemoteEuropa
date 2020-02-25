@@ -35,7 +35,7 @@ public class Warning : MonoBehaviour
                 {
                     if (attempts < 2)
                     {
-                        InitiateWarning("goodbye", true, false);
+                        InitiateWarning("Operational Distance Reached, Resetting...", true, false);
                     }
                     else if (attempts < 3)
                     {
@@ -53,7 +53,7 @@ public class Warning : MonoBehaviour
                 else if (dist > maxDist)
                 {
                     ///warn
-                    InitiateWarning("RETURN TO PLAY AREA!", false, false);
+                    InitiateWarning("RETURN TO OPERATIONAL AREA!", false, false);
                 }
             }
             if (warningRightNow && dist < maxDist)

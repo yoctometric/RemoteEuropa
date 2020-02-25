@@ -26,7 +26,6 @@ public class MusicManager : MonoBehaviour
         //every loop, play a different song
 
         int choice = Random.Range(0, songs.Length);
-        print(choice);
         if (songs.Length > 1) //There can only be a different song if there is more than one
         {
             while (choice == prevIndex)

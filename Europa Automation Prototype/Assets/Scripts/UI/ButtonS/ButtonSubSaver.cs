@@ -15,6 +15,7 @@ public class ButtonSubSaver : MonoBehaviour
     }
     public void ButtonPressed(string path)
     {
+        print("initiating save");
         SaveMaster mast = GameObject.FindObjectOfType<SaveMaster>();
         mast.SaveGame(path);
     }

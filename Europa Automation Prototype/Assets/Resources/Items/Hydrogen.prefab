@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 825624382482034727}
   - component: {fileID: 7393221520517387329}
   m_Layer: 12
-  m_Name: Rocket Fuel
+  m_Name: Hydrogen
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 6680847359289098659}
   m_LocalRotation: {x: -0, y: -0, z: 0.8867296, w: 0.46228844}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_Children:
   - {fileID: 2063440707474338399}
   m_Father: {fileID: 0}
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -40
-  m_Sprite: {fileID: 21300006, guid: 3470c63a844a08f4f9968b595dec1dd6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300010, guid: 3470c63a844a08f4f9968b595dec1dd6, type: 3}
+  m_Color: {r: 0.7122642, g: 1, b: 0.9627636, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -117,8 +117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4d04b1f58f14347a9e71c01257058b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeOfItem: Rocket Fuel
-  typeInt: 13
+  typeOfItem: Hydrogen
+  typeInt: 15
   canSink: 1
   onEnableSystem: {fileID: 1757797309248541439, guid: 734eb96f8f7bf1d479a0f70ecc838e43,
     type: 3}

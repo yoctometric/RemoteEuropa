@@ -7,7 +7,7 @@ public class DisplayFilePath : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.GetComponent<TMP_InputField>().text = Application.persistentDataPath;
+        gameObject.GetComponent<TMP_InputField>().text = Application.dataPath;
     }
 
     // Update is called once per frame

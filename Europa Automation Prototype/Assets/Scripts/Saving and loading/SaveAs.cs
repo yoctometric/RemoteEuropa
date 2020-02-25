@@ -38,7 +38,7 @@ public class SaveAs : MonoBehaviour
                 return "invalid";
             }
         }
-
+        StartCoroutine(FlashGreen());
         return output;
     }
     IEnumerator Flash()
@@ -46,6 +46,13 @@ public class SaveAs : MonoBehaviour
         input.image.color = new Color(1, 0, 0, 0.75f);
         yield return new WaitForSecondsRealtime(0.25f);
         
+        input.image.color = new Color(1, 1, 1, 0.38f);
+    }
+    IEnumerator FlashGreen()
+    {
+        input.image.color = new Color(0, 1, 0, 0.75f);
+        yield return new WaitForSecondsRealtime(0.25f);
+
         input.image.color = new Color(1, 1, 1, 0.38f);
     }
 }

@@ -14,8 +14,8 @@ public class ButtonSubLoader : MonoBehaviour
     }
     public void DeleteGame()
     {
-        Debug.Log(Application.persistentDataPath + "/" + path + ".europa");
-        File.Delete(Application.persistentDataPath + "/" + path + ".europa");
+        Debug.Log(Application.dataPath + "/" + path + ".europa");
+        File.Delete(Application.dataPath + "/" + path + ".europa");
         Destroy(transform.parent.gameObject);
     }
 }

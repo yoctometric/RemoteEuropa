@@ -20,6 +20,7 @@ public class Core : MonoBehaviour
     float min = 0.75f;
     [SerializeField] float animScale = 15f;
     bool scaling = false;
+    bool upgrading = false;
 
     Project proj;
     Tutorial tut;
@@ -58,6 +59,12 @@ public class Core : MonoBehaviour
     public void Upgrade(bool bypassCost)
     {
         bool goisgo = false;
+        if (upgrading)
+        {
+            //cancel and reset panel
+            proj.SetPanel(Mathf.RoundToInt(lvlCosts[level].x), Mathf.RoundToInt(lvlCosts[level].y), Mathf.RoundToInt(lvlCosts[level].z), Mathf.RoundToInt(lvlCosts[level].w), "Upgrade Core");
+            return;
+        }
         if (!bypassCost)
         {
             if(invent.UpdateInventory("Refined Copper", -Mathf.RoundToInt(lvlCosts[level].x)))
@@ -108,9 +115,10 @@ public class Core : MonoBehaviour
         }
         if (goisgo)
         {
+            upgrading = true;
             //invent.ToggleUpButton(false);
             level++;
-            
+            print(level);
             levels[level].SetActive(true);
             levels[level - 1].SetActive(false);
             ///Animation area
@@ -179,6 +187,7 @@ public class Core : MonoBehaviour
         pt.localScale *= level;
         pt2.localScale *= level *.75f;
         GameObject.FindObjectOfType<Warning>().CancelWarning();
+        upgrading = false;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

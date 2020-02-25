@@ -20,7 +20,10 @@ public class PauseMenu : MonoBehaviour
         }
         if (input && mast)
         {
-            input.text = mast.currentPath;
+            string p = mast.currentPath;
+            int index = p.IndexOf("/saves/") + 1;
+            string piece = p.Substring(index);
+            input.text = piece;
         }
     }
     private void OnDisable()
