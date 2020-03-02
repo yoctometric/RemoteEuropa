@@ -38,6 +38,7 @@ public class Pump : MonoBehaviour
     }
     public void Tick(int iter)
     {
+        
         //update indicator before launch so that it only shows empty after it tries to launch on empty.
         if (iter % Mathf.RoundToInt(coolDown) == 0)
         {

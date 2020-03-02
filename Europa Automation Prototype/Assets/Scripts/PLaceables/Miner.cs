@@ -39,14 +39,21 @@ public class Miner : MonoBehaviour
     }
     void UpdateConnections()
     {
+        LineRenderer lr = gameObject.GetComponent<LineRenderer>();
         if (orePatch)
         {
-            LineRenderer lr = gameObject.GetComponent<LineRenderer>();
             Vector3[] poses = new Vector3[2];
             poses[0] = this.transform.position;
             poses[1] = orePatch.transform.position;
             lr.SetPositions(poses);
             //lr.endColor = orePatch.GetComponent<SpriteRenderer>().color;
+        }
+        else
+        {
+            Vector3[] poses = new Vector3[2];
+            poses[0] = this.transform.position;
+            poses[1] = this.transform.position;
+            lr.SetPositions(poses);
         }
     }
     /*
@@ -116,6 +123,7 @@ public class Miner : MonoBehaviour
             {
                 //since you used to but dont anymore, the patch must have faded. Remove miner from ticker
                 tim.miners.Remove(this);
+                UpdateConnections();//also remove line
             }
             //product = null;
             sp.color = new Color(0.2f, 0.2f, 0.2f, 1);

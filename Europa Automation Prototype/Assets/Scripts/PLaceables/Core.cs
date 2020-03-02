@@ -76,6 +76,7 @@ public class Core : MonoBehaviour
                         if (invent.UpdateInventory("Brick", -Mathf.RoundToInt(lvlCosts[level].w)))
                         {
                             goisgo = true;
+                            upgrading = true;//only set to true if you payed for it bc otherwise upg is instant
                         }
                         else
                         {
@@ -115,7 +116,6 @@ public class Core : MonoBehaviour
         }
         if (goisgo)
         {
-            upgrading = true;
             //invent.ToggleUpButton(false);
             level++;
             print(level);

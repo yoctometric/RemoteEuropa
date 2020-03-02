@@ -12,13 +12,13 @@ public class SaveLoadManager
         DirectoryInfo di = Directory.CreateDirectory(Application.dataPath + "/saves/");
         BinaryFormatter bf = new BinaryFormatter();
         FileStream stream = new FileStream(Application.dataPath + "/saves/" + path + ".europa", FileMode.Create);
-
+        Debug.Log(di.FullName + "_____" + stream.Name);
         AllData data = new AllData(new RelayCannonsData(master), new FansData(master), new CrafterData(master),
             new ItemObjectsData(master), new MinersData(master), new OreData(master), new InventoryData(master), 
             new UnPackagerData(master), new PackagerData(master), new EggData(master), new SplitterData(master),
             new PumpsData(master), new ZapTowerData(master), new RocketData(master));
         bf.Serialize(stream, data);
-        Debug.Log("The directory was created successfully at " + Directory.CreateDirectory(Application.dataPath + "/saves/" + path).ToString());
+        Debug.Log("The directory was created successfully at " + di.Name + path);
         stream.Close();
     }
 
