@@ -56,11 +56,13 @@ public class RocketBase : MonoBehaviour
     }
     IEnumerator LaunchLogic()
     {
-        storedIron = 0; storedFuel = 0; storedCopper = 0;
 
         hatch.SetTrigger("Open");
         yield return new WaitForSeconds(1f);
         rocket.SetTrigger("Launch");
+        GameObject.FindObjectOfType<MetaInventory>()?.ModifyInventory(storedFuel);
+
+        storedIron = 0; storedFuel = 0; storedCopper = 0;
 
     }
     void LaunchRocket()

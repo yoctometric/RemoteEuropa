@@ -155,7 +155,17 @@ public class RewardsManager : MonoBehaviour
                 ///If the reward is tiny at 100, play a flavor message saying words of deprecational encouragement
                 ///if it is greater than 1500, say they have done very well.
                 ///You can pull teh flavor from the Europa writing doc
-                cons?.AddLine("You have been rewarded");
+                if(reward <= 100)
+                {
+                    cons?.AddLine("We are dissapointed in you commander. A light pod of " + rewardType + " is being dropped in, but you make it difficult to justify the investment. The survival of our company depends on our victory in this race, now act like it!");
+                }else if (reward >= 1500)
+                {
+                    cons?.AddLine("Amazing work, commander! A large payload of " + rewardType + " is being dropped from the sat. Keep it up, and we might just come out on top");
+                }
+                else
+                {
+                    cons?.AddLine("Well done. You have met the production goal within the expected parameters. A reward of " + rewardType + " is being dropped from the sat right now, use it well.");
+                }
                 pod.Drop(rewardType, reward);
                 //reset listeners
                 currentGoalListenerIndex = -1;

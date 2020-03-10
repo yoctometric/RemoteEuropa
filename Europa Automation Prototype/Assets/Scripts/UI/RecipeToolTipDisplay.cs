@@ -41,7 +41,7 @@ public class RecipeToolTipDisplay : MonoBehaviour
             //set parent and sprite and color
             im.sprite = images[i];
             im.color = imgColors[i];
-            //scale image based on origional sprite scale
+            //scale image based on original sprite scale
             im.rectTransform.sizeDelta = new Vector2(imageWandH, imageWandH);
             im.rectTransform.position = new Vector3(transform.position.x - imageWandH - 5, transform.position.y + (imageWandH * i) + (imageWandH / 2) + tmText.fontSize + 20, transform.position.z);
             //set the text up

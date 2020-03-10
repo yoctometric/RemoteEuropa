@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class MetaInventory : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
-        
+        fuel = PlayerPrefs.GetInt("MetaFuel");
     }
 
-    // Update is called once per frame
-    void Update()
+    public int fuel;
+
+    public void ModifyInventory(int amount)
     {
-        
+        fuel += amount;
+        PlayerPrefs.SetInt("MetaFuel", fuel);
+    }
+    public string FuelAbbreviated()
+    {
+        return StaticFunctions.AbbreviateNumber(fuel);
     }
 }

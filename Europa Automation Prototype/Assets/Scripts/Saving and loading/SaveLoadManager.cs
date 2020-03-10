@@ -18,7 +18,7 @@ public class SaveLoadManager
             new UnPackagerData(master), new PackagerData(master), new EggData(master), new SplitterData(master),
             new PumpsData(master), new ZapTowerData(master), new RocketData(master));
         bf.Serialize(stream, data);
-        Debug.Log("The directory was created successfully at " + di.Name + path);
+        //Debug.Log("The directory was created successfully at " + di.Name + path);
         stream.Close();
     }
 

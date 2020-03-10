@@ -8,6 +8,8 @@ public class ButtonSubSaver : MonoBehaviour
     string baseText = "";
     TMP_Text t;
     bool yousure = false;
+    float savedAt = -999;
+
     private void Start()
     {
         t = gameObject.GetComponent<TMP_Text>();
@@ -15,7 +17,11 @@ public class ButtonSubSaver : MonoBehaviour
     }
     public void ButtonPressed(string path)
     {
-        print("initiating save");
+        savedAt = Time.time;
+        savedAt = Time.time;
+        savedAt = Time.time;
+        savedAt = Time.time;
+        print(savedAt);
         path = path.ToLower();
         SaveMaster mast = GameObject.FindObjectOfType<SaveMaster>();
         mast.SaveGame(path);
@@ -23,6 +29,7 @@ public class ButtonSubSaver : MonoBehaviour
 
     IEnumerator LoadScene(int s)
     {
+
         t.text = "Loading...";
         GameObject.FindObjectOfType<Transition>().GetComponent<Animator>().SetTrigger("Out");
         GameObject.FindObjectOfType<PauseMenu>().FreezeTime(false);
@@ -32,7 +39,16 @@ public class ButtonSubSaver : MonoBehaviour
 
     public void AreYouSureLoadScene(int s)
     {
-        t.text = "You sure?";
+        float since = Time.time - savedAt;
+        print(since + ", " + savedAt);
+        if (since < 1)
+        {
+            yousure = true;
+        }
+        else
+        {
+            t.text = "Exit without \nsaving?";
+        }
         if (yousure)
         {
             t.text = baseText;

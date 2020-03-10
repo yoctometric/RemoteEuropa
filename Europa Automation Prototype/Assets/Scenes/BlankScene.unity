@@ -2069,15 +2069,14 @@ MonoBehaviour:
   ores:
   - weight: 3
     ore: {fileID: 8233500952119286089, guid: 58d6ec6b7a7af6748a2cc627519b2797, type: 3}
-  - weight: 13
+  - weight: 3
     ore: {fileID: 8233500952119286089, guid: 2eef823027bf0d54e918fe582b135966, type: 3}
-  - weight: 33
+  - weight: 3
     ore: {fileID: 8233500952119286089, guid: 2190b205b715b434e98f3d0d39968448, type: 3}
-  - weight: 28
+  - weight: 3
     ore: {fileID: 8233500952119286089, guid: c02ad5f60a60b5b43bfa206945220950, type: 3}
   numberOf: 1000
   r: 250
-  distBon: 1
   GeneratedOres: []
 --- !u!4 &636276031
 Transform:
@@ -3215,7 +3214,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 190, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1130267973
 MonoBehaviour:
@@ -3271,7 +3270,7 @@ MonoBehaviour:
   m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -3317,7 +3316,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -5889,6 +5888,68 @@ PrefabInstance:
       propertyPath: m_Name
       value: UiPanels
       objectReference: {fileID: 0}
+    - target: {fileID: 6944005636849702879, guid: 6b167eee03082cd4b850d32f8cb65db0,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944005636849702879, guid: 6b167eee03082cd4b850d32f8cb65db0,
+        type: 3}
+      propertyPath: m_text
+      value: Total Launched Fuel:-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944005636849702879, guid: 6b167eee03082cd4b850d32f8cb65db0,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 31.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944005636849702879, guid: 6b167eee03082cd4b850d32f8cb65db0,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944005636849702879, guid: 6b167eee03082cd4b850d32f8cb65db0,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944005636849702879, guid: 6b167eee03082cd4b850d32f8cb65db0,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944005636849702879, guid: 6b167eee03082cd4b850d32f8cb65db0,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944005636849702879, guid: 6b167eee03082cd4b850d32f8cb65db0,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944005636849702879, guid: 6b167eee03082cd4b850d32f8cb65db0,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e3704cc03a21018438e5075f64e7ef92,
+        type: 2}
+    - target: {fileID: 6944005636849702879, guid: 6b167eee03082cd4b850d32f8cb65db0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 21572842488859448, guid: e3704cc03a21018438e5075f64e7ef92,
+        type: 2}
+    - target: {fileID: 6944005636849702879, guid: 6b167eee03082cd4b850d32f8cb65db0,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 514
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944005636849702879, guid: 6b167eee03082cd4b850d32f8cb65db0,
+        type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 5455318500198188345, guid: 6b167eee03082cd4b850d32f8cb65db0,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -6164,6 +6225,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.34901962
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732812329256638284, guid: 6b167eee03082cd4b850d32f8cb65db0,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732812329256638284, guid: 6b167eee03082cd4b850d32f8cb65db0,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b167eee03082cd4b850d32f8cb65db0, type: 3}
