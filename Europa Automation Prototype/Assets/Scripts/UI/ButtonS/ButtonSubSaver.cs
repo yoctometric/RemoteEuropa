@@ -7,8 +7,8 @@ public class ButtonSubSaver : MonoBehaviour
 {
     string baseText = "";
     TMP_Text t;
-    bool yousure = false;
-    float savedAt = -999;
+    int youSureSteps = 0;
+    static float savedAt = -999;
 
     private void Start()
     {
@@ -18,10 +18,7 @@ public class ButtonSubSaver : MonoBehaviour
     public void ButtonPressed(string path)
     {
         savedAt = Time.time;
-        savedAt = Time.time;
-        savedAt = Time.time;
-        savedAt = Time.time;
-        print(savedAt);
+        //print(savedAt);
         path = path.ToLower();
         SaveMaster mast = GameObject.FindObjectOfType<SaveMaster>();
         mast.SaveGame(path);
@@ -40,29 +37,33 @@ public class ButtonSubSaver : MonoBehaviour
     public void AreYouSureLoadScene(int s)
     {
         float since = Time.time - savedAt;
-        print(since + ", " + savedAt);
-        if (since < 1)
+        //print(since + ", " + savedAt);
+        if (since < 10)
         {
-            yousure = true;
+            youSureSteps = 5;
         }
-        else
+        else if (youSureSteps != 1)
         {
+            youSureSteps = 1;
             t.text = "Exit without \nsaving?";
+            return;
         }
-        if (yousure)
+
+        if (youSureSteps == 1 || youSureSteps == 5)
         {
             t.text = baseText;
-            yousure = false;
+            youSureSteps = 0;
             StartCoroutine(LoadScene(s));
         }
         else
         {
-            yousure = true;
+            youSureSteps = 1;
         }
+        //print("Steps: " + youSureSteps);
     }
     private void OnDisable()
     {
         t.text = baseText;
-        yousure = false;
+        youSureSteps = 0;
     }
 }

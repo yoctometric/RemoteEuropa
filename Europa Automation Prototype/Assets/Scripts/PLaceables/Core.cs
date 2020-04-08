@@ -151,7 +151,10 @@ public class Core : MonoBehaviour
                 Project proj = GameObject.FindObjectOfType<Project>();
                 proj.SetPanel(500, 500, 500, 500, "Build Rocket Pad");
                 //now its just an object. Nothing to see here
-                */ 
+                */
+                Project proj = GameObject.FindObjectOfType<Project>();
+
+                proj.UnsetPanel();
             }
             //set new objs active
             if (level == 1)

@@ -281,7 +281,7 @@ public class HUPCONT : MonoBehaviour
             }
             else
             {
-                float percent = StaticFunctions.RoundTo((rocket.totalMax / (rocket.storedFuel + rocket.storedIron + rocket.storedCopper) * 100f), 2);
+                float percent = StaticFunctions.RoundTo(((((float)rocket.storedFuel + (float)rocket.storedIron + (float)rocket.storedCopper) / (float)rocket.totalMax) * 100f), 2);
                 MidInfoT.text = "Rocket is "+ percent.ToString() +"% complete";
             }
         }

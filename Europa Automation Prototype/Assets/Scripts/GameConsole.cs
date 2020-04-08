@@ -6,11 +6,11 @@ using System;
 
 public class GameConsole : MonoBehaviour
 {
-    private TMP_Text console;
+    [SerializeField] TMP_Text console;
     private CanvasGroup can;
 
     private List<string> lines;
-    [SerializeField] int maxLines = 10;
+    [SerializeField] int maxLines = 100;
     bool visual = false;
 
     float timeToDisplay = 5;
@@ -19,7 +19,6 @@ public class GameConsole : MonoBehaviour
     private void Start()
     {
         lines = new List<string>();
-        console = gameObject.GetComponent<TMP_Text>();
         can = gameObject.GetComponent<CanvasGroup>();
         Render();
         //testing:
@@ -79,5 +78,10 @@ public class GameConsole : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
         }
+    }
+
+    public void ScrollText(int dir)
+    {
+        
     }
 }

@@ -75,6 +75,8 @@ public class Warning : MonoBehaviour
 
     public void InitiateWarning(string warning, bool reset, bool overrideDistFunctions)
     {
+        if (warningRightNow) return;
+
         StartCoroutine(PlaySounds());
         warningRightNow = true;
         ignoreDistunctions = overrideDistFunctions;
@@ -96,7 +98,7 @@ public class Warning : MonoBehaviour
         }
     }
     public void CancelWarning()
-    {
+    {       
         print("resetttingcam" + attempts.ToString());
         warningRightNow = false;
         //panel.SetActive(false);

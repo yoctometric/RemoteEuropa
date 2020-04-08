@@ -296,7 +296,7 @@ public class SaveMaster : MonoBehaviour
                 }
             }
             int levels = int.Parse(data[5]);
-            print(levels);
+            //print(levels);
             for (int i = 0; i < levels; i++){
                 
                 inv.core.Upgrade(true);

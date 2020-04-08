@@ -16,8 +16,11 @@ public class Crafting : MonoBehaviour
     [SerializeField] SpriteRenderer display;
     [Header("bypass info auto recipe")]
     [SerializeField] ScriptableRecipe bypassRecipe;
+
+    AudioSource aud;
     private void Awake()
     {
+        aud = gameObject.GetComponent<AudioSource>();
         info = GameObject.FindObjectOfType<GameInfo>();
 
         if (bypassRecipe)
@@ -123,6 +126,7 @@ public class Crafting : MonoBehaviour
 
     IEnumerator Craft()
     {
+        aud.Play();
         //clear the items count so that it doesnt get too much
         currentItems.Clear();
         crafting = true;

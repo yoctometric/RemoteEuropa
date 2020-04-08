@@ -15,13 +15,11 @@ public class OpenOnMouseOver : MonoBehaviour
     }
     public void Over()
     {
-        print("over");
         activeTarget.SetActive(true);
         cons?.Render();
     }
     public void Click()
     {
-        print("click");
         activeTarget.SetActive(true);
         cons?.Render();
     }

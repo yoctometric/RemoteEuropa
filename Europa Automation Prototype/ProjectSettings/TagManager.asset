@@ -13,6 +13,7 @@ TagManager:
   - Egg
   - Fan
   - Core
+  - FuelText
   layers:
   - Default
   - TransparentFX
