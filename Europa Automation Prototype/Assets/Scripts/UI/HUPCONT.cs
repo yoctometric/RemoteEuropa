@@ -20,6 +20,8 @@ public class HUPCONT : MonoBehaviour
     [SerializeField] SliderFamily rCopSlider;
     [SerializeField] SliderFamily rIronSlider;
     [SerializeField] SliderFamily rFuelSlider;
+    [SerializeField] Button bottomButton;
+    TMP_Text bottomButtonText;
     //[SerializeField] TMP_Text[] rTexts;
 
 
@@ -38,9 +40,15 @@ public class HUPCONT : MonoBehaviour
     Core core;
     RocketBase rocket;
     [SerializeField] List<GameObject> elements;
+    MetaInventory metaInventory;
+
+    [Header("Prefabs")]
+    [SerializeField] GameObject eternalizerPrefab;
+
     private void Start()
     {
         //get gameinfo for hupcont prevention
+        bottomButtonText = bottomButton.GetComponentInChildren<TMP_Text>();
     }
     public void Close()
     {
@@ -74,6 +82,10 @@ public class HUPCONT : MonoBehaviour
         {
             Close();
             return;
+        }
+        if (!metaInventory)
+        {
+            metaInventory = GameObject.FindObjectOfType<MetaInventory>();
         }
         //activate cursor
         Cursor.visible = true;
@@ -141,8 +153,33 @@ public class HUPCONT : MonoBehaviour
             typeSelected = 3;
             ore = obj.GetComponent<OreController>();
             MidInfoT.gameObject.SetActive(true);
-            MidInfoT.text = "Quantity: " + ore.currentQuantity.ToString() + System.Environment.NewLine + "Hardness: " + ore.hardness;
+            if (ore.eternal)
+            {
+                MidInfoT.text = "Quantity: Eternal" + " Hardness: " + ore.hardness;
+            }
+            else
+            {
+                MidInfoT.text = "Quantity: " + ore.currentQuantity.ToString() + System.Environment.NewLine + "Hardness: " + ore.hardness;
+            }
             MidInfoT.color = ore.GetComponent<SpriteRenderer>().color;
+
+            bottomButton.gameObject.SetActive(true);
+            if (ore.eternal)
+            {
+                print("ore is eternal");
+                bottomButton.interactable = true;
+                bottomButtonText.text = "Destroy Ore";
+            }
+            else if(metaInventory.eternalizers > 0)
+            {
+                bottomButton.interactable = true;
+                bottomButtonText.text = "Mount MOED";
+            }
+            else
+            {
+                bottomButton.interactable = false;
+                bottomButtonText.text = "No MOED's";
+            }
         }
         if (obj.GetComponent<Crafting>())
         {
@@ -150,7 +187,7 @@ public class HUPCONT : MonoBehaviour
             typeSelected = 4;
             crafterPanel.SetActive(true);
             craft = obj.GetComponent<Crafting>();
-
+            MidInfoT.gameObject.SetActive(true);
             UIButtonArray car = crafterPanel.GetComponent<UIButtonArray>();
             foreach (Button b in car.buttons)
             {
@@ -248,15 +285,44 @@ public class HUPCONT : MonoBehaviour
         }
         else
         {
-            print("wetf why no split");
+            Debug.LogError("wetf why no split");
         }
     }
     private void Update()
     {
         if(typeSelected == 3)
         {
-            MidInfoT.text = "Quantity: " + ore.currentQuantity.ToString() + System.Environment.NewLine + "Hardness: " + ore.hardness;
-        }else if(typeSelected == 8)
+            if (ore.eternal)
+            {
+                MidInfoT.text = "Quantity: Eternal" + " Hardness: " + System.Environment.NewLine + ore.hardness;
+            }
+            else
+            {
+                MidInfoT.text = "Quantity: " + StaticFunctions.AbbreviateNumber(ore.currentQuantity) + System.Environment.NewLine + "Hardness: " + ore.hardness;
+            }
+
+            if (metaInventory.eternalizers > 0)
+            {
+                bottomButton.interactable = true;
+            }
+            else if (!ore.eternal)
+            {
+                bottomButton.interactable = false;
+            }
+        }else if (typeSelected == 4)
+        {
+            string allItems = "Contains: <size=75%>";
+            for(int i = 0; i < craft.currentItems.Count; i++)
+            {
+                allItems += System.Environment.NewLine + craft.currentItems[i];
+            }
+            if(allItems == "Contains: <size=75%>")
+            {
+                allItems += System.Environment.NewLine + "<color=red>Empty</color>";
+            }
+            MidInfoT.text = allItems;
+        }
+        else if(typeSelected == 8)
         {
             if(pump.amntContainersStored > 0)
             {
@@ -344,6 +410,33 @@ public class HUPCONT : MonoBehaviour
         {
             //if you don't have a crafter selected, say "No crater selected. This message should never be seen"
             print("No crafter selected. This message should never be seen");
+        }
+    }
+
+    public void BottomButtonFunction()
+    {
+        if(typeSelected == 3)
+        {
+            //call in a MOED
+            if (ore.eternal)
+            {
+                Collider2D[] tars = Physics2D.OverlapCircleAll(ore.transform.position, 2);
+                foreach(Collider2D t in tars)
+                {
+                    if (t.transform.parent.GetComponent<OreEternalizer>())
+                    {
+                        Destroy(t.transform.parent.gameObject);
+                        ore.Detonate();
+                        Close();
+                        return;
+                    }
+                }
+            }
+            else if(metaInventory.eternalizers > 0)
+            {
+                Instantiate(eternalizerPrefab, ore.transform.position, Quaternion.identity);
+                metaInventory.ModifyEternalizers(-1);
+            }
         }
     }
 }

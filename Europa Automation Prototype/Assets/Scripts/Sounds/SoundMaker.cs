@@ -9,7 +9,7 @@ public class SoundMaker : MonoBehaviour
     public void MakeSound(AudioClip clip)
     {
         AudioSource s = Instantiate(sourcePrefab, Vector3.zero, Quaternion.identity);
-        Destroy(s, clip.length + 0.5f);
+        Destroy(s.gameObject, clip.length + 0.5f);
         s.clip = clip;
         s.Play();
     }

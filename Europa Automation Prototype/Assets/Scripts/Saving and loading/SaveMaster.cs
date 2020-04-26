@@ -35,6 +35,7 @@ public class SaveMaster : MonoBehaviour
     public Pump pumpPrefab;
     public ZapTower ZapPrefab;
     public RocketBase rocketPrefab;
+    public OreEternalizer moed;
     //functions
 
     private void Start()
@@ -261,8 +262,10 @@ public class SaveMaster : MonoBehaviour
         if (allData.ore != null)
         {
             string[] data = allData.ore.stats;
+            bool[] eternals = allData.ore.eternalMounted;
             int num = allData.ore.numStats;
             int amount = data.Length / num;//because every n'th element starts a new item
+
             for (int i = 0; i < amount; i++)
             {
                 OreController o = Instantiate(StaticFunctions.GetOreFromString(data[(i * num) + 4]), Vector3.zero, Quaternion.identity);
@@ -273,7 +276,13 @@ public class SaveMaster : MonoBehaviour
                 //string[] color = data[(i * num) + 4].Split(',');
                 //o.oreColor = new Color(float.Parse(color[0]), float.Parse(color[1]), float.Parse(color[2]));
                 //o.product = StaticFunctions.GetItemFromString(data[(i * num) + 5]);
-
+                
+                //eternaliser
+                
+                if(eternals?[i] == true)
+                {
+                    Instantiate(moed, o.transform.position, Quaternion.identity).goThru = false;
+                }
                 o.transform.localScale = new Vector2(float.Parse(data[(i * num) + 5]), float.Parse(data[(i * num) + 6]));
             }
         }

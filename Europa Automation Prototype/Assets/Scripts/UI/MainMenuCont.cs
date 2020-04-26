@@ -7,16 +7,17 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuCont : MonoBehaviour
 {
-    
+    /*
     [SerializeField] Slider musicVolumeSlider;
     [SerializeField] Slider SFXVolumeSlider;
     [SerializeField] Slider scrollSenseSlider;
     [SerializeField] AudioMixer mainMixer;
     [SerializeField] Toggle graphicsToggle;
     [SerializeField] Toggle FPSToggle;
-    [SerializeField] Toggle LowParticlesToggle;
+    [SerializeField] Toggle LowParticlesToggle;*/
     private void Start()
     {
+        /*
         musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume");
         SFXVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume");
         scrollSenseSlider.value = PlayerPrefs.GetFloat("ScrollSense");
@@ -37,6 +38,7 @@ public class MainMenuCont : MonoBehaviour
         {
             LowParticlesToggle.isOn = true;
         }
+        */
     }
 
     private void Update()
@@ -69,7 +71,7 @@ public class MainMenuCont : MonoBehaviour
     {
         Application.Quit();
     }
-
+    /*
     public void HandleMusicVolume(string type)
     {
         if(type == "Music")
@@ -88,12 +90,9 @@ public class MainMenuCont : MonoBehaviour
         {
             print("ERROR! NON VALID MUSIC VOLUME HANDLER CHOSEN");
         }
-    }
+    }*/
 
-    public void setSensitivity()
-    {
-        PlayerPrefs.SetFloat("ScrollSense", scrollSenseSlider.value);
-    }
+
     public void LoadAScene(int scene)
     {
         StartCoroutine(Load(scene));
@@ -103,6 +102,11 @@ public class MainMenuCont : MonoBehaviour
         GameObject.FindObjectOfType<Transition>().GetComponent<Animator>().SetTrigger("Out");
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(scene);
+    }
+    /*
+    public void setSensitivity()
+    {
+        PlayerPrefs.SetFloat("ScrollSense", scrollSenseSlider.value);
     }
     public void ToggleParticles()
     {
@@ -145,5 +149,5 @@ public class MainMenuCont : MonoBehaviour
             StaticFunctions.lowGraphics = false;
             PlayerPrefs.SetInt("LowGraphics", 0);
         }
-    }
+    }*/
 }

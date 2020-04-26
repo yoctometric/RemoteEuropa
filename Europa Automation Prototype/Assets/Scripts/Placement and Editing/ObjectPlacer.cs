@@ -11,9 +11,11 @@ public class ObjectPlacer : MonoBehaviour
     [SerializeField] LayerMask overlapLayerMask;
     [SerializeField] LayerMask editingLayerMask;
     [SerializeField] LayerMask groundLayerMask;
-    [SerializeField] LayerMask OreMask;
+    [SerializeField] LayerMask oreMask;
+    [SerializeField] LayerMask holeMask;
     [SerializeField] GameObject escMenu;
     [SerializeField] GameObject placeParticle;
+    [SerializeField] GameObject settingsMenu;
 
     public bool canPlace = true;
     bool canEdit = false;
@@ -33,12 +35,12 @@ public class ObjectPlacer : MonoBehaviour
     Core core;
     void Start()
     {
+        cam = Camera.main;
         core = GameObject.FindObjectOfType<Core>();
         //can only find objs when they are active, so set it inactive immideately
         HUP = GameObject.FindWithTag("HeadsUpPanel");
         //HUP needs to always be active at the start of the scene
         HUP.SetActive(false);
-        cam = Camera.main;
         Cursor.visible = false;
         SetIndex(1);
         //set sensitivity of scroll
@@ -113,6 +115,7 @@ public class ObjectPlacer : MonoBehaviour
                         Cursor.visible = false;
                         escMenu.GetComponent<PauseMenu>().FreezeTime(false);
                         escMenuOpen = false;
+                        settingsMenu.SetActive(false);
                     }
                     else
                     {
@@ -150,7 +153,7 @@ public class ObjectPlacer : MonoBehaviour
         }
 
         //check if an object is placable or not using an overlap circle
-        if(!(placeableIndex == 2))
+        if(!(placeableIndex == 2) && !(placeableIndex == 10))
         {
             //if u dont have the miner selected do this
             if(placeableIndex != 11)
@@ -163,15 +166,34 @@ public class ObjectPlacer : MonoBehaviour
                 canPlace = !Physics2D.OverlapCircle(transform.position, overlapRadius * 4, overlapLayerMask);
             }
         }
-        else
+        else if (placeableIndex == 2)
         {
-            //if you have a miner, u need an ore. U can stack miners this way. This is not a bug. Shut up
-            if(Physics2D.OverlapCircle(transform.position, 1, OreMask))
+            //if you have a miner, u need an ore. U can no longer stack miners gg ez 
+            if(Physics2D.OverlapCircle(transform.position, 1, oreMask))
             {
                 //also if u arent over a hardcollider
                 if(!Physics2D.OverlapCircle(transform.position, 0.5f, groundLayerMask))
                 {
-                    canPlace = Physics2D.OverlapCircle(transform.position, 1, OreMask).GetComponent<OreController>();
+                    canPlace = Physics2D.OverlapCircle(transform.position, 1, oreMask).GetComponent<OreController>();
+                }
+                else
+                {
+                    canPlace = false;
+                }
+            }
+            else
+            {
+                canPlace = false;
+            }
+        }else if (placeableIndex == 10) //Special circumstances apply for the pump just like the miner
+        {
+            //With pump one must have water
+            if (Physics2D.OverlapCircle(transform.position, 0.25f, holeMask))
+            {
+                //also if u arent over a hardcollider
+                if (!Physics2D.OverlapCircle(transform.position, 0.5f, groundLayerMask))
+                {
+                    canPlace = true; //hopefully
                 }
                 else
                 {

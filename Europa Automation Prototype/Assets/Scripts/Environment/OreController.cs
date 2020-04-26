@@ -15,6 +15,11 @@ public class OreController : MonoBehaviour
     SpriteRenderer sp;
     //alpha value of the sp
     float aVal = 1;
+
+    //is the ore eternal?
+    public bool eternal = false;
+    [SerializeField] ParticleSystem OreDestroyEffect;
+
     void Start()
     {
         //setup
@@ -25,6 +30,12 @@ public class OreController : MonoBehaviour
 
     void Update()
     {
+        //eternally maintain ore
+        if(eternal && quantity < 100)
+        {
+            quantity = 100;
+        }
+
         //once the ore runs out, fade
         if(currentQuantity <= 0 && sp.color.a > 0f)
         {
@@ -36,5 +47,12 @@ public class OreController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    public void Detonate()
+    {
+        ParticleSystem p = Instantiate(OreDestroyEffect, transform.position, Quaternion.identity);
+        p.startColor = oreColor;
+        Destroy(this.gameObject);
     }
 }

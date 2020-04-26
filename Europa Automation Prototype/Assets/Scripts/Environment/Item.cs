@@ -112,7 +112,8 @@ public class Item : MonoBehaviour
     {
         isApplicationQuitting = true;
     }
-    void AnimateDestruct()
+
+    public void AnimateDestruct()
     {
         if (startedAnimate)
         {

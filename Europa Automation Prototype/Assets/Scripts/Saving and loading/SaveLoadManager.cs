@@ -158,17 +158,21 @@ public class OreData
 {
     public string[] stats;
     public int numStats = 0;
+    public bool[] eternalMounted;
 
     public OreData(SaveMaster mast)
     {
         numStats = 7; //posx, y, rot, count of remaining items, color r, g, b
         //actually, its just the product lol
         //actually, thats wrong too lol
+        eternalMounted = new bool[mast.ores.Length];
         stats = new string[mast.ores.Length * numStats];
         for(int i = 0; i < mast.ores.Length; i++)
         {
             OreController ore = mast.ores[i];
-            
+
+            eternalMounted[i] = ore.eternal; // now mount eternalizer based on this
+
             stats[(i * numStats)] = ore.transform.position.x.ToString();
             stats[(i * numStats) + 1] = ore.transform.position.y.ToString();
             stats[(i * numStats) + 2] = ore.transform.rotation.eulerAngles.z.ToString();

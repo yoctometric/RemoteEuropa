@@ -13,6 +13,10 @@ public class Tutorial : MonoBehaviour
     [SerializeField] GameObject limiter;
 
     [SerializeField] GameObject checkDestroyThisCrafter;
+    [SerializeField] IndicationArrow indicationArrow;
+
+    RewardsManager rewardsManager;
+
     int currentObject = 0;
     //local variable for objective testing
     Transform storedTrans = null;
@@ -24,12 +28,16 @@ public class Tutorial : MonoBehaviour
     bool recievedIron = false;
     bool objectPlaced = false;
     int objectAliveTimer = 0;
+
+
     private void Start()
     {
+        rewardsManager = GameObject.FindObjectOfType<RewardsManager>();
         panel.SetTrigger("go");
         pText.text = "Welcome.";
         objectiveText.Play("YOUR OBJECTIVE: use W, A, S, or D to move your view.");
     }
+
     private void Update()
     {
         if (currentEvent == 0)
@@ -50,6 +58,7 @@ public class Tutorial : MonoBehaviour
                 limiter.SetActive(true);
                 limiter.GetComponent<OutsideDistanceRemover>().typeToWatch = 0;
                 ActivateNextObject();
+                indicationArrow.gameObject.SetActive(true);
                 prevTime = Time.time;
             }
         }
@@ -77,6 +86,7 @@ public class Tutorial : MonoBehaviour
                 limiter.SetActive(true);
                 limiter.GetComponent<OutsideDistanceRemover>().typeToWatch = 1;
                 objectiveText.Play("next, Place a crafting machine at the marked position");
+                indicationArrow.MoveTo(new Vector2(-413, -210));
                 prevTime = Time.time;
                 objectPlaced = false;//reset obejct placed for next test
             }
@@ -100,9 +110,10 @@ public class Tutorial : MonoBehaviour
             {
                 storedTrans = GameObject.FindObjectOfType<Crafting>().transform;
                 currentEvent++;
-                objectiveText.Play("next, Hover your cursor over the crafting machine and use 'q','e', 'f' or scroll wheel to rotate it");
+                objectiveText.Play("next, Hover your cursor over the crafting machine and use 'f' to rotate it");
                 prevStoredRot = storedTrans.rotation.eulerAngles.z;
                 prevTime = Time.time;
+                indicationArrow.Out();
                 objectPlaced = false;
             }
         }
@@ -114,6 +125,14 @@ public class Tutorial : MonoBehaviour
             }
             else
             {
+                if (storedTrans.GetComponentInChildren<EditRotation>().mouseAim)
+                {
+                    currentEvent++;
+                    objectiveText.Play("Using the same methods, aim the crafter at the core, and the miner at the crafter.");
+                    ActivateNextObject();
+                    prevTime = Time.time;
+                }
+                /*
                 float newRot = storedTrans.rotation.eulerAngles.z;
                 if (!(newRot < prevStoredRot + 25 && newRot > prevStoredRot - 25))
                 {
@@ -124,6 +143,7 @@ public class Tutorial : MonoBehaviour
                     prevTime = Time.time;
                 }
                 //prevStoredRot = rot;
+                */
             }
         }else if (currentEvent == 5 && prevTime + waitTime < Time.time)
         {
@@ -139,6 +159,7 @@ public class Tutorial : MonoBehaviour
                 limiter.SetActive(false);
                 limiter.transform.position = new Vector2(-2.66f, 24.56f);
                 limiter.SetActive(true);
+                indicationArrow.MoveTo(new Vector2(-561, -210));
                 limiter.GetComponent<OutsideDistanceRemover>().typeToWatch = 2;
                 limiter.GetComponent<OutsideDistanceRemover>().autoDisable = false;
             }
@@ -154,6 +175,7 @@ public class Tutorial : MonoBehaviour
                 limiter.SetActive(true);
                 limiter.GetComponent<OutsideDistanceRemover>().typeToWatch = 2;
                 limiter.GetComponent<OutsideDistanceRemover>().autoDisable = false;
+                indicationArrow.Out();
                 ActivateNextObject();
                 objectiveText.Play("A misplaced crafter has appeared! Right click on the machine to reclaim its resources");
             }
@@ -164,6 +186,22 @@ public class Tutorial : MonoBehaviour
                 currentEvent++;
                 prevTime = Time.time;
                 limiter.SetActive(false);
+                rewardsManager.MakeGoal(true); //override makegoal
+                rewardsManager.GetComponent<CanvasGroup>().alpha = 1; // and make that bb visible
+                rewardsManager.ManualLoop(); // oh and get the checker up n runnin
+                objectiveText.Play("A production goal has been set. Produce enough Refined Copper per second to meet it, and you will be rewarded");
+                ActivateNextObject(); // make all the ores go on
+                ActivateNextObject(); //ore 2
+                ActivateNextObject(); // ore 3
+
+            }
+        }
+        else if (currentEvent == 8 && prevTime + waitTime < Time.time)
+        {
+            if (rewardsManager.aGoalHasBeenMet)
+            {
+                currentEvent++;
+                prevTime = Time.time;
                 objectiveText.Play("Well done! Return to the main menu by clicking on the top left of the screen. Enjoy the game!");
             }
         }
@@ -174,6 +212,7 @@ public class Tutorial : MonoBehaviour
         objectiveObjects[currentObject].SetActive(true);
         currentObject++;
     }
+
     public void GotItem(string item)
     {
         if(item == "Refined Copper")

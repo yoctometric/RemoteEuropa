@@ -288,6 +288,9 @@ MonoBehaviour:
   quantity: 1000
   currentQuantity: 0
   oreColor: {r: 0.28627452, g: 0.48235294, b: 0.41568628, a: 1}
+  eternal: 0
+  OreDestroyEffect: {fileID: 5244705450925331496, guid: 1180642edca9c7a49b199537e172f999,
+    type: 3}
 --- !u!50 &8233500952119286093
 Rigidbody2D:
   serializedVersion: 4

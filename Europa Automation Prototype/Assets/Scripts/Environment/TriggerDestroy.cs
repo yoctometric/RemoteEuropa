@@ -42,7 +42,8 @@ public class TriggerDestroy : MonoBehaviour
     {
         if (transform.parent && !isApplicationQuitting)
         {
-            transform.parent.gameObject.SetActive(false);
+            //transform.parent.gameObject.SetActive(false);
+            Destroy(transform.parent.gameObject);
         }
     }
 }

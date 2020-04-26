@@ -45,14 +45,34 @@ public class RewardsManager : MonoBehaviour
     Inventory inv;
     GameConsole cons;
 
+    [Header("Tutorial Logic")]
+    public bool overrideRewards = false;
+    public bool aGoalHasBeenMet = false;
+
+
+
     void Start()
     {
-        UpdateTexts();
         cGroup = this.GetComponent<CanvasGroup>();
-        StartCoroutine(AnalyzeLoop()); //always run it. It will update twice per minute
-        StartCoroutine(ProductionGoalTimer());
         inv = GameObject.FindObjectOfType<Inventory>();
         cons = GameObject.FindObjectOfType<GameConsole>();
+
+        if (overrideRewards) //dont run rewards loop. Deactivate and wait for outside input
+        {
+            cGroup.alpha = 0;
+        }
+        else
+        {
+            UpdateTexts();
+            StartCoroutine(AnalyzeLoop()); //always run it. It will update twice per minute
+            StartCoroutine(ProductionGoalTimer());
+        }
+
+    }
+
+    public void ManualLoop()
+    {
+        StartCoroutine(AnalyzeLoop());
     }
 
     IEnumerator AnalyzeLoop()
@@ -132,6 +152,7 @@ public class RewardsManager : MonoBehaviour
             }   
             if (successRate >= currentGoalListenerRate)
             {
+                aGoalHasBeenMet = true;
                 //succeeded goal
                 DropPod pod = Instantiate(dropPodAnim, Vector3.zero, Quaternion.identity);
                 //calculate reward
@@ -183,7 +204,8 @@ public class RewardsManager : MonoBehaviour
         }
 
     }
-    void MakeGoal()
+
+    public void MakeGoal(bool overrideChoice = false)
     {
         timeOfStart = Mathf.RoundToInt(Time.time);
         goalText.color = Color.white;
@@ -192,8 +214,19 @@ public class RewardsManager : MonoBehaviour
         {
             goalAlert.gameObject.SetActive(true);
         }
-        int choice = Random.Range(0, 4);
-        if(choice == 0)
+
+        int choice = -1;
+
+        if (!overrideChoice)
+        {
+            choice = Random.Range(0, 4);
+        }
+        else
+        {
+            choice = 1; // overidden choice is always refined copper
+        }
+
+        if (choice == 0)
         {
             currentGoalListenerIndex = 0;
             currentGoalListenerRate = (ironRate * goalStrengthMod) + 0.25f;
@@ -293,4 +326,5 @@ public class RewardsManager : MonoBehaviour
             img.color = green;
         }
     }
+
 }

@@ -21,7 +21,7 @@ public class ScrollMenuController : MonoBehaviour
         for(int i = 0; i < filePaths.Length; i++)
         {
             int ind = filePaths[i].IndexOf("/saves");
-            print(ind + ":-:" + filePaths[i].Length);
+            //print(ind + ":-:" + filePaths[i].Length);
             filePaths[i] = filePaths[i].Substring(ind, filePaths[i].Length - ind);
             print(filePaths[i]);
 

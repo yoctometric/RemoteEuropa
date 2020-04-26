@@ -16,11 +16,11 @@ public class OpenOnMouseOver : MonoBehaviour
     public void Over()
     {
         activeTarget.SetActive(true);
-        cons?.Render();
+        cons?.Show();
     }
     public void Click()
     {
         activeTarget.SetActive(true);
-        cons?.Render();
+        cons?.Show();
     }
 }

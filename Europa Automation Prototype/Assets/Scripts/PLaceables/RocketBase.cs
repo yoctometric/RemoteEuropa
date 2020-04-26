@@ -18,9 +18,14 @@ public class RocketBase : MonoBehaviour
     [SerializeField] Animator hatch;
     [SerializeField] Animator rocket;
     //item admittence
+
+    AudioSource aud;
+    MetaInventory metaInventory;
     private void Start()
     {
+        metaInventory = GameObject.FindObjectOfType<MetaInventory>();
         totalMax = maxCopper + maxIron + maxFuel;
+        aud = gameObject.GetComponent<AudioSource>();
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -56,13 +61,16 @@ public class RocketBase : MonoBehaviour
     }
     IEnumerator LaunchLogic()
     {
+        GameObject.FindObjectOfType<GameConsole>()?.AddLine("Rocket launched. Command has allocated you a MOED, use it as you see best");
         int temp = storedFuel;
         storedIron = 0; storedFuel = 0; storedCopper = 0;
 
         hatch.SetTrigger("Open");
+        aud.Play();
         yield return new WaitForSeconds(1f);
         rocket.SetTrigger("Launch");
-        GameObject.FindObjectOfType<MetaInventory>()?.ModifyInventory(temp);
+        metaInventory.ModifyInventory(temp);
+        metaInventory.ModifyEternalizers(1);//give the player a new etenalizer
 
     }
     void LaunchRocket()
